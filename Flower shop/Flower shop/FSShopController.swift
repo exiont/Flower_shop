@@ -14,6 +14,4 @@ class FSShopController: UIViewController {
 
         self.view.backgroundColor = .red
     }
-
 }
-

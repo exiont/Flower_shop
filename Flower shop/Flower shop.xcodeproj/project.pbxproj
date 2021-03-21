@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		61EB5C055D204F77A03173A7 /* Pods_Flower_shop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */; };
+		88524E0A2607F660003338E3 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88524E092607F660003338E3 /* FSTabBarController.swift */; };
 		88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FB2607C059006EDB12 /* AppDelegate.swift */; };
 		88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FD2607C059006EDB12 /* SceneDelegate.swift */; };
 		88B169002607C059006EDB12 /* FSShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FF2607C059006EDB12 /* FSShopController.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		6A60FF6AC7DB1C650686FC4E /* Pods-Flower shop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.debug.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.debug.xcconfig"; sourceTree = "<group>"; };
+		88524E092607F660003338E3 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		88B168F82607C059006EDB12 /* Flower shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flower shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88B168FB2607C059006EDB12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88B168FD2607C059006EDB12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				88B168FF2607C059006EDB12 /* FSShopController.swift */,
 				88B1691B2607EC26006EDB12 /* FSCartController.swift */,
 				88B1691E2607EC4F006EDB12 /* FSMapController.swift */,
+				88524E092607F660003338E3 /* FSTabBarController.swift */,
 				88B169212607EC60006EDB12 /* FSProfileController.swift */,
 				88B169012607C059006EDB12 /* Main.storyboard */,
 				88B169042607C05A006EDB12 /* Assets.xcassets */,
@@ -238,6 +241,7 @@
 				88B169002607C059006EDB12 /* FSShopController.swift in Sources */,
 				88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */,
 				88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */,
+				88524E0A2607F660003338E3 /* FSTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

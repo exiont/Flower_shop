@@ -14,7 +14,6 @@ class FSProfileController: UIViewController {
 
         self.view.backgroundColor = .yellow
 
-
     }
 
 }
