@@ -13,6 +13,8 @@ class FSMapController: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .blue
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+
     }
 
 }

@@ -13,5 +13,6 @@ class FSShopController: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .red
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }

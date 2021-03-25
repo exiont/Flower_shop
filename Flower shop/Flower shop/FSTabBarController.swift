@@ -2,36 +2,33 @@
 //  FSTabBarController.swift
 //  Flower shop
 //
-//  Created by Eugene Hamitsevich on 3/22/21.
+//  Created by New on 25.03.21.
 //
 
 import UIKit
 
-class FSTabBarController: UIViewController {
+class FSTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.createTabBar()
+        self.setupTabBar()
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
 
     }
 
-    private func createTabBar() {
-        let tabBarController = UITabBarController()
+    func setupTabBar() {
+        let shopController = UINavigationController(rootViewController: FSShopController())
 
-        let shopController = FSShopController()
-        shopController.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
+        let cartController = UINavigationController(rootViewController: FSCartController())
 
-        let cartController = FSCartController()
+        let mapController = UINavigationController(rootViewController: FSMapController())
 
-        let mapController = FSMapController()
-
-        let profileController = FSProfileController()
-
-        tabBarController.setViewControllers([
+        let profileController = UINavigationController(rootViewController: FSProfileController())
+        self.viewControllers = [
             shopController,
             cartController,
             mapController,
             profileController
-        ], animated: true)
+        ]
     }
 }

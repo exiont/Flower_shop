@@ -8,26 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		61EB5C055D204F77A03173A7 /* Pods_Flower_shop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */; };
-		88524E0A2607F660003338E3 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88524E092607F660003338E3 /* FSTabBarController.swift */; };
 		88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FB2607C059006EDB12 /* AppDelegate.swift */; };
 		88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FD2607C059006EDB12 /* SceneDelegate.swift */; };
 		88B169002607C059006EDB12 /* FSShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FF2607C059006EDB12 /* FSShopController.swift */; };
-		88B169032607C059006EDB12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B169012607C059006EDB12 /* Main.storyboard */; };
 		88B169052607C05A006EDB12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88B169042607C05A006EDB12 /* Assets.xcassets */; };
 		88B169082607C05A006EDB12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B169062607C05A006EDB12 /* LaunchScreen.storyboard */; };
 		88B1691C2607EC26006EDB12 /* FSCartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B1691B2607EC26006EDB12 /* FSCartController.swift */; };
 		88B1691F2607EC4F006EDB12 /* FSMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B1691E2607EC4F006EDB12 /* FSMapController.swift */; };
 		88B169222607EC60006EDB12 /* FSProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B169212607EC60006EDB12 /* FSProfileController.swift */; };
+		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6A60FF6AC7DB1C650686FC4E /* Pods-Flower shop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.debug.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.debug.xcconfig"; sourceTree = "<group>"; };
-		88524E092607F660003338E3 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		88B168F82607C059006EDB12 /* Flower shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flower shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88B168FB2607C059006EDB12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88B168FD2607C059006EDB12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		88B168FF2607C059006EDB12 /* FSShopController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSShopController.swift; sourceTree = "<group>"; };
-		88B169022607C059006EDB12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		88B169042607C05A006EDB12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		88B169072607C05A006EDB12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		88B169092607C05A006EDB12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,6 +32,7 @@
 		88B1691E2607EC4F006EDB12 /* FSMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMapController.swift; sourceTree = "<group>"; };
 		88B169212607EC60006EDB12 /* FSProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProfileController.swift; sourceTree = "<group>"; };
 		B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flower_shop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,9 +83,8 @@
 				88B168FF2607C059006EDB12 /* FSShopController.swift */,
 				88B1691B2607EC26006EDB12 /* FSCartController.swift */,
 				88B1691E2607EC4F006EDB12 /* FSMapController.swift */,
-				88524E092607F660003338E3 /* FSTabBarController.swift */,
 				88B169212607EC60006EDB12 /* FSProfileController.swift */,
-				88B169012607C059006EDB12 /* Main.storyboard */,
+				D5D86681260C818F008F5729 /* FSTabBarController.swift */,
 				88B169042607C05A006EDB12 /* Assets.xcassets */,
 				88B169062607C05A006EDB12 /* LaunchScreen.storyboard */,
 				88B169092607C05A006EDB12 /* Info.plist */,
@@ -165,7 +162,6 @@
 			files = (
 				88B169082607C05A006EDB12 /* LaunchScreen.storyboard in Resources */,
 				88B169052607C05A006EDB12 /* Assets.xcassets in Resources */,
-				88B169032607C059006EDB12 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,21 +237,13 @@
 				88B169002607C059006EDB12 /* FSShopController.swift in Sources */,
 				88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */,
 				88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */,
-				88524E0A2607F660003338E3 /* FSTabBarController.swift in Sources */,
+				D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		88B169012607C059006EDB12 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				88B169022607C059006EDB12 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		88B169062607C05A006EDB12 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -13,6 +13,7 @@ class FSProfileController: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .yellow
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
 
     }
 
