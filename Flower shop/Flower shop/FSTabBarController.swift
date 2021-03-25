@@ -12,23 +12,38 @@ class FSTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTabBar()
-//        self.navigationController?.setNavigationBarHidden(true, animated: false)
-
+        self.view.backgroundColor = .white
     }
 
     func setupTabBar() {
-        let shopController = UINavigationController(rootViewController: FSShopController())
+        let shopController = FSShopController()
+        shopController.tabBarItem = UITabBarItem(title: "Магазин",
+                                                 image: UIImage(systemName: "house"),
+                                                 selectedImage: UIImage(systemName: "house.fill"))
 
-        let cartController = UINavigationController(rootViewController: FSCartController())
+        let cartController = FSCartController()
+        cartController.tabBarItem = UITabBarItem(title: "Корзина",
+                                                 image: UIImage(systemName: "cart"),
+                                                 selectedImage: UIImage(systemName: "cart.fill"))
 
-        let mapController = UINavigationController(rootViewController: FSMapController())
+        let mapController = FSMapController()
+        mapController.tabBarItem = UITabBarItem(title: "Карта",
+                                                image: UIImage(systemName: "map"),
+                                                selectedImage: UIImage(systemName: "map.fill"))
+        
+        let profileController = FSProfileController()
+        profileController.tabBarItem = UITabBarItem(title: "Профиль",
+                                                    image: UIImage(systemName: "person"),
+                                                    selectedImage: UIImage(systemName: "person.fill"))
 
-        let profileController = UINavigationController(rootViewController: FSProfileController())
-        self.viewControllers = [
-            shopController,
-            cartController,
-            mapController,
-            profileController
-        ]
+        self.setViewControllers([
+            UINavigationController(rootViewController: shopController),
+            UINavigationController(rootViewController: cartController),
+            UINavigationController(rootViewController: mapController),
+            UINavigationController(rootViewController: profileController)
+        ], animated: true)
+
+        self.tabBar.isTranslucent = false
+        self.tabBar.tintColor = UIColor(named: "main_pink")
     }
 }

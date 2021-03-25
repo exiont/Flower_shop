@@ -11,8 +11,6 @@ class FSShopController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.backgroundColor = .red
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }
