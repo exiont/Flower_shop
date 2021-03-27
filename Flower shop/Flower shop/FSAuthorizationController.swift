@@ -81,6 +81,18 @@ class FSAuthorizationController: UIViewController {
         return textField
     }()
 
+    private lazy var authorizationButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("ВХОД", for: .normal)
+        button.backgroundColor = .white
+        button.setTitleColor(UIColor(named: "main_pink"), for: .normal)
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
+        button.layer.borderWidth = 1
+
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -91,6 +103,7 @@ class FSAuthorizationController: UIViewController {
         self.view.addSubview(surnameTextField)
         self.view.addSubview(emailTextField)
         self.view.addSubview(passwordTextField)
+        self.view.addSubview(authorizationButton)
         self.setupConstraints()
     }
 
@@ -132,9 +145,16 @@ class FSAuthorizationController: UIViewController {
             make.left.right.equalToSuperview().inset(15)
         }
 
+        self.authorizationButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.passwordTextField.snp.bottom).offset(20)
+            make.left.right.equalToSuperview().inset(45)
+        }
+
     }
 
     @objc func changeLoginOrRegiser(sender: UISegmentedControl) {
+        self.authorizationButton.removeTarget(nil, action: nil, for: .allEvents)
+
         switch sender.selectedSegmentIndex {
         case 0:
             self.nameTextField.isHidden = true
@@ -142,11 +162,13 @@ class FSAuthorizationController: UIViewController {
                 make.top.equalTo(self.authorizationSegmentedControl.snp.bottom).offset(0)
                 make.height.equalTo(0)
             }
+
             self.surnameTextField.isHidden = true
             self.surnameTextField.snp.remakeConstraints { (make) in
                 make.top.equalTo(self.nameTextField.snp.bottom).offset(0)
                 make.height.equalTo(0)
             }
+            self.authorizationButton.setTitle("Вход", for: UIControl.State())
         case 1:
             self.nameTextField.isHidden = false
             self.nameTextField.snp.remakeConstraints { (make) in
@@ -154,12 +176,14 @@ class FSAuthorizationController: UIViewController {
                 make.left.right.equalToSuperview().inset(15)
                 make.height.equalTo(self.passwordTextField.snp.height)
             }
+
             self.surnameTextField.isHidden = false
             self.surnameTextField.snp.remakeConstraints { (make) in
                 make.top.equalTo(self.nameTextField.snp.bottom).offset(10)
                 make.left.right.equalToSuperview().inset(15)
                 make.height.equalTo(self.passwordTextField.snp.height)
             }
+            self.authorizationButton.setTitle("Регистрация", for: UIControl.State())
         default:
             break
         }
