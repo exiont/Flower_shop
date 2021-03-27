@@ -22,10 +22,10 @@ class FSShopController: UIViewController {
     private lazy var appLabel: UILabel = {
         let label = UILabel()
         label.text = "Цветочный магазин"
-        label.textColor = .black
+        label.textColor = UIColor(named: "brown_red")
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+    
         var customFont: UIFont
         if let caveat = UIFont(name: "Caveat-Regular", size: 30) {
             customFont = caveat
@@ -63,13 +63,13 @@ class FSShopController: UIViewController {
 
     private func setupConstraints() {
         self.logoImageView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(56)
-            make.left.right.equalToSuperview().inset(1)
+            make.top.equalToSuperview().inset(50)
+            make.left.right.equalToSuperview()
         }
 
         self.appLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.logoImageView.snp.bottom)
-            make.left.right.equalToSuperview().inset(10)
+            make.left.right.equalToSuperview()
         }
 
         self.searchTextField.snp.makeConstraints { (make) in

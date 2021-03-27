@@ -36,11 +36,16 @@ class FSTabBarController: UITabBarController {
                                                     image: UIImage(systemName: "person"),
                                                     selectedImage: UIImage(systemName: "person.fill"))
 
+        let authorizationController = FSAuthorizationController()
+        authorizationController.tabBarItem = UITabBarItem(title: "Профиль",
+                                                    image: UIImage(systemName: "person"),
+                                                    selectedImage: UIImage(systemName: "person.fill"))
+
         self.setViewControllers([
             UINavigationController(rootViewController: shopController),
             UINavigationController(rootViewController: cartController),
             UINavigationController(rootViewController: mapController),
-            UINavigationController(rootViewController: profileController)
+            UINavigationController(rootViewController: authorizationController)
         ], animated: true)
 
         self.tabBar.isTranslucent = false
