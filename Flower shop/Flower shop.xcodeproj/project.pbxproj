@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		61EB5C055D204F77A03173A7 /* Pods_Flower_shop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */; };
+		884C4E85260FC4F100788046 /* Caveat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 884C4E84260FC4F100788046 /* Caveat.ttf */; };
 		88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FB2607C059006EDB12 /* AppDelegate.swift */; };
 		88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FD2607C059006EDB12 /* SceneDelegate.swift */; };
 		88B169002607C059006EDB12 /* FSShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FF2607C059006EDB12 /* FSShopController.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		6A60FF6AC7DB1C650686FC4E /* Pods-Flower shop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.debug.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.debug.xcconfig"; sourceTree = "<group>"; };
+		884C4E84260FC4F100788046 /* Caveat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Caveat.ttf; sourceTree = "<group>"; };
 		88B168F82607C059006EDB12 /* Flower shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flower shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88B168FB2607C059006EDB12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88B168FD2607C059006EDB12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +59,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		884C4E81260FC45400788046 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				884C4E84260FC4F100788046 /* Caveat.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		88B168EF2607C059006EDB12 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +97,7 @@
 				D5D86681260C818F008F5729 /* FSTabBarController.swift */,
 				88B169042607C05A006EDB12 /* Assets.xcassets */,
 				88B169062607C05A006EDB12 /* LaunchScreen.storyboard */,
+				884C4E81260FC45400788046 /* Fonts */,
 				88B169092607C05A006EDB12 /* Info.plist */,
 			);
 			path = "Flower shop";
@@ -160,6 +171,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				884C4E85260FC4F100788046 /* Caveat.ttf in Resources */,
 				88B169082607C05A006EDB12 /* LaunchScreen.storyboard in Resources */,
 				88B169052607C05A006EDB12 /* Assets.xcassets in Resources */,
 			);
