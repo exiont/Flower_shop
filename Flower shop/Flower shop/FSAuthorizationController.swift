@@ -51,6 +51,7 @@ class FSAuthorizationController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Имя"
         textField.borderStyle = .roundedRect
+        textField.isHidden = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -59,6 +60,7 @@ class FSAuthorizationController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Фамилия"
         textField.borderStyle = .roundedRect
+        textField.isHidden = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -109,13 +111,15 @@ class FSAuthorizationController: UIViewController {
         }
 
         self.nameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.authorizationSegmentedControl.snp.bottom).offset(10)
+            make.top.equalTo(self.authorizationSegmentedControl.snp.bottom).offset(0)
             make.left.right.equalToSuperview().inset(15)
+            make.height.equalTo(0)
         }
 
         self.surnameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.nameTextField.snp.bottom).offset(10)
+            make.top.equalTo(self.nameTextField.snp.bottom).offset(0)
             make.left.right.equalToSuperview().inset(15)
+            make.height.equalTo(0)
         }
 
         self.emailTextField.snp.makeConstraints { (make) in
@@ -135,24 +139,29 @@ class FSAuthorizationController: UIViewController {
         case 0:
             self.nameTextField.isHidden = true
             self.nameTextField.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.authorizationSegmentedControl.snp.bottom).offset(0)
                 make.height.equalTo(0)
             }
             self.surnameTextField.isHidden = true
             self.surnameTextField.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.nameTextField.snp.bottom).offset(0)
                 make.height.equalTo(0)
             }
         case 1:
             self.nameTextField.isHidden = false
             self.nameTextField.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.authorizationSegmentedControl.snp.bottom).offset(10)
+                make.left.right.equalToSuperview().inset(15)
                 make.height.equalTo(self.passwordTextField.snp.height)
             }
             self.surnameTextField.isHidden = false
             self.surnameTextField.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.nameTextField.snp.bottom).offset(10)
+                make.left.right.equalToSuperview().inset(15)
                 make.height.equalTo(self.passwordTextField.snp.height)
             }
         default:
             break
         }
-        self.setupConstraints()
     }
 }
