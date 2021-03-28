@@ -69,6 +69,154 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		884C4E8A2610BA8500788046 /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				884C4E8B2610BA9400788046 /* Models */,
+				884C4EA52610BDEF00788046 /* Views */,
+				884C4EA12610BBAC00788046 /* Controllers */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		884C4E8B2610BA9400788046 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		884C4E8E2610BACB00788046 /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				884C4EA72610BE0A00788046 /* Models */,
+				884C4EA62610BE0400788046 /* Views */,
+				884C4EA22610BBDD00788046 /* Controllers */,
+			);
+			path = Cart;
+			sourceTree = "<group>";
+		};
+		884C4E952610BB0C00788046 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				884C4EA92610BE1A00788046 /* Models */,
+				884C4EA82610BE1400788046 /* Views */,
+				884C4EA02610BB7E00788046 /* Controllers */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		884C4E992610BB1400788046 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				884C4EAB2610BE2800788046 /* Models */,
+				884C4EAA2610BE2200788046 /* Views */,
+				884C4E9D2610BB1400788046 /* Controllers */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		884C4E9D2610BB1400788046 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */,
+				88B169212607EC60006EDB12 /* FSProfileController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		884C4EA02610BB7E00788046 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				88B1691E2607EC4F006EDB12 /* FSMapController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		884C4EA12610BBAC00788046 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				88B168FF2607C059006EDB12 /* FSShopController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		884C4EA22610BBDD00788046 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				88B1691B2607EC26006EDB12 /* FSCartController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		884C4EA32610BD7300788046 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				884C4E8A2610BA8500788046 /* Shop */,
+				884C4E8E2610BACB00788046 /* Cart */,
+				884C4E952610BB0C00788046 /* Map */,
+				884C4E992610BB1400788046 /* Profile */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		884C4EA42610BD8600788046 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D5D86681260C818F008F5729 /* FSTabBarController.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		884C4EA52610BDEF00788046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		884C4EA62610BE0400788046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		884C4EA72610BE0A00788046 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		884C4EA82610BE1400788046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		884C4EA92610BE1A00788046 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		884C4EAA2610BE2200788046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		884C4EAB2610BE2800788046 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		88B168EF2607C059006EDB12 = {
 			isa = PBXGroup;
 			children = (
@@ -90,14 +238,10 @@
 		88B168FA2607C059006EDB12 /* Flower shop */ = {
 			isa = PBXGroup;
 			children = (
+				884C4EA32610BD7300788046 /* Features */,
+				884C4EA42610BD8600788046 /* Common */,
 				88B168FB2607C059006EDB12 /* AppDelegate.swift */,
 				88B168FD2607C059006EDB12 /* SceneDelegate.swift */,
-				88B168FF2607C059006EDB12 /* FSShopController.swift */,
-				88B1691B2607EC26006EDB12 /* FSCartController.swift */,
-				88B1691E2607EC4F006EDB12 /* FSMapController.swift */,
-				88B169212607EC60006EDB12 /* FSProfileController.swift */,
-				884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */,
-				D5D86681260C818F008F5729 /* FSTabBarController.swift */,
 				88B169042607C05A006EDB12 /* Assets.xcassets */,
 				88B169062607C05A006EDB12 /* LaunchScreen.storyboard */,
 				884C4E81260FC45400788046 /* Fonts */,
