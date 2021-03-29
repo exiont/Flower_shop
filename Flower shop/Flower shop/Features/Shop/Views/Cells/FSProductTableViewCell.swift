@@ -63,7 +63,7 @@ class FSProductTableViewCell: UITableViewCell {
         self.productContainerView.addSubview(self.productName)
         self.productContainerView.addSubview(self.productDescription)
         self.selectionStyle = .none
-        self.productImageView.layer.cornerRadius = self.productImageView.bounds.height / 2
+        self.productImageView.layer.cornerRadius = self.productImageView.frame.width / 2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
