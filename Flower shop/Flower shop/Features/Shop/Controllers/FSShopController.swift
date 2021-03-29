@@ -33,7 +33,6 @@ class FSShopController: UIViewController, UITableViewDelegate {
         label.textColor = UIColor(named: "brown_red")
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-
         var customFont: UIFont
         if let caveat = UIFont(name: "Caveat-Regular", size: 30) {
             customFont = caveat
@@ -129,8 +128,10 @@ class FSShopController: UIViewController, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        <#code#>
+        tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.present(FSProductViewController(), animated: true, completion: nil)
     }
+
 }
 
 extension FSShopController: UISearchControllerDelegate, UISearchBarDelegate {

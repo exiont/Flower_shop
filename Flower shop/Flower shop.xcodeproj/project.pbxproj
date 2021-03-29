@@ -19,6 +19,7 @@
 		88B1691C2607EC26006EDB12 /* FSCartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B1691B2607EC26006EDB12 /* FSCartController.swift */; };
 		88B1691F2607EC4F006EDB12 /* FSMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B1691E2607EC4F006EDB12 /* FSMapController.swift */; };
 		88B169222607EC60006EDB12 /* FSProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B169212607EC60006EDB12 /* FSProfileController.swift */; };
+		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,7 @@
 		88B1691E2607EC4F006EDB12 /* FSMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMapController.swift; sourceTree = "<group>"; };
 		88B169212607EC60006EDB12 /* FSProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProfileController.swift; sourceTree = "<group>"; };
 		B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flower_shop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				88B168FF2607C059006EDB12 /* FSShopController.swift */,
+				D562515626120B2F00B41F20 /* FSProductViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */,
 				88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */,
 				D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */,
+				D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
