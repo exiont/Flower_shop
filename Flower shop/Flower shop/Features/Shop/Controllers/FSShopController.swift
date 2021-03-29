@@ -103,7 +103,7 @@ class FSShopController: UIViewController, UITableViewDelegate {
 
     private func setupConstraints() {
         self.logoImageView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(50)
+            make.top.equalTo(self.view.safeAreaLayoutGuide)
             make.left.right.equalToSuperview()
         }
 
@@ -127,9 +127,13 @@ class FSShopController: UIViewController, UITableViewDelegate {
             make.left.right.bottom.equalToSuperview()
         }
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        <#code#>
+    }
 }
 
-extension FSShopController: UISearchBarDelegate {
+extension FSShopController: UISearchControllerDelegate, UISearchBarDelegate {
 
 }
 
@@ -150,4 +154,5 @@ extension FSShopController: UITableViewDataSource {
 
         return cell
     }
+
 }

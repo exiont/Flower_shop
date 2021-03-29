@@ -21,12 +21,12 @@ class FSProductTableViewCell: UITableViewCell {
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "flower_placeholder")
-//        imageView.contentMode = .scaleAspectFill
+//        imageView.
         imageView.clipsToBounds = true
-//        imageView.frame.size.height = 30
-        imageView.layer.cornerRadius = imageView.bounds.height / 2
-//        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        imageView.layer.cornerRadius = 35
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
+        imageView.layer.borderWidth = 1
         return imageView
     }()
 
@@ -63,7 +63,7 @@ class FSProductTableViewCell: UITableViewCell {
         self.productContainerView.addSubview(self.productName)
         self.productContainerView.addSubview(self.productDescription)
         self.selectionStyle = .none
-        self.productImageView.layer.cornerRadius = self.productImageView.frame.width / 2
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -81,7 +81,7 @@ class FSProductTableViewCell: UITableViewCell {
         self.productImageView.snp.updateConstraints { (make) in
             make.top.bottom.equalToSuperview().inset(5)
             make.left.equalToSuperview().inset(10)
-            make.size.equalTo(80)
+            make.size.equalTo(70)
         }
 
         self.productName.snp.updateConstraints { (make) in
