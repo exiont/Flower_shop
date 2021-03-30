@@ -82,6 +82,7 @@ class FSShopController: UIViewController, UITableViewDelegate {
         self.view.addSubview(searchBar)
         self.view.addSubview(tableView)
         self.setupConstraints()
+        self.tableView.keyboardDismissMode = .onDrag
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FSProductTableViewCell.self, forCellReuseIdentifier: FSProductTableViewCell.reuseIdentifier)
