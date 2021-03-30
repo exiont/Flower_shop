@@ -15,6 +15,14 @@ class FSProductTableViewCell: UITableViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
+        view.layer.shadowColor = UIColor(named: "main_pink")?.cgColor
+        view.layer.shadowOpacity = 1
+        view.layer.shadowRadius = 1
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        view.layer.shouldRasterize = true
+        view.layer.rasterizationScale = UIScreen.main.scale
         return view
     }()
 
@@ -34,7 +42,7 @@ class FSProductTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = UIColor(named: "brown_red")
         return label
     }()
 
@@ -42,7 +50,7 @@ class FSProductTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = .black
+        label.textColor = UIColor(named: "brown_red")
 
         return label
     }()
@@ -85,7 +93,7 @@ class FSProductTableViewCell: UITableViewCell {
         }
 
         self.productName.snp.updateConstraints { (make) in
-            make.top.equalToSuperview().inset(5)
+            make.top.equalToSuperview().inset(10)
             make.left.equalTo(self.productImageView.snp.right).offset(10)
         }
 

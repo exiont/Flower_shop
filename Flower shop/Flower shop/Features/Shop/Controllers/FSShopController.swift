@@ -14,9 +14,16 @@ struct Product {
     let description: String
 }
 
-class FSShopController: UIViewController, UITableViewDelegate {
+class FSShopController: UIViewController  {
 
-    var products: [Product] = []
+    private var products: [Product] = [] {
+        didSet {
+            self.filteredPdoructs = self.products
+        }
+    }
+
+    private lazy var filteredPdoructs: [Product] = self.products
+
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -59,16 +66,21 @@ class FSShopController: UIViewController, UITableViewDelegate {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Поиск"
         searchBar.sizeToFit()
-        searchBar.isTranslucent = false
-        searchBar.backgroundImage = UIImage()
-        searchBar.delegate = self
-        navigationItem.titleView = searchBar
+        searchBar.searchTextField.backgroundColor = UIColor(red: 0.941, green: 0.408, blue: 0.561, alpha: 0.05)
+        searchBar.searchTextField.layer.cornerRadius = 10
+        searchBar.searchTextField.borderStyle = .none
+        searchBar.searchTextField.layer.borderWidth = 0.5
+        searchBar.searchTextField.layer.borderColor = UIColor(named: "main_pink")?.cgColor
+        searchBar.searchBarStyle = .minimal
+        searchBar.tintColor = UIColor(named: "main_pink")
         return searchBar
     }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
 
         return tableView
     }()
@@ -82,16 +94,30 @@ class FSShopController: UIViewController, UITableViewDelegate {
         self.view.addSubview(searchBar)
         self.view.addSubview(tableView)
         self.setupConstraints()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(FSProductTableViewCell.self, forCellReuseIdentifier: FSProductTableViewCell.reuseIdentifier)
         self.tableView.keyboardDismissMode = .onDrag
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(FSProductTableViewCell.self, forCellReuseIdentifier: FSProductTableViewCell.reuseIdentifier)
+        self.searchBar.delegate = self
         self.updateProductsList()
-        tableView.reloadData()
-
+        self.tableView.reloadData()
     }
 
     func updateProductsList() { // будет подгрузка из базы
+        products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
+        products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
+        products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
+        products.append(Product(image: nil, name: "Свекла", description: "Добротная"))
+        products.append(Product(image: nil, name: "Свежий", description: "Букет"))
+        products.append(Product(image: nil, name: "Весенний", description: "Букетик"))
+        products.append(Product(image: nil, name: "Праздничная", description: "Корзина"))
+        products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
+        products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
+        products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
+        products.append(Product(image: nil, name: "Свекла", description: "Добротная"))
+        products.append(Product(image: nil, name: "Свежий", description: "Букет"))
+        products.append(Product(image: nil, name: "Весенний", description: "Букетик"))
+        products.append(Product(image: nil, name: "Праздничная", description: "Корзина"))
         products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
         products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
         products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
@@ -118,30 +144,29 @@ class FSShopController: UIViewController, UITableViewDelegate {
         }
 
         self.searchBar.snp.makeConstraints { (make) in
-            make.top.equalTo(self.catalogSegmentedControl.snp.bottom).offset(10)
+            make.top.equalTo(self.catalogSegmentedControl.snp.bottom)
             make.left.right.equalToSuperview()
         }
 
         self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.searchBar.snp.bottom).offset(10)
+            make.top.equalTo(self.searchBar.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        navigationController?.present(FSProductViewController(), animated: true, completion: nil)
-    }
-
 }
 
-extension FSShopController: UISearchControllerDelegate, UISearchBarDelegate {
-
+extension FSShopController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filteredPdoructs = searchText.isEmpty
+            ? self.products
+            : self.products.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        self.tableView.reloadData()
+    }
 }
 
 extension FSShopController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.products.count
+        self.filteredPdoructs.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -151,10 +176,16 @@ extension FSShopController: UITableViewDataSource {
             fatalError("No cell with this identifier")
         }
 
-        let product = self.products[indexPath.row]
+        let product = self.filteredPdoructs[indexPath.row]
         cell.setCell(image: product.image ?? placeholderImage, name: product.name, description: product.description)
 
         return cell
     }
+}
 
+extension FSShopController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.present(FSProductViewController(), animated: true, completion: nil)
+    }
 }
