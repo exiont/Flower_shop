@@ -12,6 +12,14 @@ struct Product {
     let image: UIImage?
     let name: String
     let description: String
+    let isBouquet: Bool
+
+    init(image: UIImage?, name: String, description: String, isBouquet: Bool = false) {
+        self.image = image
+        self.name = name
+        self.description = description
+        self.isBouquet = isBouquet
+    }
 }
 
 class FSShopController: UIViewController  {
@@ -52,7 +60,8 @@ class FSShopController: UIViewController  {
     }()
 
     private lazy var catalogSegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["Цветы","Букеты"])
+        let items: [String] = ["Цветы", "Букеты"]
+        let segmentedControl = UISegmentedControl(items: items)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.layer.cornerRadius = 5
         segmentedControl.tintColor = .black
@@ -67,10 +76,11 @@ class FSShopController: UIViewController  {
         searchBar.placeholder = "Поиск"
         searchBar.sizeToFit()
         searchBar.searchTextField.backgroundColor = UIColor(red: 0.941, green: 0.408, blue: 0.561, alpha: 0.05)
-        searchBar.searchTextField.layer.cornerRadius = 10
+        searchBar.searchTextField.layer.cornerRadius = 5
         searchBar.searchTextField.borderStyle = .none
         searchBar.searchTextField.layer.borderWidth = 0.5
         searchBar.searchTextField.layer.borderColor = UIColor(named: "main_pink")?.cgColor
+        searchBar.searchTextField.textColor = UIColor(named: "brown_red")
         searchBar.searchBarStyle = .minimal
         searchBar.tintColor = UIColor(named: "main_pink")
         return searchBar
@@ -88,6 +98,7 @@ class FSShopController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.view.backgroundColor = .white
         self.view.addSubview(logoImageView)
         self.view.addSubview(appLabel)
         self.view.addSubview(catalogSegmentedControl)
@@ -108,23 +119,23 @@ class FSShopController: UIViewController  {
         products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
         products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
         products.append(Product(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(Product(image: nil, name: "Свежий", description: "Букет"))
-        products.append(Product(image: nil, name: "Весенний", description: "Букетик"))
-        products.append(Product(image: nil, name: "Праздничная", description: "Корзина"))
+        products.append(Product(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(Product(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(Product(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
         products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
         products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
         products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
         products.append(Product(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(Product(image: nil, name: "Свежий", description: "Букет"))
-        products.append(Product(image: nil, name: "Весенний", description: "Букетик"))
-        products.append(Product(image: nil, name: "Праздничная", description: "Корзина"))
+        products.append(Product(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(Product(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(Product(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
         products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
         products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
         products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
         products.append(Product(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(Product(image: nil, name: "Свежий", description: "Букет"))
-        products.append(Product(image: nil, name: "Весенний", description: "Букетик"))
-        products.append(Product(image: nil, name: "Праздничная", description: "Корзина"))
+        products.append(Product(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(Product(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(Product(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
     }
 
     private func setupConstraints() {
