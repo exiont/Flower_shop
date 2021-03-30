@@ -75,7 +75,7 @@ class FSShopController: UIViewController  {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Поиск"
         searchBar.sizeToFit()
-        searchBar.searchTextField.backgroundColor = UIColor(red: 0.941, green: 0.408, blue: 0.561, alpha: 0.05)
+        searchBar.searchTextField.backgroundColor = UIColor(named: "white_pink")
         searchBar.searchTextField.layer.cornerRadius = 5
         searchBar.searchTextField.borderStyle = .none
         searchBar.searchTextField.layer.borderWidth = 0.5
@@ -91,6 +91,7 @@ class FSShopController: UIViewController  {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = .white
 
         return tableView
     }()
