@@ -231,6 +231,13 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		884CF596261525A2003D9B41 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		88B168EF2607C059006EDB12 = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +266,7 @@
 				88B169042607C05A006EDB12 /* Assets.xcassets */,
 				88B169062607C05A006EDB12 /* LaunchScreen.storyboard */,
 				884C4E81260FC45400788046 /* Fonts */,
+				884CF596261525A2003D9B41 /* Extensions */,
 				88B169092607C05A006EDB12 /* Info.plist */,
 			);
 			path = "Flower shop";

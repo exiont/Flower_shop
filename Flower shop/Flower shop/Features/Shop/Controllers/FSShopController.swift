@@ -32,7 +32,6 @@ class FSShopController: UIViewController  {
 
     private lazy var filteredPdoructs: [Product] = self.products
 
-
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "flower_logo")
@@ -59,16 +58,42 @@ class FSShopController: UIViewController  {
         return label
     }()
 
-    private lazy var catalogSegmentedControl: UISegmentedControl = {
-        let items: [String] = ["Цветы", "Букеты"]
-        let segmentedControl = UISegmentedControl(items: items)
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.layer.cornerRadius = 5
-        segmentedControl.tintColor = .black
-        segmentedControl.backgroundColor = .white
-        //        segmentedControl.addTarget(self, action: #selector(self.changeLoginOrRegiser(sender:)), for: .valueChanged)
+    private lazy var segmentedControlContainerView: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = .clear
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }()
 
+    private lazy var segmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl()
+        segmentedControl.insertSegment(withTitle: "Цветы", at: 0, animated: true)
+        segmentedControl.insertSegment(withTitle: "Букеты", at: 1, animated: true)
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.tintColor = .clear
+        segmentedControl.backgroundColor = .clear
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "brown_red") ?? .systemPink,
+                                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular)], for: .normal)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "brown_red") ?? .systemPink,
+                                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold)], for: .selected)
+        segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue), for: .valueChanged)
+        segmentedControl.removeStyle()
         return segmentedControl
+    }()
+
+    private lazy var leftBottomUnderlineView: UIView = {
+        let underlineView = UIView()
+        underlineView.backgroundColor = UIColor(named: "main_pink")
+        underlineView.translatesAutoresizingMaskIntoConstraints = false
+        return underlineView
+    }()
+
+    private lazy var rightBottomUnderlineView: UIView = {
+        let underlineView = UIView()
+        underlineView.backgroundColor = UIColor(named: "main_pink")
+        underlineView.translatesAutoresizingMaskIntoConstraints = false
+        underlineView.isHidden = true
+        return underlineView
     }()
 
     private lazy var searchBar: UISearchBar = {
@@ -100,11 +125,14 @@ class FSShopController: UIViewController  {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.view.backgroundColor = .white
-        self.view.addSubview(logoImageView)
-        self.view.addSubview(appLabel)
-        self.view.addSubview(catalogSegmentedControl)
-        self.view.addSubview(searchBar)
-        self.view.addSubview(tableView)
+        self.view.addSubview(self.logoImageView)
+        self.view.addSubview(self.appLabel)
+        self.view.addSubview(self.segmentedControlContainerView)
+        self.view.addSubview(self.searchBar)
+        self.view.addSubview(self.tableView)
+        self.segmentedControlContainerView.addSubview(self.segmentedControl)
+        self.segmentedControlContainerView.addSubview(self.leftBottomUnderlineView)
+        self.segmentedControlContainerView.addSubview(self.rightBottomUnderlineView)
         self.setupConstraints()
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -150,13 +178,36 @@ class FSShopController: UIViewController  {
             make.left.right.equalToSuperview()
         }
 
-        self.catalogSegmentedControl.snp.makeConstraints { (make) in
-            make.top.equalTo(self.appLabel.snp.bottom).offset(10)
-            make.left.right.equalToSuperview().inset(30)
+        self.segmentedControlContainerView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.appLabel.snp.bottom).offset(5)
+            make.width.equalTo(self.view.frame.width)
+            make.height.equalTo(40)
+        }
+
+        self.segmentedControl.snp.makeConstraints { (make) in
+            make.top.equalTo(self.segmentedControlContainerView.snp.top)
+//            make.center.equalTo(self.segmentedControlContainerView)
+            make.left.right.equalToSuperview()
+        }
+
+        self.leftBottomUnderlineView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.segmentedControl.snp.bottom)
+            make.height.equalTo(1)
+            make.left.equalTo(self.segmentedControl.snp.left)
+            make.right.lessThanOrEqualTo(self.segmentedControl.snp.right).inset(self.view.frame.width / 2)
+            make.width.equalTo(self.view.frame.width / 2)
+        }
+
+        self.rightBottomUnderlineView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.segmentedControl.snp.bottom)
+            make.height.equalTo(1)
+            make.right.equalTo(self.segmentedControl.snp.right)
+            make.left.lessThanOrEqualTo(self.segmentedControl.snp.left).inset(self.view.frame.width / 2)
+            make.width.equalTo(self.view.frame.width / 2)
         }
 
         self.searchBar.snp.makeConstraints { (make) in
-            make.top.equalTo(self.catalogSegmentedControl.snp.bottom)
+            make.top.equalTo(self.segmentedControlContainerView.snp.bottom)
             make.left.right.equalToSuperview()
         }
 
@@ -164,6 +215,31 @@ class FSShopController: UIViewController  {
             make.top.equalTo(self.searchBar.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
+    }
+
+    @objc private func segmentedControlChangeValue(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.leftBottomUnderlineView.isHidden.toggle()
+            self.rightBottomUnderlineView.isHidden.toggle()
+        case 1:
+            self.leftBottomUnderlineView.isHidden.toggle()
+            self.rightBottomUnderlineView.isHidden.toggle()
+        default:
+            break
+        }
+    }
+
+    private func changeSegmentedControlLinePositionAnimated() { // сделать анимацию перезда подчёркивания
+//        let segmentIndex = CGFloat(segmentedControl.selectedSegmentIndex)
+//        let segmentWidth = self.view.frame.width / 2
+//        let leadingDistance = segmentWidth * segmentIndex
+//
+//        self.bottomUnderlineView.snp.updateConstraints({ (make) in
+//            make.left.equalTo(self.segmentedControl.snp.left).offset(leadingDistance)
+//            make.right.lessThanOrEqualTo(self.segmentedControl.snp.right)
+//            make.width.equalTo(self.view.frame.width / 2)
+//        })
     }
 }
 
@@ -199,5 +275,25 @@ extension FSShopController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.present(FSProductViewController(), animated: true, completion: nil)
+    }
+}
+
+extension UISegmentedControl {
+    func removeStyle() {
+        setBackgroundImage(imageWithColor(color: backgroundColor ?? .clear), for: .normal, barMetrics: .default)
+        setBackgroundImage(imageWithColor(color: tintColor!), for: .selected, barMetrics: .default)
+        setDividerImage(imageWithColor(color: UIColor.clear), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+    }
+
+    // create a 1x1 image with this color
+    private func imageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 40.0)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor);
+        context!.fill(rect);
+        let image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image!
     }
 }
