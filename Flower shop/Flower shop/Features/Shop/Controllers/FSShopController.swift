@@ -231,14 +231,14 @@ class FSShopController: UIViewController  {
     }
 
     private func changeSegmentedControlLinePositionAnimated() { // сделать анимацию перезда подчёркивания
-//        let segmentIndex = CGFloat(segmentedControl.selectedSegmentIndex)
-//        let segmentWidth = self.view.frame.width / 2
+//        let segmentIndex = CGFloat(self.segmentedControl.selectedSegmentIndex)
+//        let segmentWidth = self.segmentedControl.frame.width / CGFloat(self.segmentedControl.numberOfSegments)
 //        let leadingDistance = segmentWidth * segmentIndex
-//
-//        self.bottomUnderlineView.snp.updateConstraints({ (make) in
-//            make.left.equalTo(self.segmentedControl.snp.left).offset(leadingDistance)
-//            make.right.lessThanOrEqualTo(self.segmentedControl.snp.right)
-//            make.width.equalTo(self.view.frame.width / 2)
+//        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+//            self?.leftBottomUnderlineView.snp.makeConstraints({ (make) in
+//                guard let self = self else { return }
+//                make.left.equalTo(self.segmentedControl.snp.left).offset(leadingDistance)
+//            })
 //        })
     }
 }
