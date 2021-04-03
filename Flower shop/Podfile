@@ -8,5 +8,6 @@ target 'Flower shop' do
   # Pods for Flower shop
 
     pod 'SnapKit', '~> 5.0.0'
+    pod 'GoogleMaps', '~> 3.9.0'
 
 end

@@ -26,7 +26,7 @@ class FSTabBarController: UITabBarController {
                                                  image: UIImage(systemName: "cart"),
                                                  selectedImage: UIImage(systemName: "cart.fill"))
 
-        let mapController = FSMapController()
+        let mapController = FSMapViewController()
         mapController.tabBarItem = UITabBarItem(title: "Карта",
                                                 image: UIImage(systemName: "map"),
                                                 selectedImage: UIImage(systemName: "map.fill"))

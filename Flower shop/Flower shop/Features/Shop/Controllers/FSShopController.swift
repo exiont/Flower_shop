@@ -32,6 +32,8 @@ class FSShopController: UIViewController  {
 
     private lazy var filteredPdoructs: [Product] = self.products
 
+    private lazy var filteredFlowersOrBouquet: [Product] = self.products
+
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "flower_logo")
@@ -125,14 +127,7 @@ class FSShopController: UIViewController  {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.view.backgroundColor = .white
-        self.view.addSubview(self.logoImageView)
-        self.view.addSubview(self.appLabel)
-        self.view.addSubview(self.segmentedControlContainerView)
-        self.view.addSubview(self.searchBar)
-        self.view.addSubview(self.tableView)
-        self.segmentedControlContainerView.addSubview(self.segmentedControl)
-        self.segmentedControlContainerView.addSubview(self.leftBottomUnderlineView)
-        self.segmentedControlContainerView.addSubview(self.rightBottomUnderlineView)
+        self.addSubbviews()
         self.setupConstraints()
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -141,6 +136,18 @@ class FSShopController: UIViewController  {
         self.searchBar.delegate = self
         self.updateProductsList()
         self.tableView.reloadData()
+        self.products =  self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
+    }
+
+    func addSubbviews() {
+        self.view.addSubview(self.logoImageView)
+        self.view.addSubview(self.appLabel)
+        self.view.addSubview(self.segmentedControlContainerView)
+        self.view.addSubview(self.searchBar)
+        self.view.addSubview(self.tableView)
+        self.segmentedControlContainerView.addSubview(self.segmentedControl)
+        self.segmentedControlContainerView.addSubview(self.leftBottomUnderlineView)
+        self.segmentedControlContainerView.addSubview(self.rightBottomUnderlineView)
     }
 
     func updateProductsList() { // будет подгрузка из базы
@@ -218,13 +225,18 @@ class FSShopController: UIViewController  {
     }
 
     @objc private func segmentedControlChangeValue(sender: UISegmentedControl) {
+
         switch sender.selectedSegmentIndex {
         case 0:
             self.leftBottomUnderlineView.isHidden.toggle()
             self.rightBottomUnderlineView.isHidden.toggle()
+            self.products =  filteredFlowersOrBouquet.filter { !$0.isBouquet }
+            self.tableView.reloadData()
         case 1:
             self.leftBottomUnderlineView.isHidden.toggle()
             self.rightBottomUnderlineView.isHidden.toggle()
+            self.products =  filteredFlowersOrBouquet.filter { $0.isBouquet }
+            self.tableView.reloadData()
         default:
             break
         }
@@ -275,25 +287,5 @@ extension FSShopController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.present(FSProductViewController(), animated: true, completion: nil)
-    }
-}
-
-extension UISegmentedControl {
-    func removeStyle() {
-        setBackgroundImage(imageWithColor(color: backgroundColor ?? .clear), for: .normal, barMetrics: .default)
-        setBackgroundImage(imageWithColor(color: tintColor!), for: .selected, barMetrics: .default)
-        setDividerImage(imageWithColor(color: UIColor.clear), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-    }
-
-    // create a 1x1 image with this color
-    private func imageWithColor(color: UIColor) -> UIImage {
-        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 40.0)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
-        context!.setFillColor(color.cgColor);
-        context!.fill(rect);
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        return image!
     }
 }
