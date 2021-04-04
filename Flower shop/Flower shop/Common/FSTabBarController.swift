@@ -43,7 +43,7 @@ class FSTabBarController: UITabBarController {
 
         self.setViewControllers([
             UINavigationController(rootViewController: shopController),
-            UINavigationController(rootViewController: cartController),
+            cartController,
             UINavigationController(rootViewController: mapController),
             UINavigationController(rootViewController: authorizationController)
         ], animated: true)

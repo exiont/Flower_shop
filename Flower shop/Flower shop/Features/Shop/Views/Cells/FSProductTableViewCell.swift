@@ -71,7 +71,6 @@ class FSProductTableViewCell: UITableViewCell {
         self.productContainerView.addSubview(self.productName)
         self.productContainerView.addSubview(self.productDescription)
         self.selectionStyle = .none
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -79,8 +78,6 @@ class FSProductTableViewCell: UITableViewCell {
     }
 
     override func updateConstraints() {
-
-        super.updateConstraints()
 
         self.productContainerView.snp.updateConstraints { (make) in
             make.edges.equalToSuperview()
@@ -101,6 +98,8 @@ class FSProductTableViewCell: UITableViewCell {
             make.top.equalTo(self.productName.snp.bottom).offset(10)
             make.left.equalTo(self.productImageView.snp.right).offset(10)
         }
+
+        super.updateConstraints()
     }
 
     func setCell(image: UIImage, name: String, description: String) {

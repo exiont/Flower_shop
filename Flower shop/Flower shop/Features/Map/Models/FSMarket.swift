@@ -23,7 +23,4 @@ class FSMarket {
         self.latitude = latitude
         self.longitude = longitude
     }
-
-//    init() {}
-
 }

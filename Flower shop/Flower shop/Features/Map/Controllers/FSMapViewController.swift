@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 
-class FSMapViewController: UIViewController, CLLocationManagerDelegate {
+class FSMapViewController: UIViewController {
 
     @IBOutlet weak var mapView: GMSMapView!
 
@@ -121,4 +121,8 @@ extension FSMapViewController: GMSMapViewDelegate {
         }
         return true
     }
+}
+
+extension FSMapViewController: CLLocationManagerDelegate {
+
 }

@@ -230,12 +230,12 @@ class FSShopController: UIViewController  {
         case 0:
             self.leftBottomUnderlineView.isHidden.toggle()
             self.rightBottomUnderlineView.isHidden.toggle()
-            self.products =  filteredFlowersOrBouquet.filter { !$0.isBouquet }
+            self.products = filteredFlowersOrBouquet.filter { !$0.isBouquet }
             self.tableView.reloadData()
         case 1:
             self.leftBottomUnderlineView.isHidden.toggle()
             self.rightBottomUnderlineView.isHidden.toggle()
-            self.products =  filteredFlowersOrBouquet.filter { $0.isBouquet }
+            self.products = filteredFlowersOrBouquet.filter { $0.isBouquet }
             self.tableView.reloadData()
         default:
             break
@@ -286,6 +286,9 @@ extension FSShopController: UITableViewDataSource {
 extension FSShopController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        navigationController?.present(FSProductViewController(), animated: true, completion: nil)
+        let vc = FSProductViewController()
+        let product = products[indexPath.row]
+        vc.loadData(product: product)
+        navigationController?.present(vc, animated: true, completion: nil)
     }
 }
