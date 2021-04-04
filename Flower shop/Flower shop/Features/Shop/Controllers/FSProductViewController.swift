@@ -18,7 +18,7 @@ class FSProductViewController: FSViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
         imageView.layer.borderWidth = 1
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .redraw
         return imageView
     }()
 
@@ -59,14 +59,21 @@ class FSProductViewController: FSViewController {
         return label
     }()
 
-    private lazy var productDetails: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = UIColor(named: "brown_red")
-        label.text = "DETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDE" // temp
+    private lazy var productDetails: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont.systemFont(ofSize: 15)
+        textView.textColor = UIColor(named: "brown_red")
+        textView.isScrollEnabled = false
+        let anotherText = "DETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDEDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETA"
+        let anotherText2 = "DETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDEDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDET"
+        let anotherText3 = "DETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDEDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDET"
+        let anotherText4 = "DETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDEDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDET"
+        let anotherText5 = "DETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDEDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDET"
+        let anotherText6 = "DETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDEDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDETAILSDET"
+        textView.text = anotherText + anotherText2 + anotherText3 + anotherText4 + anotherText5 + anotherText6 // temp
 
-        return label
+        return textView
     }()
 
     private lazy var addToCartButton: UIButton = {
@@ -97,8 +104,9 @@ class FSProductViewController: FSViewController {
     override func updateViewConstraints() {
 
         self.productImageView.snp.updateConstraints { (make) in
-            make.top.equalToSuperview().inset(5)
-            make.left.right.equalToSuperview().inset(10)
+            make.top.equalToSuperview()
+            make.left.right.equalToSuperview()
+//            make.width.equalTo(self.productImageView.snp.height)
         }
 
         self.productName.snp.updateConstraints { (make) in
@@ -126,7 +134,6 @@ class FSProductViewController: FSViewController {
             make.top.equalTo(self.productPrice)
             make.right.equalToSuperview().inset(10)
             make.left.equalTo(self.productPrice.snp.right).offset(20)
-            make.width.greaterThanOrEqualTo(50)
         }
 
         self.productDetails.snp.updateConstraints { (make) in

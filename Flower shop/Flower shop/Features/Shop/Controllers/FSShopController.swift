@@ -139,7 +139,7 @@ class FSShopController: UIViewController  {
         self.products =  self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
     }
 
-    func addSubbviews() {
+    private func addSubbviews() {
         self.view.addSubview(self.logoImageView)
         self.view.addSubview(self.appLabel)
         self.view.addSubview(self.segmentedControlContainerView)
@@ -150,7 +150,7 @@ class FSShopController: UIViewController  {
         self.segmentedControlContainerView.addSubview(self.rightBottomUnderlineView)
     }
 
-    func updateProductsList() { // будет подгрузка из базы
+    private func updateProductsList() { // будет подгрузка из базы
         products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
         products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
         products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
@@ -225,6 +225,7 @@ class FSShopController: UIViewController  {
     }
 
     @objc private func segmentedControlChangeValue(sender: UISegmentedControl) {
+        self.searchBar.searchTextField.text = ""
 
         switch sender.selectedSegmentIndex {
         case 0:
@@ -261,6 +262,9 @@ extension FSShopController: UISearchBarDelegate {
             ? self.products
             : self.products.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         self.tableView.reloadData()
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
 }
 
