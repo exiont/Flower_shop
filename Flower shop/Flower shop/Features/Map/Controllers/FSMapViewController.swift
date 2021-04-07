@@ -16,12 +16,19 @@ class FSMapViewController: UIViewController {
 
     private var markets: [FSMarket] = []
 
+    private var markers: [GMSMarker] = []
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureMap()
         self.loadMarkets()
         self.createMarketsMarkers()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.centerCamera()
     }
 
     private func configureMap() {
@@ -43,8 +50,6 @@ class FSMapViewController: UIViewController {
     private func createMarketsMarkers() {
         self.mapView.clear()
 
-        var markers: [GMSMarker] = []
-
         for market in markets {
             let marker = GMSMarker()
             let latitude = market.latitude
@@ -55,10 +60,11 @@ class FSMapViewController: UIViewController {
             marker.map = mapView
             marker.userData = market
             marker.isTappable = true
-            markers.append(marker)
+            self.markers.append(marker)
         }
+    }
 
-        // отцентровать камеру!
+    private func centerCamera() {
         if let firstPosition = markers.first?.position {
             var bounds = GMSCoordinateBounds(coordinate: firstPosition, coordinate: firstPosition)
             for marker in markers {
@@ -77,7 +83,10 @@ extension FSMapViewController: GMSMapViewDelegate {
 
         guard let market = marker.userData as? FSMarket else { return false }
 
-        if let latitude = market.latitude, let longitude = market.longitude, let description = market.description, let workingHours = market.workingHours {
+        if let latitude = market.latitude,
+           let longitude = market.longitude,
+           let description = market.description,
+           let workingHours = market.workingHours {
 
             let message = "\(description)\nВремя работы: \(workingHours)"
             let title = market.name

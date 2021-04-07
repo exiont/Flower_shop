@@ -8,31 +8,17 @@
 import UIKit
 import SnapKit
 
-struct Product {
-    let image: UIImage?
-    let name: String
-    let description: String
-    let isBouquet: Bool
+class FSShopController: FSViewController  {
 
-    init(image: UIImage?, name: String, description: String, isBouquet: Bool = false) {
-        self.image = image
-        self.name = name
-        self.description = description
-        self.isBouquet = isBouquet
-    }
-}
-
-class FSShopController: UIViewController  {
-
-    private var products: [Product] = [] {
+    private var products: [FSProduct] = [] {
         didSet {
             self.filteredPdoructs = self.products
         }
     }
 
-    private lazy var filteredPdoructs: [Product] = self.products
+    private lazy var filteredPdoructs: [FSProduct] = self.products
 
-    private lazy var filteredFlowersOrBouquet: [Product] = self.products
+    private lazy var filteredFlowersOrBouquet: [FSProduct] = self.products
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -49,13 +35,7 @@ class FSShopController: UIViewController  {
         label.textColor = UIColor(named: "brown_red")
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        var customFont: UIFont
-        if let caveat = UIFont(name: "Caveat-Regular", size: 30) {
-            customFont = caveat
-        } else {
-            customFont = UIFont.systemFont(ofSize: 30)
-        }
-        label.font = customFont
+        label.font = UIFont.applyCustomFont(name: "Caveat-Regular", size: 30)
 
         return label
     }()
@@ -68,9 +48,7 @@ class FSShopController: UIViewController  {
     }()
 
     private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl()
-        segmentedControl.insertSegment(withTitle: "Цветы", at: 0, animated: true)
-        segmentedControl.insertSegment(withTitle: "Букеты", at: 1, animated: true)
+        let segmentedControl = UISegmentedControl(items: ["Цветы", "Букеты"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.tintColor = .clear
         segmentedControl.backgroundColor = .clear
@@ -110,6 +88,8 @@ class FSShopController: UIViewController  {
         searchBar.searchTextField.textColor = UIColor(named: "brown_red")
         searchBar.searchBarStyle = .minimal
         searchBar.tintColor = UIColor(named: "main_pink")
+        searchBar.delegate = self
+
         return searchBar
     }()
 
@@ -119,23 +99,27 @@ class FSShopController: UIViewController  {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = .white
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(FSProductTableViewCell.self, forCellReuseIdentifier: FSProductTableViewCell.reuseIdentifier)
+        tableView.keyboardDismissMode = .onDrag
 
         return tableView
     }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.view.backgroundColor = .white
+
         self.addSubbviews()
         self.setupConstraints()
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.register(FSProductTableViewCell.self, forCellReuseIdentifier: FSProductTableViewCell.reuseIdentifier)
-        self.tableView.keyboardDismissMode = .onDrag
-        self.searchBar.delegate = self
         self.updateProductsList()
-        self.tableView.reloadData()
+
         self.products =  self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
     }
 
@@ -151,27 +135,27 @@ class FSShopController: UIViewController  {
     }
 
     private func updateProductsList() { // будет подгрузка из базы
-        products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(Product(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(Product(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(Product(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(Product(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
-        products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(Product(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(Product(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(Product(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(Product(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
-        products.append(Product(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(Product(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(Product(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(Product(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(Product(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(Product(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(Product(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
+        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
+        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
+        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
+        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
+        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
+        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
+        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
+        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
+        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
+        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
+        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
+        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
     }
 
     private func setupConstraints() {
@@ -187,14 +171,12 @@ class FSShopController: UIViewController  {
 
         self.segmentedControlContainerView.snp.makeConstraints { (make) in
             make.top.equalTo(self.appLabel.snp.bottom).offset(5)
-            make.width.equalTo(self.view.frame.width)
+            make.width.equalToSuperview()
             make.height.equalTo(40)
         }
 
         self.segmentedControl.snp.makeConstraints { (make) in
-            make.top.equalTo(self.segmentedControlContainerView.snp.top)
-//            make.center.equalTo(self.segmentedControlContainerView)
-            make.left.right.equalToSuperview()
+            make.top.left.right.equalToSuperview()
         }
 
         self.leftBottomUnderlineView.snp.makeConstraints { (make) in
@@ -275,13 +257,12 @@ extension FSShopController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell,
-              let placeholderImage = UIImage(named: "flower_placeholder")
-        else {
-            fatalError("No cell with this identifier")
-        }
+              let placeholderImage = UIImage(named: "flower_placeholder") else { fatalError("No cell with this identifier") }
 
         let product = self.filteredPdoructs[indexPath.row]
-        cell.setCell(image: product.image ?? placeholderImage, name: product.name, description: product.description)
+        cell.setCell(image: product.image ?? placeholderImage,
+                     name: product.name,
+                     description: product.description)
 
         return cell
     }
@@ -289,7 +270,6 @@ extension FSShopController: UITableViewDataSource {
 
 extension FSShopController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         let vc = FSProductViewController()
         let product = products[indexPath.row]
         vc.loadData(product: product)

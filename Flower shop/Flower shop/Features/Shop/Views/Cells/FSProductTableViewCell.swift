@@ -11,6 +11,8 @@ class FSProductTableViewCell: UITableViewCell {
 
     static let reuseIdentifier: String = "FSProductTableViewCell"
 
+    private let productImageSize: CGFloat = 70
+
     private lazy var productContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -73,10 +75,6 @@ class FSProductTableViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     override func updateConstraints() {
 
         self.productContainerView.snp.updateConstraints { (make) in
@@ -86,17 +84,19 @@ class FSProductTableViewCell: UITableViewCell {
         self.productImageView.snp.updateConstraints { (make) in
             make.top.bottom.equalToSuperview().inset(5)
             make.left.equalToSuperview().inset(10)
-            make.size.equalTo(70)
+            make.size.equalTo(self.productImageSize)
         }
 
         self.productName.snp.updateConstraints { (make) in
             make.top.equalToSuperview().inset(10)
             make.left.equalTo(self.productImageView.snp.right).offset(10)
+            make.right.equalToSuperview().inset(10)
         }
 
         self.productDescription.snp.updateConstraints { (make) in
             make.top.equalTo(self.productName.snp.bottom).offset(10)
             make.left.equalTo(self.productImageView.snp.right).offset(10)
+            make.right.equalToSuperview().inset(10)
         }
 
         super.updateConstraints()

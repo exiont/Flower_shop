@@ -7,14 +7,18 @@
 
 import UIKit
 
-class FSCartController: UIViewController {
+class FSCartController: FSViewController {
 
-    var products: [Product] = []
+    var products: [FSProduct] = []
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemTeal
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func viewDidAppear(_ animated: Bool) {

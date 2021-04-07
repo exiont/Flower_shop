@@ -23,6 +23,8 @@
 		88B1691C2607EC26006EDB12 /* FSCartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B1691B2607EC26006EDB12 /* FSCartController.swift */; };
 		88B169222607EC60006EDB12 /* FSProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B169212607EC60006EDB12 /* FSProfileController.swift */; };
 		D526FB6A261A39BF00829788 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB69261A39BF00829788 /* FSViewController.swift */; };
+		D526FB8B261E465200829788 /* FSProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB8A261E465200829788 /* FSProduct.swift */; };
+		D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB8D261E498100829788 /* UIFont+Ex.swift */; };
 		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +49,8 @@
 		88B169212607EC60006EDB12 /* FSProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProfileController.swift; sourceTree = "<group>"; };
 		B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flower_shop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D526FB69261A39BF00829788 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
+		D526FB8A261E465200829788 /* FSProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProduct.swift; sourceTree = "<group>"; };
+		D526FB8D261E498100829788 /* UIFont+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ex.swift"; sourceTree = "<group>"; };
 		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 		884C4E8B2610BA9400788046 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D526FB8A261E465200829788 /* FSProduct.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -246,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				8845C8BD26190D65002E2129 /* UISegmentedControl+Ex.swift */,
+				D526FB8D261E498100829788 /* UIFont+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -444,9 +450,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				884C4EB22610DF8B00788046 /* FSProductTableViewCell.swift in Sources */,
+				D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */,
 				884C4E88260FDC3E00788046 /* FSAuthorizationController.swift in Sources */,
 				8851E1AA26189FD8000AC2E4 /* FSMarket.swift in Sources */,
 				8851E1A526189EBE000AC2E4 /* FSMapViewController.swift in Sources */,
+				D526FB8B261E465200829788 /* FSProduct.swift in Sources */,
 				88B169222607EC60006EDB12 /* FSProfileController.swift in Sources */,
 				88B1691C2607EC26006EDB12 /* FSCartController.swift in Sources */,
 				88B169002607C059006EDB12 /* FSShopController.swift in Sources */,

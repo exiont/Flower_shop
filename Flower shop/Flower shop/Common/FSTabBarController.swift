@@ -11,11 +11,12 @@ class FSTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupTabBar()
         self.view.backgroundColor = .white
+        self.setupTabBar()
+        self.customizeTabBar()
     }
 
-    func setupTabBar() {
+    private func setupTabBar() {
         let shopController = FSShopController()
         shopController.tabBarItem = UITabBarItem(title: "Магазин",
                                                  image: UIImage(systemName: "house"),
@@ -43,11 +44,13 @@ class FSTabBarController: UITabBarController {
 
         self.setViewControllers([
             UINavigationController(rootViewController: shopController),
-            cartController,
+            UINavigationController(rootViewController: cartController),
             UINavigationController(rootViewController: mapController),
             UINavigationController(rootViewController: authorizationController)
         ], animated: true)
+    }
 
+    private func customizeTabBar() {
         self.tabBar.isTranslucent = false
         self.tabBar.tintColor = UIColor(named: "main_pink")
     }

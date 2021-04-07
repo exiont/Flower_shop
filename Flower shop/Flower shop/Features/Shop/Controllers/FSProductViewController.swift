@@ -9,13 +9,11 @@ import UIKit
 
 class FSProductViewController: FSViewController {
 
-    var product: Product? = nil
+    var product: FSProduct? = nil
 
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
-        if let image = UIImage(named: "flower_placeholder") {
-            imageView.image = image
-        }
+        imageView.image = UIImage(named: "flower_placeholder")
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
@@ -136,18 +134,12 @@ class FSProductViewController: FSViewController {
         super.viewDidLoad()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
-
     override func updateViewConstraints() {
 
         self.productImageView.snp.updateConstraints { (make) in
 //            let aspectRatio = UIScreen.main.bounds.width / UIScreen.main.bounds.height
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview()
+            make.top.left.right.equalToSuperview()
             make.height.equalTo(UIScreen.main.bounds.height / 2.5)
-
         }
 
         self.productName.snp.updateConstraints { (make) in
@@ -170,7 +162,7 @@ class FSProductViewController: FSViewController {
 
         self.productDescription.snp.updateConstraints { (make) in
             make.top.equalTo(self.productName.snp.bottom).offset(5)
-            make.left.equalToSuperview().inset(10)
+            make.left.right.equalToSuperview().inset(10)
         }
 
         self.productPriceLabel.snp.updateConstraints { (make) in
@@ -205,13 +197,11 @@ class FSProductViewController: FSViewController {
 
     }
 
-    func loadData(product: Product) {
+    func loadData(product: FSProduct) {
         self.product = product
-        if product.image != nil {
-            self.productImageView.image = product.image
-        } else {
-            self.productImageView.image = UIImage(named: "flower_placeholder")
-        }
+        self.productImageView.image = product.image != nil
+            ? product.image
+            : UIImage(named: "flower_placeholder")
         self.productName.text = product.name
         self.productDescription.text = product.description
     }
