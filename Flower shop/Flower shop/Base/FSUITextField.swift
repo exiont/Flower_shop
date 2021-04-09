@@ -22,7 +22,6 @@ class FSUITextField: UITextField {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.size.height))
         self.leftView = paddingView
         self.leftViewMode = .always
-        self.bounds.size.height = 50
         self.borderStyle = .none
         self.layer.borderWidth = 0.5
         self.layer.borderColor = FSColors.mainPink.cgColor
