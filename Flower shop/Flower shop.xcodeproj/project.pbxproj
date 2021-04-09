@@ -25,6 +25,8 @@
 		D526FB6A261A39BF00829788 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB69261A39BF00829788 /* FSViewController.swift */; };
 		D526FB8B261E465200829788 /* FSProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB8A261E465200829788 /* FSProduct.swift */; };
 		D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB8D261E498100829788 /* UIFont+Ex.swift */; };
+		D526FB9F261F5B4100829788 /* FSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB9E261F5B4100829788 /* FSColors.swift */; };
+		D526FBA4261F5CDA00829788 /* FSUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FBA3261F5CDA00829788 /* FSUITextField.swift */; };
 		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +53,8 @@
 		D526FB69261A39BF00829788 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
 		D526FB8A261E465200829788 /* FSProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProduct.swift; sourceTree = "<group>"; };
 		D526FB8D261E498100829788 /* UIFont+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ex.swift"; sourceTree = "<group>"; };
+		D526FB9E261F5B4100829788 /* FSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSColors.swift; sourceTree = "<group>"; };
+		D526FBA3261F5CDA00829788 /* FSUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUITextField.swift; sourceTree = "<group>"; };
 		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
@@ -277,8 +281,10 @@
 		88B168FA2607C059006EDB12 /* Flower shop */ = {
 			isa = PBXGroup;
 			children = (
-				884C4EA32610BD7300788046 /* Features */,
+				D526FBA2261F5C8900829788 /* Base */,
+				D526FB9D261F5AFB00829788 /* Constants */,
 				884C4EA42610BD8600788046 /* Common */,
+				884C4EA32610BD7300788046 /* Features */,
 				88B168FB2607C059006EDB12 /* AppDelegate.swift */,
 				88B168FD2607C059006EDB12 /* SceneDelegate.swift */,
 				88B169042607C05A006EDB12 /* Assets.xcassets */,
@@ -296,6 +302,22 @@
 				B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D526FB9D261F5AFB00829788 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				D526FB9E261F5B4100829788 /* FSColors.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		D526FBA2261F5C8900829788 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				D526FBA3261F5CDA00829788 /* FSUITextField.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,11 +475,13 @@
 				D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */,
 				884C4E88260FDC3E00788046 /* FSAuthorizationController.swift in Sources */,
 				8851E1AA26189FD8000AC2E4 /* FSMarket.swift in Sources */,
+				D526FB9F261F5B4100829788 /* FSColors.swift in Sources */,
 				8851E1A526189EBE000AC2E4 /* FSMapViewController.swift in Sources */,
 				D526FB8B261E465200829788 /* FSProduct.swift in Sources */,
 				88B169222607EC60006EDB12 /* FSProfileController.swift in Sources */,
 				88B1691C2607EC26006EDB12 /* FSCartController.swift in Sources */,
 				88B169002607C059006EDB12 /* FSShopController.swift in Sources */,
+				D526FBA4261F5CDA00829788 /* FSUITextField.swift in Sources */,
 				D526FB6A261A39BF00829788 /* FSViewController.swift in Sources */,
 				88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */,
 				88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */,
