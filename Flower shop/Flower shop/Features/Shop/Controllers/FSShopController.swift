@@ -73,16 +73,11 @@ class FSShopController: FSViewController  {
         return searchBar
     }()
 
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = .white
+    private lazy var tableView: FSTableView = {
+        let tableView = FSTableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FSProductTableViewCell.self, forCellReuseIdentifier: FSProductTableViewCell.reuseIdentifier)
-        tableView.keyboardDismissMode = .onDrag
 
         return tableView
     }()
@@ -252,7 +247,8 @@ extension FSShopController: UITableViewDelegate {
         let vc = FSProductViewController()
         let product = products[indexPath.row]
         vc.loadData(product: product)
-        navigationController?.modalPresentationStyle = .formSheet
         navigationController?.pushViewController(vc, animated: true)
+//        let navVC = UINavigationController(rootViewController: vc)
+//        self.present(navVC, animated: true, completion: nil)
     }
 }

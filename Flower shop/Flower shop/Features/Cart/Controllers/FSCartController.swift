@@ -10,6 +10,7 @@ import UIKit
 class FSCartController: FSViewController {
 
     var products: [FSProduct] = []
+    var counters: [Int] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -21,12 +22,8 @@ class FSCartController: FSViewController {
         self.view.backgroundColor = .systemTeal
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-
-    }
-
-    func updateProductList(with product: FSProduct) {
+    func updateProductList(with product: FSProduct, and counter: Int) {
         products.append(product)
+        self.counters.append(counter)
     }
-
 }

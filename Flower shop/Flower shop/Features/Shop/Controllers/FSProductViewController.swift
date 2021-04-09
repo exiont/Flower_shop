@@ -10,6 +10,7 @@ import UIKit
 class FSProductViewController: FSViewController {
 
     var product: FSProduct? = nil
+    var counter: Int = 1
 
     let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
 
@@ -24,76 +25,60 @@ class FSProductViewController: FSViewController {
         return imageView
     }()
 
-    private lazy var productName: UILabel = {
-        let label = UILabel()
+    private lazy var productName: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = FSColors.brownRed
         return label
     }()
 
-    private lazy var productDescription: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var productDescription: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = FSColors.brownRed
 
         return label
     }()
 
-    private lazy var productPriceLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var productPriceLabel: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = FSColors.brownRed
         label.text = "Стоимость:"
 
         return label
     }()
 
-    private lazy var productPrice: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var productPrice: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .heavy)
-        label.textColor = FSColors.brownRed
 
         return label
     }()
 
-    private lazy var productPriceCurrency: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var productPriceCurrency: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .heavy)
-        label.textColor = FSColors.brownRed
         label.text = "руб."
 
         return label
     }()
 
-    private lazy var productIdLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var productIdLabel: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = FSColors.brownRed
         label.text = "Артикул:"
 
         return label
     }()
 
-    private lazy var productId: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var productId: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = FSColors.brownRed
 
         return label
     }()
 
-    private lazy var productDetailsLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var productDetailsLabel: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = FSColors.brownRed
         label.text = "Описание:"
 
         return label
@@ -131,6 +116,39 @@ class FSProductViewController: FSViewController {
         return stackView
     }()
 
+    private lazy var addProductItemButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.add, for: .normal)
+        button.addTarget(self, action: #selector(addProductItemButtonDidTap), for: .touchUpInside)
+
+        return button
+    }()
+
+    private lazy var removeProductItemButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.remove, for: .normal)
+        button.addTarget(self, action: #selector(removeProductItemButtonDidTap), for: .touchUpInside)
+
+        return button
+    }()
+
+    private lazy var productCurrentQuantity: FSLabel = {
+        let label = FSLabel()
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.text = "\(self.counter)"
+
+        return label
+    }()
+
+    private lazy var productQuantityStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addSubview(self.addProductItemButton)
+        stackView.addSubview(self.removeProductItemButton)
+        stackView.addSubview(self.productCurrentQuantity)
+
+        return stackView
+    }()
+
     private lazy var addToCartButton: FSButton = {
         let button = FSButton()
         button.setTitle("Добавить в корзину", for: .normal)
@@ -147,6 +165,7 @@ class FSProductViewController: FSViewController {
         self.mainView.addSubview(self.nameIdStackView)
         self.mainView.addSubview(self.productDescription)
         self.mainView.addSubview(self.priceStackView)
+        self.mainView.addSubview(self.productQuantityStackView)
         self.mainView.addSubview(self.productDetailsLabel)
         self.mainView.addSubview(self.productDetails)
         self.mainView.addSubview(self.addToCartButton)
@@ -154,12 +173,12 @@ class FSProductViewController: FSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isNavigationBarHidden = false
     }
 
     override func updateViewConstraints() {
 
         self.productImageView.snp.updateConstraints { (make) in
-//            let aspectRatio = UIScreen.main.bounds.width / UIScreen.main.bounds.height
             make.top.left.right.equalToSuperview()
             make.height.equalTo(UIScreen.main.bounds.height / 2.5)
         }
@@ -192,7 +211,7 @@ class FSProductViewController: FSViewController {
 
         self.priceStackView.snp.makeConstraints { (make) in
             make.top.equalTo(self.productDescription.snp.bottom).offset(20)
-            make.left.right.equalToSuperview().inset(self.edgeInsets)
+            make.left.equalToSuperview().inset(self.edgeInsets)
         }
 
         self.productPriceLabel.snp.updateConstraints { (make) in
@@ -208,6 +227,27 @@ class FSProductViewController: FSViewController {
             make.top.bottom.equalToSuperview()
             make.left.equalTo(self.productPrice.snp.right).offset(5)
             make.right.lessThanOrEqualToSuperview()
+        }
+
+        self.addProductItemButton.snp.makeConstraints { (make) in
+            make.top.left.bottom.equalToSuperview()
+        }
+
+        self.productCurrentQuantity.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.left.equalTo(self.addProductItemButton.snp.right)
+        }
+
+        self.removeProductItemButton.snp.makeConstraints { (make) in
+            make.top.right.bottom.equalToSuperview()
+            make.left.equalTo(self.productCurrentQuantity.snp.right)
+        }
+
+        self.productQuantityStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.productDescription.snp.bottom)
+            make.left.equalTo(self.priceStackView.snp.right)
+            make.right.equalToSuperview().inset(self.edgeInsets)
+            make.bottom.equalTo(self.addToCartButton.snp.top)
         }
 
         self.addToCartButton.snp.updateConstraints { (make) in
@@ -247,12 +287,32 @@ class FSProductViewController: FSViewController {
        guard let navVC = tabBarController?.viewControllers![1] as? UINavigationController,
              let cartTableViewController = navVC.topViewController as? FSCartController else { return }
         if let product = self.product {
-            cartTableViewController.updateProductList(with: product)
+            cartTableViewController.updateProductList(with: product, and: self.counter)
         }
 //        guard let vc = FSTabBarController().viewControllers?[1] as? FSCartController else { return }
 //        if let product = self.product {
 //            vc.products.append(product)
 //        }
+    }
+
+    @objc func addProductItemButtonDidTap() {
+        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
+        var newQuantity = currentQuantity
+        newQuantity += 1
+        self.counter = newQuantity
+        self.productCurrentQuantity.text = String(newQuantity)
+    }
+
+    @objc func removeProductItemButtonDidTap() {
+        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
+        if currentQuantity > 1 {
+        var newQuantity = currentQuantity
+        newQuantity -= 1
+        self.counter = newQuantity
+        self.productCurrentQuantity.text = String(newQuantity)
+        } else {
+            self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
+        }
     }
 
 }
