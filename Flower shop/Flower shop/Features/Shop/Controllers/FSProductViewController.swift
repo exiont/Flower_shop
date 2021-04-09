@@ -13,6 +13,8 @@ class FSProductViewController: FSViewController {
     var counter: Int = 1
 
     let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+    let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: FSColors.mainPink,
+                                                                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
 
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -116,17 +118,16 @@ class FSProductViewController: FSViewController {
         return stackView
     }()
 
-    private lazy var addProductItemButton: UIButton = {
-        let button = UIButton()
-        button.setImage(.add, for: .normal)
+    private lazy var addProductItemButton: FSCounterButton = {
+        let button = FSCounterButton()
+        button.setAttributedTitle(NSAttributedString(string: "+", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(addProductItemButtonDidTap), for: .touchUpInside)
-
         return button
     }()
 
-    private lazy var removeProductItemButton: UIButton = {
-        let button = UIButton()
-        button.setImage(.remove, for: .normal)
+    private lazy var removeProductItemButton: FSCounterButton = {
+        let button = FSCounterButton()
+        button.setAttributedTitle(NSAttributedString(string: "–", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(removeProductItemButtonDidTap), for: .touchUpInside)
 
         return button
@@ -136,6 +137,7 @@ class FSProductViewController: FSViewController {
         let label = FSLabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
         label.text = "\(self.counter)"
+        label.textAlignment = .center
 
         return label
     }()
@@ -145,6 +147,8 @@ class FSProductViewController: FSViewController {
         stackView.addSubview(self.addProductItemButton)
         stackView.addSubview(self.removeProductItemButton)
         stackView.addSubview(self.productCurrentQuantity)
+//        stackView.layer.borderWidth = 0.5
+//        stackView.layer.borderColor = FSColors.mainPink.cgColor
 
         return stackView
     }()
@@ -152,6 +156,7 @@ class FSProductViewController: FSViewController {
     private lazy var addToCartButton: FSButton = {
         let button = FSButton()
         button.setTitle("Добавить в корзину", for: .normal)
+        button.setImage(UIImage(systemName: "cart.badge.plus"), for: .normal)
         button.addTarget(self, action: #selector(addToCartButtonDidTap), for: .touchUpInside)
 
         return button
@@ -229,28 +234,29 @@ class FSProductViewController: FSViewController {
             make.right.lessThanOrEqualToSuperview()
         }
 
+        self.productQuantityStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.productDescription.snp.bottom)
+            make.left.greaterThanOrEqualTo(self.priceStackView.snp.right).offset(20)
+            make.right.equalToSuperview().inset(self.edgeInsets)
+            make.bottom.equalTo(self.addToCartButton.snp.top)
+        }
+
         self.addProductItemButton.snp.makeConstraints { (make) in
             make.top.left.bottom.equalToSuperview()
         }
 
         self.productCurrentQuantity.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
-            make.left.equalTo(self.addProductItemButton.snp.right)
+            make.left.equalTo(self.addProductItemButton.snp.right).offset(5)
+            make.width.equalTo(55)
         }
 
         self.removeProductItemButton.snp.makeConstraints { (make) in
             make.top.right.bottom.equalToSuperview()
-            make.left.equalTo(self.productCurrentQuantity.snp.right)
+            make.left.equalTo(self.productCurrentQuantity.snp.right).offset(5)
         }
 
-        self.productQuantityStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.productDescription.snp.bottom)
-            make.left.equalTo(self.priceStackView.snp.right)
-            make.right.equalToSuperview().inset(self.edgeInsets)
-            make.bottom.equalTo(self.addToCartButton.snp.top)
-        }
-
-        self.addToCartButton.snp.updateConstraints { (make) in
+        self.addToCartButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.priceStackView.snp.bottom).offset(15)
             make.left.right.equalToSuperview().inset(self.edgeInsets)
         }

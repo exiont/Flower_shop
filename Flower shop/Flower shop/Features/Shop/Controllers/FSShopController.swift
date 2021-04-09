@@ -85,6 +85,8 @@ class FSShopController: FSViewController  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.navigationBar.tintColor = FSColors.mainPink
+        self.navigationController?.navigationBar.barTintColor = .white
     }
 
     override func viewDidLoad() {

@@ -19,9 +19,16 @@ class FSButton: UIButton {
 
     private func setupButton() {
         self.backgroundColor = FSColors.mainPink
+        self.tintColor = .white
         self.setTitleColor(.white, for: .normal)
         self.layer.cornerRadius = 5
         self.layer.borderColor = FSColors.brownRed.cgColor
         self.layer.borderWidth = 0.5
+        self.semanticContentAttribute = .forceRightToLeft
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 0)
+
+        self.snp.makeConstraints { (make) in
+            make.height.equalTo(30)
+        }
     }
 }
