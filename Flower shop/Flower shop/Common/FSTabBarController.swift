@@ -53,5 +53,6 @@ class FSTabBarController: UITabBarController {
     private func customizeTabBar() {
         self.tabBar.isTranslucent = false
         self.tabBar.tintColor = FSColors.mainPink
+        self.tabBar.barTintColor = FSColors.whitePink
     }
 }
