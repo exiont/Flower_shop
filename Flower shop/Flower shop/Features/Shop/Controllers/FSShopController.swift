@@ -32,7 +32,7 @@ class FSShopController: FSViewController  {
     private lazy var appLabel: UILabel = {
         let label = UILabel()
         label.text = "Цветочный магазин"
-        label.textColor = UIColor(named: "brown_red")
+        label.textColor = FSColors.brownRed
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.applyCustomFont(name: "Caveat-Regular", size: 30)
@@ -52,9 +52,9 @@ class FSShopController: FSViewController  {
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.tintColor = .clear
         segmentedControl.backgroundColor = .clear
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "brown_red") ?? .systemPink,
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: FSColors.brownRed,
                                                  NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular)], for: .normal)
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "brown_red") ?? .systemPink,
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: FSColors.brownRed,
                                                  NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold)], for: .selected)
         segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue), for: .valueChanged)
         segmentedControl.removeStyle()
@@ -63,14 +63,14 @@ class FSShopController: FSViewController  {
 
     private lazy var leftBottomUnderlineView: UIView = {
         let underlineView = UIView()
-        underlineView.backgroundColor = UIColor(named: "main_pink")
+        underlineView.backgroundColor = FSColors.mainPink
         underlineView.translatesAutoresizingMaskIntoConstraints = false
         return underlineView
     }()
 
     private lazy var rightBottomUnderlineView: UIView = {
         let underlineView = UIView()
-        underlineView.backgroundColor = UIColor(named: "main_pink")
+        underlineView.backgroundColor = FSColors.mainPink
         underlineView.translatesAutoresizingMaskIntoConstraints = false
         underlineView.isHidden = true
         return underlineView
@@ -80,14 +80,14 @@ class FSShopController: FSViewController  {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Поиск"
         searchBar.sizeToFit()
-        searchBar.searchTextField.backgroundColor = UIColor(named: "white_pink")
+        searchBar.searchTextField.backgroundColor = FSColors.whitePink
         searchBar.searchTextField.layer.cornerRadius = 5
         searchBar.searchTextField.borderStyle = .none
         searchBar.searchTextField.layer.borderWidth = 0.5
-        searchBar.searchTextField.layer.borderColor = UIColor(named: "main_pink")?.cgColor
-        searchBar.searchTextField.textColor = UIColor(named: "brown_red")
+        searchBar.searchTextField.layer.borderColor = FSColors.mainPink.cgColor
+        searchBar.searchTextField.textColor = FSColors.brownRed
         searchBar.searchBarStyle = .minimal
-        searchBar.tintColor = UIColor(named: "main_pink")
+        searchBar.tintColor = FSColors.mainPink
         searchBar.delegate = self
 
         return searchBar
@@ -135,27 +135,27 @@ class FSShopController: FSViewController  {
     }
 
     private func updateProductsList() { // будет подгрузка из базы
-        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
+        products.append(FSProduct(id: "001", image: nil, price: 5, name: "Тюльпан", description: "Заморский"))
+        products.append(FSProduct(id: "002", image: nil, price: 7, name: "Хризантема", description: "Однолетняя"))
+        products.append(FSProduct(id: "003", image: nil, price: 4, name: "Роза", description: "Многолетняя"))
+        products.append(FSProduct(id: "004", image: nil, price: 9, name: "Свекла", description: "Добротная"))
+        products.append(FSProduct(id: "005", image: nil, price: 10, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(FSProduct(id: "006", image: nil, price: 12, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(FSProduct(id: "007", image: nil, price: 15, name: "Праздничная", description: "Корзина", isBouquet: true))
+        products.append(FSProduct(id: "001", image: nil, price: 5, name: "Тюльпан", description: "Заморский"))
+        products.append(FSProduct(id: "002", image: nil, price: 7, name: "Хризантема", description: "Однолетняя"))
+        products.append(FSProduct(id: "003", image: nil, price: 4, name: "Роза", description: "Многолетняя"))
+        products.append(FSProduct(id: "004", image: nil, price: 9, name: "Свекла", description: "Добротная"))
+        products.append(FSProduct(id: "005", image: nil, price: 10, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(FSProduct(id: "006", image: nil, price: 12, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(FSProduct(id: "007", image: nil, price: 15, name: "Праздничная", description: "Корзина", isBouquet: true))
+        products.append(FSProduct(id: "001", image: nil, price: 5, name: "Тюльпан", description: "Заморский"))
+        products.append(FSProduct(id: "002", image: nil, price: 7, name: "Хризантема", description: "Однолетняя"))
+        products.append(FSProduct(id: "003", image: nil, price: 4, name: "Роза", description: "Многолетняя"))
+        products.append(FSProduct(id: "004", image: nil, price: 9, name: "Свекла", description: "Добротная"))
+        products.append(FSProduct(id: "005", image: nil, price: 10, name: "Свежий", description: "Букет", isBouquet: true))
+        products.append(FSProduct(id: "006", image: nil, price: 12, name: "Весенний", description: "Букетик", isBouquet: true))
+        products.append(FSProduct(id: "007", image: nil, price: 15, name: "Праздничная", description: "Корзина", isBouquet: true))
     }
 
     private func setupConstraints() {
@@ -262,7 +262,8 @@ extension FSShopController: UITableViewDataSource {
         let product = self.filteredPdoructs[indexPath.row]
         cell.setCell(image: product.image ?? placeholderImage,
                      name: product.name,
-                     description: product.description)
+                     description: product.description,
+                     price: product.price)
 
         return cell
     }

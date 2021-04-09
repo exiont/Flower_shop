@@ -11,13 +11,13 @@ class FSProductTableViewCell: UITableViewCell {
 
     static let reuseIdentifier: String = "FSProductTableViewCell"
 
-    private let productImageSize: CGFloat = 70
+    private let productImageSize: CGSize = CGSize(width: 70, height: 70)
 
     private lazy var productContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
-        view.layer.shadowColor = UIColor(named: "main_pink")?.cgColor
+        view.layer.shadowColor = FSColors.mainPink.cgColor
         view.layer.shadowOpacity = 1
         view.layer.shadowRadius = 1
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -33,7 +33,7 @@ class FSProductTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "flower_placeholder")
 //        imageView.
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 35
+        imageView.layer.cornerRadius = self.productImageSize.height / 2
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
         imageView.layer.borderWidth = 1
@@ -44,7 +44,7 @@ class FSProductTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(named: "brown_red")
+        label.textColor = FSColors.brownRed
         return label
     }()
 
@@ -52,7 +52,26 @@ class FSProductTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = UIColor(named: "brown_red")
+        label.textColor = FSColors.brownRed
+
+        return label
+    }()
+
+    private lazy var productPrice: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = FSColors.brownRed
+
+        return label
+    }()
+
+    private lazy var productPriceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = FSColors.brownRed
+        label.text = "руб."
 
         return label
     }()
@@ -72,6 +91,8 @@ class FSProductTableViewCell: UITableViewCell {
         self.productContainerView.addSubview(self.productImageView)
         self.productContainerView.addSubview(self.productName)
         self.productContainerView.addSubview(self.productDescription)
+        self.productContainerView.addSubview(self.productPrice)
+        self.productContainerView.addSubview(self.productPriceLabel)
         self.selectionStyle = .none
     }
 
@@ -90,22 +111,32 @@ class FSProductTableViewCell: UITableViewCell {
         self.productName.snp.updateConstraints { (make) in
             make.top.equalToSuperview().inset(10)
             make.left.equalTo(self.productImageView.snp.right).offset(10)
-            make.right.equalToSuperview().inset(10)
         }
 
         self.productDescription.snp.updateConstraints { (make) in
             make.top.equalTo(self.productName.snp.bottom).offset(10)
             make.left.equalTo(self.productImageView.snp.right).offset(10)
-            make.right.equalToSuperview().inset(10)
+            make.right.equalTo(self.productName)
+        }
+
+        self.productPrice.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.right.equalTo(self.productPriceLabel.snp.left).offset(-5)
+        }
+
+        self.productPriceLabel.snp.updateConstraints { (make) in
+            make.top.bottom.equalTo(self.productPrice)
+            make.right.equalToSuperview().inset(15)
         }
 
         super.updateConstraints()
     }
 
-    func setCell(image: UIImage, name: String, description: String) {
+    func setCell(image: UIImage, name: String, description: String, price: Double) {
         self.productImageView.image = image
         self.productName.text = name
         self.productDescription.text = description
+        self.productPrice.text = String(price)
 
         self.setNeedsUpdateConstraints()
     }
