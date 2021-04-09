@@ -47,47 +47,27 @@ class FSShopController: FSViewController  {
         return containerView
     }()
 
-    private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["Цветы", "Букеты"])
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.tintColor = .clear
-        segmentedControl.backgroundColor = .clear
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: FSColors.brownRed,
-                                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular)], for: .normal)
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: FSColors.brownRed,
-                                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold)], for: .selected)
+    private lazy var segmentedControl: FSSegmentedControl = {
+        let segmentedControl = FSSegmentedControl(items: ["Цветы", "Букеты"])
         segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue), for: .valueChanged)
         segmentedControl.removeStyle()
         return segmentedControl
     }()
 
-    private lazy var leftBottomUnderlineView: UIView = {
-        let underlineView = UIView()
-        underlineView.backgroundColor = FSColors.mainPink
-        underlineView.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var leftBottomUnderlineView: FSLineView = {
+        let underlineView = FSLineView()
         return underlineView
     }()
 
-    private lazy var rightBottomUnderlineView: UIView = {
-        let underlineView = UIView()
-        underlineView.backgroundColor = FSColors.mainPink
-        underlineView.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var rightBottomUnderlineView: FSLineView = {
+        let underlineView = FSLineView()
         underlineView.isHidden = true
         return underlineView
     }()
 
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
+    private lazy var searchBar: FSSearchBar = {
+        let searchBar = FSSearchBar()
         searchBar.placeholder = "Поиск"
-        searchBar.sizeToFit()
-        searchBar.searchTextField.backgroundColor = FSColors.whitePink
-        searchBar.searchTextField.layer.cornerRadius = 5
-        searchBar.searchTextField.borderStyle = .none
-        searchBar.searchTextField.layer.borderWidth = 0.5
-        searchBar.searchTextField.layer.borderColor = FSColors.mainPink.cgColor
-        searchBar.searchTextField.textColor = FSColors.brownRed
-        searchBar.searchBarStyle = .minimal
-        searchBar.tintColor = FSColors.mainPink
         searchBar.delegate = self
 
         return searchBar
@@ -181,7 +161,6 @@ class FSShopController: FSViewController  {
 
         self.leftBottomUnderlineView.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.segmentedControl.snp.bottom)
-            make.height.equalTo(1)
             make.left.equalTo(self.segmentedControl.snp.left)
             make.right.lessThanOrEqualTo(self.segmentedControl.snp.right).inset(self.view.frame.width / 2)
             make.width.equalTo(self.view.frame.width / 2)
@@ -189,7 +168,6 @@ class FSShopController: FSViewController  {
 
         self.rightBottomUnderlineView.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.segmentedControl.snp.bottom)
-            make.height.equalTo(1)
             make.right.equalTo(self.segmentedControl.snp.right)
             make.left.lessThanOrEqualTo(self.segmentedControl.snp.left).inset(self.view.frame.width / 2)
             make.width.equalTo(self.view.frame.width / 2)

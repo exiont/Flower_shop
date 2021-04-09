@@ -131,14 +131,9 @@ class FSProductViewController: FSViewController {
         return stackView
     }()
 
-    private lazy var addToCartButton: UIButton = {
-        let button = UIButton()
+    private lazy var addToCartButton: FSButton = {
+        let button = FSButton()
         button.setTitle("Добавить в корзину", for: .normal)
-        button.backgroundColor = FSColors.mainPink
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 5
-        button.layer.borderColor = FSColors.brownRed.cgColor
-        button.layer.borderWidth = 0.5
         button.addTarget(self, action: #selector(addToCartButtonDidTap), for: .touchUpInside)
 
         return button
