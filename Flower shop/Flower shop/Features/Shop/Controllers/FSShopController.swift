@@ -252,6 +252,7 @@ extension FSShopController: UITableViewDelegate {
         let vc = FSProductViewController()
         let product = products[indexPath.row]
         vc.loadData(product: product)
-        navigationController?.present(vc, animated: true, completion: nil)
+        navigationController?.modalPresentationStyle = .formSheet
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

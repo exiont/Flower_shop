@@ -31,6 +31,7 @@
 		D529A27926209D8F002151C2 /* FSSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27826209D8F002151C2 /* FSSearchBar.swift */; };
 		D529A27C2620A553002151C2 /* FSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27B2620A553002151C2 /* FSButton.swift */; };
 		D529A2802620A830002151C2 /* FSSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27F2620A830002151C2 /* FSSegmentedControl.swift */; };
+		D529A2852620B402002151C2 /* FSAppCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A2842620B402002151C2 /* FSAppCaller.swift */; };
 		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		D529A27826209D8F002151C2 /* FSSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSearchBar.swift; sourceTree = "<group>"; };
 		D529A27B2620A553002151C2 /* FSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSButton.swift; sourceTree = "<group>"; };
 		D529A27F2620A830002151C2 /* FSSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegmentedControl.swift; sourceTree = "<group>"; };
+		D529A2842620B402002151C2 /* FSAppCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSAppCaller.swift; sourceTree = "<group>"; };
 		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		884C4EA42610BD8600788046 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D529A2832620B307002151C2 /* Sharing */,
 				D5D86681260C818F008F5729 /* FSTabBarController.swift */,
 				D526FB69261A39BF00829788 /* FSViewController.swift */,
 			);
@@ -330,6 +333,14 @@
 				D529A27F2620A830002151C2 /* FSSegmentedControl.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		D529A2832620B307002151C2 /* Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				D529A2842620B402002151C2 /* FSAppCaller.swift */,
+			);
+			path = Sharing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -502,6 +513,7 @@
 				88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */,
 				88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */,
 				8845C8BE26190D65002E2129 /* UISegmentedControl+Ex.swift in Sources */,
+				D529A2852620B402002151C2 /* FSAppCaller.swift in Sources */,
 				D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */,
 				D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */,
 			);

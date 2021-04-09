@@ -24,4 +24,9 @@ class FSCartController: FSViewController {
     override func viewDidAppear(_ animated: Bool) {
 
     }
+
+    func updateProductList(with product: FSProduct) {
+        products.append(product)
+    }
+
 }

@@ -243,6 +243,12 @@ class FSProductViewController: FSViewController {
     }
 
     @objc func addToCartButtonDidTap() {
+
+       guard let navVC = tabBarController?.viewControllers![1] as? UINavigationController,
+             let cartTableViewController = navVC.topViewController as? FSCartController else { return }
+        if let product = self.product {
+            cartTableViewController.updateProductList(with: product)
+        }
 //        guard let vc = FSTabBarController().viewControllers?[1] as? FSCartController else { return }
 //        if let product = self.product {
 //            vc.products.append(product)
