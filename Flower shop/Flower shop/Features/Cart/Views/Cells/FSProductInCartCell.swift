@@ -137,7 +137,7 @@ class FSProductInCartCell: UITableViewCell {
         }
 
         self.productName.snp.updateConstraints { (make) in
-            make.top.equalToSuperview().inset(5)
+            make.top.equalToSuperview().inset(10)
             make.left.equalTo(self.productImageView.snp.right).offset(5)
             make.right.greaterThanOrEqualTo(self.productQuantityStackView.snp.left)
         }
@@ -146,7 +146,7 @@ class FSProductInCartCell: UITableViewCell {
             make.top.equalTo(self.productName.snp.bottom).offset(5)
             make.left.equalTo(self.productImageView.snp.right).offset(5)
             make.right.greaterThanOrEqualTo(self.productQuantityStackView.snp.left)
-            make.bottom.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview()
         }
 
         self.productPrice.snp.updateConstraints { (make) in
@@ -155,11 +155,13 @@ class FSProductInCartCell: UITableViewCell {
         }
 
         self.productPriceCurrency.snp.updateConstraints { (make) in
-            make.top.right.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.right.lessThanOrEqualToSuperview()
         }
 
         self.productQuantityStackView.snp.updateConstraints { (make) in
             make.top.right.bottom.equalToSuperview()
+            make.width.equalTo(100)
         }
 
         self.addProductItemButton.snp.makeConstraints { (make) in
@@ -168,13 +170,13 @@ class FSProductInCartCell: UITableViewCell {
 
         self.productCurrentQuantity.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
-            make.left.equalTo(self.addProductItemButton.snp.right).offset(5)
-//            make.width.equalTo(45)
+            make.left.equalTo(self.addProductItemButton.snp.right)
+            make.width.equalTo(40)
         }
 
         self.removeProductItemButton.snp.makeConstraints { (make) in
             make.top.right.bottom.equalToSuperview()
-            make.left.equalTo(self.productCurrentQuantity.snp.right).offset(5)
+            make.left.equalTo(self.productCurrentQuantity.snp.right)
         }
 
         super.updateConstraints()
