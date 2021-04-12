@@ -248,7 +248,7 @@ class FSProductViewController: FSViewController {
         self.productCurrentQuantity.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
             make.left.equalTo(self.addProductItemButton.snp.right).offset(5)
-            make.width.equalTo(55)
+            make.width.equalTo(45)
         }
 
         self.removeProductItemButton.snp.makeConstraints { (make) in
@@ -295,18 +295,19 @@ class FSProductViewController: FSViewController {
         if let product = self.product {
             cartTableViewController.updateProductList(with: product, and: self.counter)
         }
-//        guard let vc = FSTabBarController().viewControllers?[1] as? FSCartController else { return }
-//        if let product = self.product {
-//            vc.products.append(product)
-//        }
     }
 
     @objc func addProductItemButtonDidTap() {
         guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
-        var newQuantity = currentQuantity
-        newQuantity += 1
-        self.counter = newQuantity
-        self.productCurrentQuantity.text = String(newQuantity)
+        if currentQuantity < 500 {
+            var newQuantity = currentQuantity
+            newQuantity += 1
+            self.counter = newQuantity
+            self.productCurrentQuantity.text = String(newQuantity)
+        } else {
+            self.showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
+        }
+
     }
 
     @objc func removeProductItemButtonDidTap() {

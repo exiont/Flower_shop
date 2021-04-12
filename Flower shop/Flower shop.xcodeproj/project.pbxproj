@@ -37,6 +37,7 @@
 		D529A2972620F7C8002151C2 /* FSCounterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A2962620F7C8002151C2 /* FSCounterButton.swift */; };
 		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
+		D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E151582624623B00C3389C /* FSProductInCart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		D529A2962620F7C8002151C2 /* FSCounterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCounterButton.swift; sourceTree = "<group>"; };
 		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
+		D5E151582624623B00C3389C /* FSProductInCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCart.swift; sourceTree = "<group>"; };
 		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -226,6 +228,7 @@
 		884C4EA72610BE0A00788046 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D5E151582624623B00C3389C /* FSProductInCart.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				884C4EB22610DF8B00788046 /* FSProductTableViewCell.swift in Sources */,
+				D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */,
 				D529A27626209B34002151C2 /* FSLineView.swift in Sources */,
 				D529A2972620F7C8002151C2 /* FSCounterButton.swift in Sources */,
 				D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */,

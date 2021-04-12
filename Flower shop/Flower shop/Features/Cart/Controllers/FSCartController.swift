@@ -9,8 +9,7 @@ import UIKit
 
 class FSCartController: FSViewController {
 
-    var products: [FSProduct] = []
-    var counters: [Int] = []
+    var productsInCart: [FSProductInCart] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -22,8 +21,17 @@ class FSCartController: FSViewController {
         self.view.backgroundColor = .systemTeal
     }
 
-    func updateProductList(with product: FSProduct, and counter: Int) {
-        products.append(product)
-        self.counters.append(counter)
+    func updateProductList(with product: FSProduct, and quantity: Int) {
+
+        if productsInCart.filter({ $0.product.id == product.id }).count == 0 {
+            let addedProduct = FSProductInCart(product: product, quantity: quantity)
+            productsInCart.append(addedProduct)
+        } else {
+            for (index, item) in productsInCart.enumerated() {
+                if item.product.id == product.id {
+                    productsInCart[index].quantity += quantity
+                }
+            }
+        }
     }
 }
