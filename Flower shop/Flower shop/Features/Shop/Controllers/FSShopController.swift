@@ -29,12 +29,10 @@ class FSShopController: FSViewController  {
         return imageView
     }()
 
-    private lazy var appLabel: UILabel = {
-        let label = UILabel()
+    private lazy var appLabel: FSLabel = {
+        let label = FSLabel()
         label.text = "Цветочный магазин"
-        label.textColor = FSColors.brownRed
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.applyCustomFont(name: "Caveat-Regular", size: 30)
 
         return label

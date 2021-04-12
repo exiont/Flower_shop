@@ -31,7 +31,6 @@ class FSProductTableViewCell: UITableViewCell {
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "flower_placeholder")
-//        imageView.
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = self.productImageSize.height / 2
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,11 +39,10 @@ class FSProductTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    private lazy var productName: UILabel = {
-        let label = UILabel()
+    private lazy var productName: FSLabel = {
+        let label = FSLabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = FSColors.brownRed
+
         return label
     }()
 

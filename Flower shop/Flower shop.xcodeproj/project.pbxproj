@@ -38,6 +38,7 @@
 		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 		D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E151582624623B00C3389C /* FSProductInCart.swift */; };
+		D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		D5E151582624623B00C3389C /* FSProductInCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCart.swift; sourceTree = "<group>"; };
+		D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCartCell.swift; sourceTree = "<group>"; };
 		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -221,6 +223,7 @@
 		884C4EA62610BE0400788046 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D5E1515B26246C8900C3389C /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -353,6 +356,14 @@
 				D529A2842620B402002151C2 /* FSAppCaller.swift */,
 			);
 			path = Sharing;
+			sourceTree = "<group>";
+		};
+		D5E1515B26246C8900C3389C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,6 +522,7 @@
 				D529A27626209B34002151C2 /* FSLineView.swift in Sources */,
 				D529A2972620F7C8002151C2 /* FSCounterButton.swift in Sources */,
 				D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */,
+				D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */,
 				884C4E88260FDC3E00788046 /* FSAuthorizationController.swift in Sources */,
 				8851E1AA26189FD8000AC2E4 /* FSMarket.swift in Sources */,
 				D529A2802620A830002151C2 /* FSSegmentedControl.swift in Sources */,
