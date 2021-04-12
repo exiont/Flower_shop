@@ -10,7 +10,7 @@ import UIKit
 class FSProductViewController: FSViewController {
 
     var product: FSProduct? = nil
-    var counter: Int = 99
+    var counter: Int = 9
 
     let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
     let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: FSColors.mainPink,
@@ -293,7 +293,7 @@ class FSProductViewController: FSViewController {
        guard let navVC = tabBarController?.viewControllers![1] as? UINavigationController,
              let cartTableViewController = navVC.topViewController as? FSCartController else { return }
         if let product = self.product {
-            cartTableViewController.updateProductList(with: product, and: self.counter)
+            cartTableViewController.addProductToCart(with: product, and: self.counter)
         }
     }
 

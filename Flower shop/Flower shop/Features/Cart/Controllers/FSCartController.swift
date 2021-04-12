@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FSProductInCartCellDelegate: class {
+    func updateTotalPrice()
+}
+
 class FSCartController: FSViewController {
 
     var productsInCart: [FSProductInCart] = []
@@ -29,16 +33,47 @@ class FSCartController: FSViewController {
         return tableView
     }()
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.tableView.reloadData()
-    }
+    private lazy var totalPriceLabel: FSLabel = {
+        let label = FSLabel()
+        label.text = "Итого:"
+
+        return label
+    }()
+
+    private lazy var totalPrice: FSLabel = {
+        let label = FSLabel()
+
+        return label
+    }()
+
+    private lazy var totalPriceCurrency: FSLabel = {
+        let label = FSLabel()
+        label.text = "руб."
+
+        return label
+    }()
+
+    private lazy var totalPriceStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addSubview(totalPriceLabel)
+        stackView.addSubview(totalPrice)
+        stackView.addSubview(totalPriceCurrency)
+
+        return stackView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.cartLabel)
         self.view.addSubview(self.tableView)
+        self.view.addSubview(self.totalPriceStackView)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.tableView.reloadData()
+        self.calculateTotalPrice()
     }
 
     override func updateViewConstraints() {
@@ -49,13 +84,33 @@ class FSCartController: FSViewController {
 
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.cartLabel.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.height.equalTo(self.view.bounds.height / 7 * 3)
+        }
+
+        self.totalPriceStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.tableView.snp.bottom)
+            make.left.right.equalToSuperview()
+        }
+
+        self.totalPriceLabel.snp.makeConstraints { (make) in
+            make.top.left.bottom.equalToSuperview()
+        }
+
+        self.totalPrice.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.left.equalTo(self.totalPriceLabel.snp.right)
+        }
+
+        self.totalPriceCurrency.snp.makeConstraints { (make) in
+            make.top.right.bottom.equalToSuperview()
+            make.left.equalTo(self.totalPrice.snp.right)
         }
 
         super.updateViewConstraints()
     }
 
-    func updateProductList(with product: FSProduct, and quantity: Int) {
+    func addProductToCart(with product: FSProduct, and quantity: Int) {
 
         if productsInCart.filter({ $0.product.id == product.id }).count == 0 {
             let addedProduct = FSProductInCart(product: product, quantity: quantity)
@@ -67,6 +122,14 @@ class FSCartController: FSViewController {
                 }
             }
         }
+    }
+
+    func calculateTotalPrice() {
+        var totalPrice: Double = 0
+        for item in self.productsInCart {
+            totalPrice += item.product.price * Double(item.quantity)
+        }
+        self.totalPrice.text = String(totalPrice)
     }
 }
 
@@ -84,6 +147,7 @@ extension FSCartController: UITableViewDataSource {
                      name: addedProduct.product.name,
                      price: addedProduct.product.price,
                      quantity: addedProduct.quantity)
+        cell.delegate = self
 
         return cell
     }
@@ -98,5 +162,15 @@ extension FSCartController: UITableViewDelegate {
 
 //        let navVC = UINavigationController(rootViewController: vc)
 //        self.present(navVC, animated: true, completion: nil)
+    }
+
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return tableView.bounds.height / 5
+//    }
+}
+
+extension FSCartController: FSProductInCartCellDelegate {
+    func updateTotalPrice() {
+
     }
 }

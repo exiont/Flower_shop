@@ -11,6 +11,8 @@ class FSProductInCartCell: UITableViewCell {
 
     static let reuseIdentifier: String = "FSProductInCartCell"
 
+    weak var delegate: FSProductInCartCellDelegate?
+
     let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: FSColors.mainPink,
                                                                           NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
 
@@ -37,6 +39,7 @@ class FSProductInCartCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "flower_placeholder")
         imageView.clipsToBounds = true
+//        imageView.layer.cornerRadius = self.frame.height / 2
         imageView.layer.cornerRadius = self.productImageSize.height / 2
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
@@ -79,6 +82,7 @@ class FSProductInCartCell: UITableViewCell {
         let button = FSCounterButton()
         button.setAttributedTitle(NSAttributedString(string: "+", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(addProductItemButtonDidTap), for: .touchUpInside)
+
         return button
     }()
 
@@ -138,13 +142,13 @@ class FSProductInCartCell: UITableViewCell {
 
         self.productName.snp.updateConstraints { (make) in
             make.top.equalToSuperview().inset(10)
-            make.left.equalTo(self.productImageView.snp.right).offset(5)
+            make.left.equalTo(self.productImageView.snp.right).offset(10)
             make.right.greaterThanOrEqualTo(self.productQuantityStackView.snp.left)
         }
 
         self.productPriceStackView.snp.updateConstraints { (make) in
             make.top.equalTo(self.productName.snp.bottom).offset(5)
-            make.left.equalTo(self.productImageView.snp.right).offset(5)
+            make.left.equalTo(self.productName)
             make.right.greaterThanOrEqualTo(self.productQuantityStackView.snp.left)
             make.bottom.lessThanOrEqualToSuperview()
         }
@@ -161,7 +165,7 @@ class FSProductInCartCell: UITableViewCell {
 
         self.productQuantityStackView.snp.updateConstraints { (make) in
             make.top.right.bottom.equalToSuperview()
-            make.width.equalTo(100)
+            make.width.equalTo(105)
         }
 
         self.addProductItemButton.snp.makeConstraints { (make) in
@@ -171,7 +175,7 @@ class FSProductInCartCell: UITableViewCell {
         self.productCurrentQuantity.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
             make.left.equalTo(self.addProductItemButton.snp.right)
-            make.width.equalTo(40)
+            make.width.equalTo(45)
         }
 
         self.removeProductItemButton.snp.makeConstraints { (make) in
@@ -198,6 +202,7 @@ class FSProductInCartCell: UITableViewCell {
             newQuantity += 1
             self.counter = newQuantity
             self.productCurrentQuantity.text = String(newQuantity)
+            delegate?.updateTotalPrice()
         } else {
 //            self.showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
         }
@@ -210,6 +215,7 @@ class FSProductInCartCell: UITableViewCell {
         newQuantity -= 1
         self.counter = newQuantity
         self.productCurrentQuantity.text = String(newQuantity)
+        delegate?.updateTotalPrice()
         } else {
 //            self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
         }
