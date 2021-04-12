@@ -85,12 +85,13 @@ class FSCartController: FSViewController {
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.cartLabel.snp.bottom)
             make.left.right.equalToSuperview()
-            make.height.equalTo(self.view.bounds.height / 7 * 3)
+//            make.height.equalTo(self.view.bounds.height / 7 * 3)
         }
 
         self.totalPriceStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.tableView.snp.bottom)
+            make.top.lessThanOrEqualTo(self.tableView.snp.bottom)
             make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
 
         self.totalPriceLabel.snp.makeConstraints { (make) in
