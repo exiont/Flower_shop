@@ -11,7 +11,7 @@ class FSProductTableViewCell: UITableViewCell {
 
     static let reuseIdentifier: String = "FSProductTableViewCell"
 
-    private let productImageSize: CGSize = CGSize(width: 70, height: 70)
+    private let productImageSize: CGSize = CGSize(width: 60, height: 60)
 
     private lazy var productContainerView: UIView = {
         let view = UIView()
@@ -41,7 +41,7 @@ class FSProductTableViewCell: UITableViewCell {
 
     private lazy var productName: FSLabel = {
         let label = FSLabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 17)
 
         return label
     }()

@@ -199,7 +199,5 @@ extension FSShopController: UITableViewDelegate {
         let product = products[indexPath.row]
         vc.loadData(product: product)
         navigationController?.pushViewController(vc, animated: true)
-//        let navVC = UINavigationController(rootViewController: vc)
-//        self.present(navVC, animated: true, completion: nil)
     }
 }

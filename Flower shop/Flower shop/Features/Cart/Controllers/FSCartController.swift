@@ -65,11 +65,29 @@ class FSCartController: FSViewController {
 
     private lazy var deliveryMethodSegmentedControlView: FSSegmentedControlView = {
         let view = FSSegmentedControlView()
-        view.segmentedControl.insertSegment(withTitle: "Доставка", at: 0, animated: true)
-        view.segmentedControl.insertSegment(withTitle: "Самовывоз", at: 1, animated: true)
+        view.segmentedControl.insertSegment(withTitle: "Доставка", at: 0, animated: false)
+        view.segmentedControl.insertSegment(withTitle: "Самовывоз", at: 1, animated: false)
         view.segmentedControl.selectedSegmentIndex = 0
         view.segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue(sender:)), for: .valueChanged)
         return view
+    }()
+
+    private lazy var phoneNumberTextField: FSTextField = {
+        let textField = FSTextField()
+        textField.placeholder = "Номер телефона"
+        textField.leftView = UIImageView(image: UIImage(systemName: "phone.circle.fill"))
+        textField.keyboardType = .phonePad
+        textField.delegate = self
+        return textField
+    }()
+
+    private lazy var deliveryAddressTextField: FSTextField = {
+        let textField = FSTextField()
+        textField.placeholder = "Адрес доставки"
+        textField.leftView = UIImageView(image: UIImage(systemName: "house.circle.fill"))
+        textField.delegate = self
+        textField.autocorrectionType = .no
+        return textField
     }()
 
     private lazy var paymentMethodLabel: FSLabel = {
@@ -102,13 +120,58 @@ class FSCartController: FSViewController {
         return stackView
     }()
 
+    private lazy var courierDeliveryStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addSubview(self.paymentMethodStackView)
+        stackView.addSubview(self.phoneNumberTextField)
+        stackView.addSubview(self.deliveryAddressTextField)
+
+        return stackView
+    }()
+
+    private lazy var takeawayShopsRadioGroup: ALRadioGroup = {
+        let firstShop = ALRadioItem(title: "Магазин 1, ул. Хамицевича 3", subtitle: "ст.м. Тракторный завод")
+        let secondShop = ALRadioItem(title: "Магазин 2, ул. Евгения 2", subtitle: "ст.м. Московская")
+        let thirdShop = ALRadioItem(title: "Магазин 3, ул. Михайловича 1", subtitle: "ст.м. Зелёный луг")
+        let radioGroup = ALRadioGroup(items: [firstShop, secondShop, thirdShop], style: .standard)
+        radioGroup.selectedIndex = 0
+        radioGroup.addTarget(self, action: #selector(radioGroupSelected(_:)), for: .valueChanged)
+        radioGroup.axis = .vertical
+        radioGroup.unselectedTitleColor = FSColors.brownRed
+        radioGroup.selectedTitleColor = FSColors.mainPink
+        radioGroup.unselectedIndicatorColor = FSColors.brownRed
+        radioGroup.selectedIndicatorColor = FSColors.mainPink
+        radioGroup.subtitleColor = .gray
+        radioGroup.indicatorRingWidth = 1
+        radioGroup.separatorColor = .clear
+
+        return radioGroup
+    }()
+
+    private lazy var takeawayStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addSubview(self.takeawayShopsRadioGroup)
+        stackView.alpha = 0
+
+        return stackView
+    }()
+
+    private lazy var checkoutButton: FSButton = {
+        let button = FSButton()
+        button.setTitle("Оформить заказ", for: .normal)
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
         self.view.addSubview(self.cartLabel)
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.totalPriceStackView)
         self.view.addSubview(self.deliveryMethodSegmentedControlView)
-        self.view.addSubview(self.paymentMethodStackView)
+        self.view.addSubview(self.courierDeliveryStackView)
+        self.view.addSubview(self.takeawayStackView)
+        self.view.addSubview(self.checkoutButton)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -132,17 +195,17 @@ class FSCartController: FSViewController {
             case 0:
                 make.height.equalTo(0)
             case 1:
-                make.height.equalTo(80)
+                make.height.equalTo(60)
             case 2:
-                make.height.equalTo(160)
+                make.height.equalTo(120)
             default:
-                make.height.equalTo(240)
+                make.height.equalTo(180)
             }
         }
 
         self.totalPriceStackView.snp.makeConstraints { (make) in
             make.top.equalTo(self.tableView.snp.bottom).offset(5)
-            make.left.right.equalToSuperview()
+            make.left.right.equalToSuperview().inset(10)
         }
 
         self.totalPriceLabel.snp.makeConstraints { (make) in
@@ -163,13 +226,27 @@ class FSCartController: FSViewController {
         self.deliveryMethodSegmentedControlView.snp.makeConstraints { (make) in
             make.top.equalTo(self.totalPriceStackView.snp.bottom).offset(5)
             make.left.right.equalToSuperview()
-            make.height.equalTo(40)
+            make.height.equalTo(35)
+        }
+
+        self.takeawayStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom)
+            make.left.right.equalToSuperview()
+        }
+
+        self.takeawayShopsRadioGroup.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview().inset(15)
+            make.bottom.equalToSuperview()
+        }
+
+        self.courierDeliveryStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom)
+            make.left.right.equalToSuperview()
         }
 
         self.paymentMethodStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom).offset(5)
-            make.left.right.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview()
+            make.top.equalToSuperview().inset(10)
+            make.left.right.equalToSuperview().inset(15)
         }
 
         self.paymentMethodLabel.snp.makeConstraints { (make) in
@@ -177,8 +254,26 @@ class FSCartController: FSViewController {
         }
 
         self.paymentMethodRadioGroup.snp.makeConstraints { (make) in
-            make.top.equalTo(self.paymentMethodLabel.snp.bottom)
+            make.top.equalTo(self.paymentMethodLabel.snp.bottom).offset(5)
             make.left.right.bottom.equalToSuperview()
+        }
+
+        self.phoneNumberTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.paymentMethodStackView.snp.bottom).offset(5)
+            make.left.right.equalToSuperview().inset(15)
+        }
+
+        self.deliveryAddressTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.phoneNumberTextField.snp.bottom).offset(10)
+            make.left.right.equalToSuperview().inset(15)
+            make.bottom.equalToSuperview()
+        }
+
+        self.checkoutButton.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.courierDeliveryStackView.snp.bottom).offset(20)
+            make.left.right.equalToSuperview().inset(45)
+            make.bottom.lessThanOrEqualToSuperview()
+            make.height.equalTo(40)
         }
 
         super.updateViewConstraints()
@@ -206,6 +301,10 @@ class FSCartController: FSViewController {
         self.totalPrice.text = String(totalPrice)
     }
 
+    @objc private func viewDidTapped() {
+        self.view.endEditing(true)
+    }
+
     @objc private func radioGroupSelected(_ sender: ALRadioGroup) {
 //        print(sender.selectedIndex)
     }
@@ -216,9 +315,27 @@ class FSCartController: FSViewController {
         case 0:
             self.deliveryMethodSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
             self.deliveryMethodSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
+            self.courierDeliveryStackView.alpha = 1
+            self.takeawayStackView.alpha = 0
+
+            self.checkoutButton.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.courierDeliveryStackView.snp.bottom).offset(20)
+                make.left.right.equalToSuperview().inset(45)
+                make.bottom.lessThanOrEqualToSuperview()
+                make.height.equalTo(40)
+            }
         case 1:
             self.deliveryMethodSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
             self.deliveryMethodSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
+            self.courierDeliveryStackView.alpha = 0
+            self.takeawayStackView.alpha = 1
+
+            self.checkoutButton.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.takeawayStackView.snp.bottom)
+                make.left.right.equalToSuperview().inset(45)
+                make.bottom.lessThanOrEqualToSuperview()
+                make.height.equalTo(40)
+            }
         default:
             break
         }
@@ -257,12 +374,19 @@ extension FSCartController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 60
     }
 }
 
 extension FSCartController: FSProductInCartCellDelegate {
     func updateTotalPrice() {
 
+    }
+}
+
+extension FSCartController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

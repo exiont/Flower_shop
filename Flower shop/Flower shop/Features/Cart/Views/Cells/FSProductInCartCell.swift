@@ -18,7 +18,7 @@ class FSProductInCartCell: UITableViewCell {
 
     private lazy var counter: Int = 0
 
-    private let productImageSize: CGSize = CGSize(width: 70, height: 70)
+    private let productImageSize: CGSize = CGSize(width: 50, height: 50)
 
     private lazy var productContainerView: UIView = {
         let view = UIView()
@@ -49,21 +49,21 @@ class FSProductInCartCell: UITableViewCell {
 
     private lazy var productName: FSLabel = {
         let label = FSLabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
 
         return label
     }()
 
     private lazy var productPrice: FSLabel = {
         let label = FSLabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
 
         return label
     }()
 
     private lazy var productPriceCurrency: FSLabel = {
         let label = FSLabel()
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         label.text = "руб."
 
         return label
@@ -141,7 +141,7 @@ class FSProductInCartCell: UITableViewCell {
         }
 
         self.productName.snp.updateConstraints { (make) in
-            make.top.equalToSuperview().inset(15)
+            make.top.equalToSuperview().inset(5)
             make.left.equalTo(self.productImageView.snp.right).offset(10)
             make.right.greaterThanOrEqualTo(self.productQuantityStackView.snp.left)
         }
