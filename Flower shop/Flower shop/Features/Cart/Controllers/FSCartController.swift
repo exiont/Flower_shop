@@ -63,6 +63,15 @@ class FSCartController: FSViewController {
         return stackView
     }()
 
+    private lazy var deliveryMethodSegmentedControlView: FSSegmentedControlView = {
+        let view = FSSegmentedControlView()
+        view.segmentedControl.insertSegment(withTitle: "Доставка", at: 0, animated: true)
+        view.segmentedControl.insertSegment(withTitle: "Самовывоз", at: 1, animated: true)
+        view.segmentedControl.selectedSegmentIndex = 0
+        view.segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue(sender:)), for: .valueChanged)
+        return view
+    }()
+
     private lazy var paymentMethodLabel: FSLabel = {
         let label = FSLabel()
         label.text = "Способ оплаты:"
@@ -98,6 +107,7 @@ class FSCartController: FSViewController {
         self.view.addSubview(self.cartLabel)
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.totalPriceStackView)
+        self.view.addSubview(self.deliveryMethodSegmentedControlView)
         self.view.addSubview(self.paymentMethodStackView)
     }
 
@@ -119,6 +129,8 @@ class FSCartController: FSViewController {
             make.top.equalTo(self.cartLabel.snp.bottom)
             make.left.right.equalToSuperview()
             switch self.productsInCart.count {
+            case 0:
+                make.height.equalTo(0)
             case 1:
                 make.height.equalTo(80)
             case 2:
@@ -148,8 +160,14 @@ class FSCartController: FSViewController {
             make.right.lessThanOrEqualToSuperview()
         }
 
-        self.paymentMethodStackView.snp.makeConstraints { (make) in
+        self.deliveryMethodSegmentedControlView.snp.makeConstraints { (make) in
             make.top.equalTo(self.totalPriceStackView.snp.bottom).offset(5)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(40)
+        }
+
+        self.paymentMethodStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom).offset(5)
             make.left.right.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview()
         }
@@ -189,7 +207,21 @@ class FSCartController: FSViewController {
     }
 
     @objc private func radioGroupSelected(_ sender: ALRadioGroup) {
-        print(sender.selectedIndex)
+//        print(sender.selectedIndex)
+    }
+
+    @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
+
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.deliveryMethodSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
+            self.deliveryMethodSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
+        case 1:
+            self.deliveryMethodSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
+            self.deliveryMethodSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
+        default:
+            break
+        }
     }
 }
 

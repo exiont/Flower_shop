@@ -38,29 +38,13 @@ class FSShopController: FSViewController  {
         return label
     }()
 
-    private lazy var segmentedControlContainerView: UIView = {
-        let containerView = UIView()
-        containerView.backgroundColor = .clear
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        return containerView
-    }()
-
-    private lazy var segmentedControl: FSSegmentedControl = {
-        let segmentedControl = FSSegmentedControl(items: ["Цветы", "Букеты"])
-        segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue), for: .valueChanged)
-        segmentedControl.removeStyle()
-        return segmentedControl
-    }()
-
-    private lazy var leftBottomUnderlineView: FSLineView = {
-        let underlineView = FSLineView()
-        return underlineView
-    }()
-
-    private lazy var rightBottomUnderlineView: FSLineView = {
-        let underlineView = FSLineView()
-        underlineView.isHidden = true
-        return underlineView
+    private lazy var productTypeSegmentedControlView: FSSegmentedControlView = {
+        let view = FSSegmentedControlView()
+        view.segmentedControl.insertSegment(withTitle: "Цветы", at: 0, animated: false)
+        view.segmentedControl.insertSegment(withTitle: "Букеты", at: 1, animated: false)
+        view.segmentedControl.selectedSegmentIndex = 0
+        view.segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue(sender:)), for: .valueChanged)
+        return view
     }()
 
     private lazy var searchBar: FSSearchBar = {
@@ -101,12 +85,9 @@ class FSShopController: FSViewController  {
     private func addSubbviews() {
         self.view.addSubview(self.logoImageView)
         self.view.addSubview(self.appLabel)
-        self.view.addSubview(self.segmentedControlContainerView)
+        self.view.addSubview(self.productTypeSegmentedControlView)
         self.view.addSubview(self.searchBar)
         self.view.addSubview(self.tableView)
-        self.segmentedControlContainerView.addSubview(self.segmentedControl)
-        self.segmentedControlContainerView.addSubview(self.leftBottomUnderlineView)
-        self.segmentedControlContainerView.addSubview(self.rightBottomUnderlineView)
     }
 
     private func updateProductsList() { // будет подгрузка из базы
@@ -144,32 +125,14 @@ class FSShopController: FSViewController  {
             make.left.right.equalToSuperview()
         }
 
-        self.segmentedControlContainerView.snp.makeConstraints { (make) in
+        self.productTypeSegmentedControlView.snp.makeConstraints { (make) in
             make.top.equalTo(self.appLabel.snp.bottom).offset(5)
-            make.width.equalToSuperview()
+            make.left.right.equalToSuperview()
             make.height.equalTo(40)
         }
 
-        self.segmentedControl.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-        }
-
-        self.leftBottomUnderlineView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.segmentedControl.snp.bottom)
-            make.left.equalTo(self.segmentedControl.snp.left)
-            make.right.lessThanOrEqualTo(self.segmentedControl.snp.right).inset(self.view.frame.width / 2)
-            make.width.equalTo(self.view.frame.width / 2)
-        }
-
-        self.rightBottomUnderlineView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.segmentedControl.snp.bottom)
-            make.right.equalTo(self.segmentedControl.snp.right)
-            make.left.lessThanOrEqualTo(self.segmentedControl.snp.left).inset(self.view.frame.width / 2)
-            make.width.equalTo(self.view.frame.width / 2)
-        }
-
         self.searchBar.snp.makeConstraints { (make) in
-            make.top.equalTo(self.segmentedControlContainerView.snp.bottom)
+            make.top.equalTo(self.productTypeSegmentedControlView.snp.bottom)
             make.left.right.equalToSuperview()
         }
 
@@ -179,35 +142,23 @@ class FSShopController: FSViewController  {
         }
     }
 
-    @objc private func segmentedControlChangeValue(sender: UISegmentedControl) {
+    @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
         self.searchBar.searchTextField.text = ""
 
         switch sender.selectedSegmentIndex {
         case 0:
-            self.leftBottomUnderlineView.isHidden.toggle()
-            self.rightBottomUnderlineView.isHidden.toggle()
+            self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
+            self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
             self.products = filteredFlowersOrBouquet.filter { !$0.isBouquet }
             self.tableView.reloadData()
         case 1:
-            self.leftBottomUnderlineView.isHidden.toggle()
-            self.rightBottomUnderlineView.isHidden.toggle()
+            self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
+            self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
             self.products = filteredFlowersOrBouquet.filter { $0.isBouquet }
             self.tableView.reloadData()
         default:
             break
         }
-    }
-
-    private func changeSegmentedControlLinePositionAnimated() { // сделать анимацию перезда подчёркивания
-//        let segmentIndex = CGFloat(self.segmentedControl.selectedSegmentIndex)
-//        let segmentWidth = self.segmentedControl.frame.width / CGFloat(self.segmentedControl.numberOfSegments)
-//        let leadingDistance = segmentWidth * segmentIndex
-//        UIView.animate(withDuration: 0.3, animations: { [weak self] in
-//            self?.leftBottomUnderlineView.snp.makeConstraints({ (make) in
-//                guard let self = self else { return }
-//                make.left.equalTo(self.segmentedControl.snp.left).offset(leadingDistance)
-//            })
-//        })
     }
 }
 
