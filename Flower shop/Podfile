@@ -9,5 +9,6 @@ target 'Flower shop' do
 
     pod 'SnapKit', '~> 5.0.0'
     pod 'GoogleMaps', '~> 4.2.0'
+    pod 'ALRadioButtons'
 
 end

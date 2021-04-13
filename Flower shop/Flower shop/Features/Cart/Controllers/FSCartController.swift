@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ALRadioButtons
 
 protocol FSProductInCartCellDelegate: class {
     func updateTotalPrice()
@@ -62,11 +63,42 @@ class FSCartController: FSViewController {
         return stackView
     }()
 
+    private lazy var paymentMethodLabel: FSLabel = {
+        let label = FSLabel()
+        label.text = "Способ оплаты:"
+
+        return label
+    }()
+
+    private lazy var paymentMethodRadioGroup: ALRadioGroup = {
+        let radioGroup = ALRadioGroup(items: [.init(title: "Наличными"), .init(title: "Картой")], style: .standard)
+        radioGroup.selectedIndex = 0
+        radioGroup.addTarget(self, action: #selector(radioGroupSelected(_:)), for: .valueChanged)
+        radioGroup.axis = .horizontal
+        radioGroup.unselectedTitleColor = FSColors.brownRed
+        radioGroup.selectedTitleColor = FSColors.mainPink
+        radioGroup.unselectedIndicatorColor = FSColors.brownRed
+        radioGroup.selectedIndicatorColor = FSColors.mainPink
+        radioGroup.indicatorRingWidth = 1
+        radioGroup.separatorColor = .clear
+
+        return radioGroup
+    }()
+
+    private lazy var paymentMethodStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.addSubview(paymentMethodLabel)
+        stackView.addSubview(paymentMethodRadioGroup)
+
+        return stackView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.cartLabel)
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.totalPriceStackView)
+        self.view.addSubview(self.paymentMethodStackView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +106,7 @@ class FSCartController: FSViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tableView.reloadData()
         self.calculateTotalPrice()
+        self.updateViewConstraints()
     }
 
     override func updateViewConstraints() {
@@ -82,16 +115,22 @@ class FSCartController: FSViewController {
             make.left.right.equalToSuperview()
         }
 
-        self.tableView.snp.makeConstraints { (make) in
+        self.tableView.snp.updateConstraints { (make) in
             make.top.equalTo(self.cartLabel.snp.bottom)
             make.left.right.equalToSuperview()
-//            make.height.equalTo(self.view.bounds.height / 7 * 3)
+            switch self.productsInCart.count {
+            case 1:
+                make.height.equalTo(80)
+            case 2:
+                make.height.equalTo(160)
+            default:
+                make.height.equalTo(240)
+            }
         }
 
         self.totalPriceStackView.snp.makeConstraints { (make) in
-            make.top.lessThanOrEqualTo(self.tableView.snp.bottom)
+            make.top.equalTo(self.tableView.snp.bottom).offset(5)
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
 
         self.totalPriceLabel.snp.makeConstraints { (make) in
@@ -100,12 +139,28 @@ class FSCartController: FSViewController {
 
         self.totalPrice.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
-            make.left.equalTo(self.totalPriceLabel.snp.right)
+            make.left.equalTo(self.totalPriceLabel.snp.right).offset(5)
         }
 
         self.totalPriceCurrency.snp.makeConstraints { (make) in
-            make.top.right.bottom.equalToSuperview()
-            make.left.equalTo(self.totalPrice.snp.right)
+            make.top.bottom.equalToSuperview()
+            make.left.equalTo(self.totalPrice.snp.right).offset(2)
+            make.right.lessThanOrEqualToSuperview()
+        }
+
+        self.paymentMethodStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.totalPriceStackView.snp.bottom).offset(5)
+            make.left.right.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview()
+        }
+
+        self.paymentMethodLabel.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+        }
+
+        self.paymentMethodRadioGroup.snp.makeConstraints { (make) in
+            make.top.equalTo(self.paymentMethodLabel.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
         }
 
         super.updateViewConstraints()
@@ -131,6 +186,10 @@ class FSCartController: FSViewController {
             totalPrice += item.product.price * Double(item.quantity)
         }
         self.totalPrice.text = String(totalPrice)
+    }
+
+    @objc private func radioGroupSelected(_ sender: ALRadioGroup) {
+        print(sender.selectedIndex)
     }
 }
 
@@ -165,9 +224,9 @@ extension FSCartController: UITableViewDelegate {
 //        self.present(navVC, animated: true, completion: nil)
     }
 
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return tableView.bounds.height / 5
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 }
 
 extension FSCartController: FSProductInCartCellDelegate {

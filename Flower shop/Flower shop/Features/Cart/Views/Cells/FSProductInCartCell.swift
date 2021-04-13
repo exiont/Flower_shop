@@ -141,7 +141,7 @@ class FSProductInCartCell: UITableViewCell {
         }
 
         self.productName.snp.updateConstraints { (make) in
-            make.top.equalToSuperview().inset(10)
+            make.top.equalToSuperview().inset(15)
             make.left.equalTo(self.productImageView.snp.right).offset(10)
             make.right.greaterThanOrEqualTo(self.productQuantityStackView.snp.left)
         }
