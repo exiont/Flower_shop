@@ -8,10 +8,10 @@
 import UIKit
 
 class FSSegmentedControl: UISegmentedControl {
-    let regularSegmentedControlTitleAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: FSColors.brownRed,
-                                                                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular)]
-    let boldSegmentedControlTitleAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: FSColors.brownRed,
-                                                                              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold)]
+    let regularSegmentedControlTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.brownRed,
+                                                                                .font: UIFont.systemFont(ofSize: 16, weight: .regular)]
+    let boldSegmentedControlTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.brownRed,
+                                                                             .font: UIFont.systemFont(ofSize: 16, weight: .bold)]
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupSegmentedControl()

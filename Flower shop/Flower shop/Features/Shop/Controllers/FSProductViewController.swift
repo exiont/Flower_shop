@@ -13,8 +13,8 @@ class FSProductViewController: FSViewController {
     var counter: Int = 9
 
     private let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
-    private let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: FSColors.mainPink,
-                                                                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
+    private let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
+                                                                                  .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
 
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()

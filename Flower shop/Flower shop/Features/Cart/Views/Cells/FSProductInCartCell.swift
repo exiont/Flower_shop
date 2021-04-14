@@ -13,8 +13,8 @@ class FSProductInCartCell: UITableViewCell {
 
     weak var delegate: FSProductInCartCellDelegate?
 
-    let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: FSColors.mainPink,
-                                                                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
+    let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
+                                                                          .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
 
     private lazy var counter: Int = 0
 

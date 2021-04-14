@@ -9,8 +9,8 @@ import UIKit
 
 class FSCounterButton: UIButton {
 
-    let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: FSColors.mainPink,
-                                                                              NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold)]
+    let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
+                                                                          .font: UIFont.systemFont(ofSize: 17, weight: .bold)]
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupCounterButton()
