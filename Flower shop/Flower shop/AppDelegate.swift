@@ -12,9 +12,17 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         let googleApiKey = "AIzaSyBSVR9G-xtpqeAJW9QH18GmeSyiRbWd7H0"
         GMSServices.provideAPIKey(googleApiKey)
+
+        let navBar = UINavigationBar.appearance()
+        let textAttribute = [NSAttributedString.Key.foregroundColor: FSColors.brownRed,
+                             NSAttributedString.Key.font: UIFont.applyCustomFont(name: "Caveat-Regular", size: 25)]
+        navBar.barTintColor = FSColors.whitePink
+        navBar.tintColor = FSColors.mainPink
+        navBar.titleTextAttributes = textAttribute
+
         return true
     }
 
