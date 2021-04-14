@@ -181,7 +181,7 @@ extension FSShopController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell,
-              let placeholderImage = UIImage(named: "flower_placeholder") else { fatalError("No cell with this identifier") }
+              let placeholderImage = UIImage(named: "flower_placeholder") else { return UITableViewCell() }
 
         let product = self.filteredPdoructs[indexPath.row]
         cell.setCell(image: product.image ?? placeholderImage,

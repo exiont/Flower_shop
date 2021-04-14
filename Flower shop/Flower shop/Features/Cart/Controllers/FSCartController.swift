@@ -349,7 +349,7 @@ extension FSCartController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductInCartCell.reuseIdentifier, for: indexPath) as? FSProductInCartCell,
-              let placeholderImage = UIImage(named: "flower_placeholder") else { fatalError("No cell with this identifier") }
+              let placeholderImage = UIImage(named: "flower_placeholder") else { return UITableViewCell() }
 
         let addedProduct = self.productsInCart[indexPath.row]
         cell.setCell(image: addedProduct.product.image ?? placeholderImage,
@@ -364,13 +364,7 @@ extension FSCartController: UITableViewDataSource {
 
 extension FSCartController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = FSProductViewController()
-//        let product = products[indexPath.row]
-//        vc.loadData(product: product)
-//        navigationController?.pushViewController(vc, animated: true)
 
-//        let navVC = UINavigationController(rootViewController: vc)
-//        self.present(navVC, animated: true, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

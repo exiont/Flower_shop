@@ -28,7 +28,6 @@ class FSProductInCartCell: UITableViewCell {
         view.layer.shadowOpacity = 1
         view.layer.shadowRadius = 1
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.translatesAutoresizingMaskIntoConstraints = false
 
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.main.scale

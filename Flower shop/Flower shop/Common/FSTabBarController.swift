@@ -8,6 +8,7 @@
 import UIKit
 
 class FSTabBarController: UITabBarController {
+    var isLogged: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +38,12 @@ class FSTabBarController: UITabBarController {
                                                     image: UIImage(systemName: "person"),
                                                     selectedImage: UIImage(systemName: "person.fill"))
 
-        let authorizationController = FSAuthorizationController()
-        authorizationController.tabBarItem = UITabBarItem(title: "Профиль",
+        let loginOrRegisterController = FSAuthorizationController()
+        loginOrRegisterController.tabBarItem = UITabBarItem(title: "Профиль",
                                                     image: UIImage(systemName: "person"),
                                                     selectedImage: UIImage(systemName: "person.fill"))
+
+        let authorizationController = self.isLogged ? profileController : loginOrRegisterController
 
         self.setViewControllers([
             UINavigationController(rootViewController: shopController),
