@@ -295,6 +295,7 @@ class FSProductViewController: FSViewController {
         if let product = self.product {
             cartTableViewController.addProductToCart(with: product, and: self.counter)
         }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         self.navigationController?.popViewController(animated: true)
     }
 
