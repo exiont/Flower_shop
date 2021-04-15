@@ -96,32 +96,29 @@ extension FSMapViewController: GMSMapViewDelegate {
             let latitude = latitude
             let longitude = longitude
 
-            let isGoogleMapsAvailable: Bool = UIApplication.shared.canOpenURL(URL.init(string: "comgooglemaps://")!)
-            if isGoogleMapsAvailable {
-                let googleMapsAction = UIAlertAction(title: "Google Maps", style: .default) { _ in
-                    guard let url = URL.init(string: "comgooglemaps://?saddr=&daddr=\(latitude),\(longitude)&directionsmode=driving") else { return }
-                    UIApplication.shared.open(url)
-                }
-                alert.addAction(googleMapsAction)
-            }
+            let yandexmaps = FSAppCaller.Maps.yandexmaps(latitude: latitude, longitude: longitude)
+            let yandexnavi = FSAppCaller.Maps.yandexnavi(latitude: latitude, longitude: longitude)
+            let googlemaps = FSAppCaller.Maps.googlemaps(latitude: latitude, longitude: longitude)
 
-            let isYandexMapsAvailable: Bool = UIApplication.shared.canOpenURL(URL.init(string: "yandexmaps://")!)
-            if isYandexMapsAvailable {
-                let yandexMapsAction = UIAlertAction(title: "Yandex maps", style: .default) { _ in
-                    guard let coordinate = self.mapView.myLocation else { return }
-                    guard let url = URL.init(string: "yandexmaps://maps.yandex.com/?rtext=\(coordinate.coordinate.latitude),\(coordinate.coordinate.longitude)~\(latitude),\(longitude)") else { return }
-                    UIApplication.shared.open(url)
+            if FSAppCaller.canOpenMap(yandexmaps) {
+                let yandexMapsAction = UIAlertAction(title: "Яндекс.Карты", style: .default) { _ in
+                    FSAppCaller.openMap(with: yandexmaps)
                 }
                 alert.addAction(yandexMapsAction)
             }
 
-            let isYandexNavigatorAvailable: Bool = UIApplication.shared.canOpenURL(URL.init(string: "yandexnavi://")!)
-            if isYandexNavigatorAvailable {
-                let yandexNavigatorAction = UIAlertAction(title: "Yandex navigator", style: .default) { _ in
-                    guard let url = URL.init(string: "yandexnavi://build_route_on_map?lat_to=\(latitude)&lon_to=\(longitude)") else { return }
-                    UIApplication.shared.open(url)
+            if FSAppCaller.canOpenMap(yandexnavi) {
+                let yandexNavigatorAction = UIAlertAction(title: "Яндекс.Навигатор", style: .default) { _ in
+                    FSAppCaller.openMap(with: yandexnavi)
                 }
                 alert.addAction(yandexNavigatorAction)
+            }
+
+            if FSAppCaller.canOpenMap(googlemaps) {
+                let googleMapsAction = UIAlertAction(title: "Google Maps", style: .default) { _ in
+                    FSAppCaller.openMap(with: googlemaps)
+                }
+                alert.addAction(googleMapsAction)
             }
 
             alert.addAction(backAction)
