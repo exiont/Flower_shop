@@ -159,6 +159,7 @@ class FSCartController: FSViewController {
     private lazy var checkoutButton: FSButton = {
         let button = FSButton()
         button.setTitle("Оформить заказ", for: .normal)
+        button.addTarget(self, action: #selector(checkoutButtonDidTap), for: .touchUpInside)
         return button
     }()
 
@@ -307,6 +308,10 @@ class FSCartController: FSViewController {
 
     @objc private func radioGroupSelected(_ sender: ALRadioGroup) {
 //        print(sender.selectedIndex)
+    }
+
+    @objc private func checkoutButtonDidTap() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 
     @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
