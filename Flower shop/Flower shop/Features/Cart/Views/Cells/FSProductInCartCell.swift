@@ -16,6 +16,8 @@ class FSProductInCartCell: UITableViewCell {
     let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
                                                                           .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
 
+    private var timer: Timer?
+
     private lazy var counter: Int = 0
 
     private let productImageSize: CGSize = CGSize(width: 50, height: 50)
@@ -81,6 +83,8 @@ class FSProductInCartCell: UITableViewCell {
         let button = FSCounterButton()
         button.setAttributedTitle(NSAttributedString(string: "+", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(addProductItemButtonDidTap), for: .touchUpInside)
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(self.counterButtonLongPressHandler))
+        button.addGestureRecognizer(longpress)
 
         return button
     }()
@@ -89,6 +93,8 @@ class FSProductInCartCell: UITableViewCell {
         let button = FSCounterButton()
         button.setAttributedTitle(NSAttributedString(string: "–", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(removeProductItemButtonDidTap), for: .touchUpInside)
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(self.counterButtonLongPressHandler))
+        button.addGestureRecognizer(longpress)
 
         return button
     }()
@@ -217,6 +223,25 @@ class FSProductInCartCell: UITableViewCell {
         delegate?.updateTotalPrice()
         } else {
 //            self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
+        }
+    }
+
+    @objc func counterButtonLongPressHandler(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+                if let button = sender.view as? FSCounterButton {
+                    switch button {
+                    case self?.addProductItemButton:
+                        self?.addProductItemButtonDidTap()
+                    case self?.removeProductItemButton:
+                        self?.removeProductItemButtonDidTap()
+                    default: break
+                    }
+                }
+            })
+        } else if sender.state == .ended || sender.state == .cancelled {
+            self.timer?.invalidate()
+            self.timer = nil
         }
     }
 }
