@@ -8,6 +8,7 @@
 import UIKit
 
 class FSSettingsController: FSViewController {
+    var userInfo: FSUserInfo?
 
     private lazy var menuTableView: FSTableView = {
         let tableView = FSTableView()
@@ -79,6 +80,32 @@ extension FSSettingsController: UITableViewDataSource {
 
 extension FSSettingsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        switch indexPath.row {
+
+        case 2:
+            let alert = UIAlertController(title: "", message: "Изменить e-mail", preferredStyle: .alert)
+
+            alert.addTextField { (textField) in
+                textField.placeholder = "Новый e-mail"
+                textField.keyboardType = .emailAddress
+            }
+            alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Сохранить", style: .default, handler: { [weak alert] _ in
+                guard let textfield = alert?.textFields?[0], let newEmail = textfield.text else { return }
+                if newEmail.isEmpty || !newEmail.contains("@") || !newEmail.contains(".") {
+                    self.showAlert(message: "Введен неправильный e-mail", title: "Ошибка!")
+                } else {
+                    self.userInfo?.email = newEmail
+                }
+            }))
+            self.present(alert, animated: true, completion: nil)
+
+        default:
+
+            break
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
 
     }
 

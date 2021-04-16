@@ -9,6 +9,8 @@ import UIKit
 
 class FSProfileController: FSViewController {
 
+    let userInfo = FSUserInfo(email: "test@test.ru", name: "Тестов Тест Тестович", address: "ул. Тестовая, 0", password: "123qwe", id: 1, orders: 15)
+
     private let avatarImageSize: CGSize = CGSize(width: 120, height: 120)
 
     private let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
@@ -47,7 +49,7 @@ class FSProfileController: FSViewController {
 
     private lazy var userName: FSLabel = {
         let label = FSLabel()
-        label.text = "Гарик \"Бульдог\" Харламов"
+        label.text = self.userInfo.name
         label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         label.numberOfLines = 3
         label.adjustsFontSizeToFitWidth = true
@@ -58,7 +60,7 @@ class FSProfileController: FSViewController {
 
     private lazy var userEmail: FSLabel = {
         let label = FSLabel()
-        label.text = "pavel_durov@vtentakle.ru"
+        label.text = self.userInfo.email
         label.adjustsFontSizeToFitWidth = true
 
         return label
@@ -66,7 +68,7 @@ class FSProfileController: FSViewController {
 
     private lazy var userAddress: FSLabel = {
         let label = FSLabel()
-        label.text = "ул. Программиста, 256"
+        label.text = self.userInfo.address
 
         return label
     }()
@@ -103,7 +105,7 @@ class FSProfileController: FSViewController {
 
     private lazy var userOrders: FSLabel = {
         let label = FSLabel()
-        label.text = "0"
+        label.text = String(self.userInfo.orders)
         label.textAlignment = .center
 
         return label
@@ -127,7 +129,7 @@ class FSProfileController: FSViewController {
 
     private lazy var userDiscount: FSLabel = {
         let label = FSLabel()
-        label.text = "0%"
+        label.text = "\(self.userInfo.discount)%"
         label.textAlignment = .center
 
         return label
@@ -160,6 +162,11 @@ class FSProfileController: FSViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.userEmail.text = self.userInfo.email
+        self.userName.text = self.userInfo.name
+        self.userAddress.text = self.userInfo.address
+        self.userOrders.text = String(self.userInfo.orders)
+        self.userDiscount.text = String(self.userInfo.discount)
     }
 
     override func viewDidLoad() {
@@ -334,6 +341,7 @@ extension FSProfileController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             let vc = FSSettingsController()
+            vc.userInfo = self.userInfo
             navigationController?.pushViewController(vc, animated: true)
         case 2:
             let vc = FSAuthorizationController()
