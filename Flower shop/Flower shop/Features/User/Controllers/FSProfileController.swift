@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPStorkController
 
 class FSProfileController: FSViewController {
 
@@ -348,8 +349,16 @@ extension FSProfileController: UITableViewDelegate {
             let vc = FSAuthorizationController()
             navigationController?.pushViewController(vc, animated: true)
         case 2:
-            let vc = FSSettingsController()
-            present(vc, animated: true, completion: nil)
+            let vc = FSContactUsViewController()
+            let transitionDelegate = SPStorkTransitioningDelegate()
+            vc.transitioningDelegate = transitionDelegate
+            vc.modalPresentationStyle = .custom
+            vc.modalPresentationCapturesStatusBarAppearance = true
+            transitionDelegate.customHeight = 160
+            transitionDelegate.indicatorColor = FSColors.mainPink
+            transitionDelegate.indicatorMode = .alwaysLine
+            transitionDelegate.translateForDismiss = 80
+            self.present(vc, animated: true, completion: nil)
         default:
             break
         }

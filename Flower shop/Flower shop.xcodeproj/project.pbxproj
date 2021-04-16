@@ -43,6 +43,7 @@
 		D5A55CD82629B04A00ABF7C2 /* FSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CD72629B04A00ABF7C2 /* FSUser.swift */; };
 		D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */; };
 		D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */; };
+		D5A55CF1262A198800ABF7C2 /* FSContactUsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 		D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E151582624623B00C3389C /* FSProductInCart.swift */; };
 		D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */; };
@@ -88,6 +89,7 @@
 		D5A55CD72629B04A00ABF7C2 /* FSUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUser.swift; sourceTree = "<group>"; };
 		D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
 		D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsViewController.swift; sourceTree = "<group>"; };
+		D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsCell.swift; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		D5E151582624623B00C3389C /* FSProductInCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCart.swift; sourceTree = "<group>"; };
 		D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCartCell.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */,
+				D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				D55818A926274683006DB936 /* FSSettingsController.swift in Sources */,
 				D526FBA4261F5CDA00829788 /* FSTextField.swift in Sources */,
 				D526FB6A261A39BF00829788 /* FSViewController.swift in Sources */,
+				D5A55CF1262A198800ABF7C2 /* FSContactUsCell.swift in Sources */,
 				D55818A626271EE8006DB936 /* FSSeparatorView.swift in Sources */,
 				88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */,
 				D529A2902620CD2B002151C2 /* FSLabel.swift in Sources */,

@@ -6,23 +6,27 @@ PODS:
   - GoogleMaps/Maps (4.2.0):
     - GoogleMaps/Base
   - SnapKit (5.0.1)
+  - SPStorkController (1.8.5)
 
 DEPENDENCIES:
   - ALRadioButtons
   - GoogleMaps (~> 4.2.0)
   - SnapKit (~> 5.0.0)
+  - SPStorkController
 
 SPEC REPOS:
   trunk:
     - ALRadioButtons
     - GoogleMaps
     - SnapKit
+    - SPStorkController
 
 SPEC CHECKSUMS:
   ALRadioButtons: 00aaf4d6746d3947153b24b1c1be416ed9be49f0
   GoogleMaps: eb03e327edfd70b06de1e6e321653f73712df7ad
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SPStorkController: 68966ed3134de2be2a8bbd1475c7e81f3f7d01ee
 
-PODFILE CHECKSUM: 2dad8310833fb0532f525131ad859f3a61e9d723
+PODFILE CHECKSUM: 73999fda6d54e594098511585ef8aae362e606a8
 
 COCOAPODS: 1.10.1

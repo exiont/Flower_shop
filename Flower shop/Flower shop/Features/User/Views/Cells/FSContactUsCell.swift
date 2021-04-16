@@ -1,15 +1,15 @@
 //
-//  FSProfileMenuCell.swift
+//  FSContactUsCell.swift
 //  Flower shop
 //
-//  Created by New on 14.04.21.
+//  Created by New on 16.04.21.
 //
 
 import UIKit
 
-class FSProfileMenuCell: UITableViewCell {
+class FSContactUsCell: UITableViewCell {
 
-    static let reuseIdentifier: String = "FSProfileMenuCell"
+    static let reuseIdentifier: String = "FSContactUsCell"
 
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -23,7 +23,7 @@ class FSProfileMenuCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = FSColors.mainPink
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
 
         return imageView
     }()
@@ -65,7 +65,7 @@ class FSProfileMenuCell: UITableViewCell {
 
         self.menuIcon.snp.updateConstraints { (make) in
             make.top.bottom.equalToSuperview().inset(5)
-            make.left.equalToSuperview()
+            make.centerX.equalToSuperview().offset(-45)
             make.width.equalTo(self.menuIcon.snp.height)
         }
 
