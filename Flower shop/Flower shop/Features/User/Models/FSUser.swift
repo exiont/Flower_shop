@@ -4,12 +4,14 @@
 //
 //  Created by New on 16.04.21.
 //
+import UIKit
 
 class FSUserInfo {
     var email: String
     var name: String
     var address: String
     var password: String
+    var avatar: UIImage?
     let id: Int
     var orders: Int = 0
     var discount: Int {

@@ -271,7 +271,7 @@ class FSCartController: FSViewController {
         }
 
         self.checkoutButton.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.courierDeliveryStackView.snp.bottom).offset(20)
+            make.top.equalTo(self.takeawayStackView.snp.bottom)
             make.left.right.equalToSuperview().inset(45)
             make.bottom.lessThanOrEqualToSuperview()
             make.height.equalTo(40)
@@ -311,7 +311,11 @@ class FSCartController: FSViewController {
     }
 
     @objc private func checkoutButtonDidTap() {
+        self.checkCheckoutErrors()
+        let hasErrors = self.checkCheckoutErrors()
+        if !hasErrors {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
     }
 
     @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
@@ -344,6 +348,40 @@ class FSCartController: FSViewController {
         default:
             break
         }
+    }
+
+    @discardableResult
+    func checkCheckoutErrors() -> Bool {
+
+        let title = "Ошибка"
+        var message = ""
+        var errors = false
+
+        if productsInCart.count < 1 {
+            errors = true
+            message += "В корзине нет товаров"
+            showAlert(message: message, title: title)
+        }
+
+        if let phone = self.phoneNumberTextField.text,
+           let address = self.deliveryAddressTextField.text,
+           self.deliveryMethodSegmentedControlView.segmentedControl.selectedSegmentIndex == 0 {
+            if phone.isEmpty {
+                errors = true
+                message += "Введите номер телефона"
+                alertWithTitle(title: title, message: message, toFocus: self.phoneNumberTextField)
+            } else if phone.count < 11 {
+                errors = true
+                message += "Неправильный номер телефона"
+                alertWithTitle(title: title, message: message, toFocus: self.phoneNumberTextField)
+            } else if address.isEmpty {
+                errors = true
+                message += "Введите адрес доставки"
+                alertWithTitle(title: title, message: message, toFocus: self.deliveryAddressTextField)
+            }
+        }
+
+        return errors
     }
 }
 
@@ -382,6 +420,7 @@ extension FSCartController: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .fade)
             self.updateViewConstraints()
         }
+        self.calculateTotalPrice()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

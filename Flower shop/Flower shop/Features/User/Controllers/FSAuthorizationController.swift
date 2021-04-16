@@ -371,13 +371,4 @@ extension FSAuthorizationController: UITextFieldDelegate {
 
         return true
     }
-
-    func alertWithTitle(title: String, message: String, toFocus: UITextField) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel) { _ in
-            toFocus.becomeFirstResponder()
-        }
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
 }

@@ -38,7 +38,7 @@ class FSProfileController: FSViewController {
 
     private lazy var userAvatar: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.circle")
+        imageView.image = self.userInfo.avatar ?? UIImage(systemName: "person.circle")
         imageView.tintColor = FSColors.mainPink
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = self.avatarImageSize.height / 2
