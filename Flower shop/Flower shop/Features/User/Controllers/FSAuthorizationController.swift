@@ -311,8 +311,6 @@ class FSAuthorizationController: FSViewController {
         return errors
     }
 
-    let asd = 1231
-
     @discardableResult
     func checkForLoginErrors() -> Bool {
 
