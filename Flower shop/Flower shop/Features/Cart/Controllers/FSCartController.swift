@@ -77,6 +77,7 @@ class FSCartController: FSViewController {
         textField.placeholder = "Номер телефона"
         textField.leftView = UIImageView(image: UIImage(systemName: "phone.circle.fill"))
         textField.keyboardType = .phonePad
+        textField.smartInsertDeleteType = .no
         textField.delegate = self
         return textField
     }()
@@ -307,14 +308,14 @@ class FSCartController: FSViewController {
     }
 
     @objc private func radioGroupSelected(_ sender: ALRadioGroup) {
-//        print(sender.selectedIndex)
+        //        print(sender.selectedIndex)
     }
 
     @objc private func checkoutButtonDidTap() {
         self.checkCheckoutErrors()
         let hasErrors = self.checkCheckoutErrors()
         if !hasErrors {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
         }
     }
 
@@ -370,7 +371,7 @@ class FSCartController: FSViewController {
                 errors = true
                 message += "Введите номер телефона"
                 alertWithTitle(title: title, message: message, toFocus: self.phoneNumberTextField)
-            } else if phone.count < 11 {
+            } else if phone.count < 17 {
                 errors = true
                 message += "Неправильный номер телефона"
                 alertWithTitle(title: title, message: message, toFocus: self.phoneNumberTextField)
@@ -435,8 +436,34 @@ extension FSCartController: FSProductInCartCellDelegate {
 }
 
 extension FSCartController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+
+        switch textField {
+        case self.phoneNumberTextField:
+            guard let text = textField.text, text.isEmpty else { return true }
+            textField.text = "8 (0"
+        default: return true
+        }
+
+        return true
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        switch textField {
+        case self.phoneNumberTextField:
+            guard let text = textField.text,
+                  let rangeOfTextToReplace = Range(range, in: text) else { return true }
+            let formattedText = text.applyPatternOnNumbers(pattern: "# (###) ###-##-##", replacmentCharacter: "#")
+            let substringToReplace = text[rangeOfTextToReplace]
+            let count = text.count - substringToReplace.count + string.count
+            textField.text = formattedText
+            return count <= 17
+        default: return true
+        }
     }
 }

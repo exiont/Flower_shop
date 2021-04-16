@@ -41,6 +41,7 @@
 		D55818A926274683006DB936 /* FSSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55818A826274683006DB936 /* FSSettingsController.swift */; };
 		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
 		D5A55CD82629B04A00ABF7C2 /* FSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CD72629B04A00ABF7C2 /* FSUser.swift */; };
+		D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 		D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E151582624623B00C3389C /* FSProductInCart.swift */; };
 		D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */; };
@@ -84,6 +85,7 @@
 		D55818A826274683006DB936 /* FSSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettingsController.swift; sourceTree = "<group>"; };
 		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
 		D5A55CD72629B04A00ABF7C2 /* FSUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUser.swift; sourceTree = "<group>"; };
+		D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		D5E151582624623B00C3389C /* FSProductInCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCart.swift; sourceTree = "<group>"; };
 		D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCartCell.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			children = (
 				8845C8BD26190D65002E2129 /* UISegmentedControl+Ex.swift */,
 				D526FB8D261E498100829788 /* UIFont+Ex.swift */,
+				D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				8845C8BE26190D65002E2129 /* UISegmentedControl+Ex.swift in Sources */,
 				D529A2852620B402002151C2 /* FSAppCaller.swift in Sources */,
 				D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */,
+				D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */,
 				D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */,
 				D5A55CD82629B04A00ABF7C2 /* FSUser.swift in Sources */,
 			);

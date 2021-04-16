@@ -166,7 +166,7 @@ class FSProfileController: FSViewController {
         self.userName.text = self.userInfo.name
         self.userAddress.text = self.userInfo.address
         self.userOrders.text = String(self.userInfo.orders)
-        self.userDiscount.text = String(self.userInfo.discount)
+        self.userDiscount.text = "\(self.userInfo.discount)%"
     }
 
     override func viewDidLoad() {
