@@ -42,6 +42,7 @@
 		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
 		D5A55CD82629B04A00ABF7C2 /* FSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CD72629B04A00ABF7C2 /* FSUser.swift */; };
 		D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */; };
+		D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 		D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E151582624623B00C3389C /* FSProductInCart.swift */; };
 		D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */; };
@@ -86,6 +87,7 @@
 		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
 		D5A55CD72629B04A00ABF7C2 /* FSUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUser.swift; sourceTree = "<group>"; };
 		D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
+		D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsViewController.swift; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		D5E151582624623B00C3389C /* FSProductInCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCart.swift; sourceTree = "<group>"; };
 		D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCartCell.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */,
 				88B169212607EC60006EDB12 /* FSProfileController.swift */,
 				D55818A826274683006DB936 /* FSSettingsController.swift */,
+				D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				D529A27626209B34002151C2 /* FSLineView.swift in Sources */,
 				D558189E2626FEF1006DB936 /* FSProfileMenuCell.swift in Sources */,
 				D529A2972620F7C8002151C2 /* FSCounterButton.swift in Sources */,
+				D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */,
 				D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */,
 				D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */,
 				884C4E88260FDC3E00788046 /* FSAuthorizationController.swift in Sources */,

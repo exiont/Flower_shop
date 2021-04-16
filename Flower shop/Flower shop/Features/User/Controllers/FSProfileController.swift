@@ -191,18 +191,19 @@ class FSProfileController: FSViewController {
         }
 
         self.userAvatar.snp.makeConstraints { (make) in
-            make.top.left.equalToSuperview()
+            make.top.equalToSuperview()
+            make.left.equalToSuperview().inset(10)
             make.size.equalTo(self.avatarImageSize)
         }
 
         self.userName.snp.makeConstraints { (make) in
             make.top.lessThanOrEqualTo(self.userAvatar.snp.top).offset(20)
-            make.left.equalTo(self.userAvatar.snp.right).offset(5)
+            make.left.equalTo(self.userAvatar.snp.right).offset(10)
             make.right.equalToSuperview()
         }
 
         self.userEmail.snp.makeConstraints { (make) in
-            make.left.equalTo(self.userAvatar.snp.right).offset(5)
+            make.left.equalTo(self.userName)
             make.top.equalTo(self.userName.snp.bottom).offset(5)
             make.right.equalToSuperview()
             make.bottom.lessThanOrEqualTo(self.userAvatar)
@@ -320,12 +321,12 @@ extension FSProfileController: UITableViewDataSource {
                 cell.setCell(image: image, title: "Настройки")
             }
         case 1:
-            if let image = UIImage(systemName: "phone.bubble.left") {
-                cell.setCell(image: image, title: "Связаться с нами")
-            }
-        case 2:
             if let image = UIImage(systemName: "arrowshape.turn.up.backward") {
                 cell.setCell(image: image, title: "Выйти из профиля")
+            }
+        case 2:
+            if let image = UIImage(systemName: "phone.bubble.left") {
+                cell.setCell(image: image, title: "Связаться с нами")
             }
         default:
             break
@@ -343,9 +344,12 @@ extension FSProfileController: UITableViewDelegate {
             let vc = FSSettingsController()
             vc.userInfo = self.userInfo
             navigationController?.pushViewController(vc, animated: true)
-        case 2:
+        case 1:
             let vc = FSAuthorizationController()
             navigationController?.pushViewController(vc, animated: true)
+        case 2:
+            let vc = FSSettingsController()
+            present(vc, animated: true, completion: nil)
         default:
             break
         }
