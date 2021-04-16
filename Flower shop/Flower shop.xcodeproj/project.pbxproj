@@ -155,14 +155,14 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		884C4E992610BB1400788046 /* Profile */ = {
+		884C4E992610BB1400788046 /* User */ = {
 			isa = PBXGroup;
 			children = (
 				884C4EAB2610BE2800788046 /* Models */,
 				884C4EAA2610BE2200788046 /* Views */,
 				884C4E9D2610BB1400788046 /* Controllers */,
 			);
-			path = Profile;
+			path = User;
 			sourceTree = "<group>";
 		};
 		884C4E9D2610BB1400788046 /* Controllers */ = {
@@ -206,7 +206,7 @@
 				884C4E8A2610BA8500788046 /* Shop */,
 				884C4E8E2610BACB00788046 /* Cart */,
 				884C4E952610BB0C00788046 /* Map */,
-				884C4E992610BB1400788046 /* Profile */,
+				884C4E992610BB1400788046 /* User */,
 			);
 			path = Features;
 			sourceTree = "<group>";
