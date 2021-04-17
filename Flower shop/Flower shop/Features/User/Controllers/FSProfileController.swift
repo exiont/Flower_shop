@@ -7,6 +7,7 @@
 
 import UIKit
 import SPStorkController
+import FirebaseAuth
 
 class FSProfileController: FSViewController {
 
@@ -306,6 +307,18 @@ class FSProfileController: FSViewController {
 
     }
 
+    func logout() {
+        do {
+            try Auth.auth().signOut()
+            guard let scene = UIApplication.shared.connectedScenes.first,
+                  let sceneDelegate = scene.delegate as? SceneDelegate else { return }
+            let authVC = FSAuthorizationController()
+            sceneDelegate.changeRootViewConroller(authVC)
+        } catch {
+            showAlert(message: "Ошибка выхода: \(error.localizedDescription)", title: "Ошибка")
+        }
+    }
+
 }
 
 extension FSProfileController: UITableViewDataSource {
@@ -346,8 +359,7 @@ extension FSProfileController: UITableViewDelegate {
             vc.userInfo = self.userInfo
             navigationController?.pushViewController(vc, animated: true)
         case 1:
-            let vc = FSAuthorizationController()
-            navigationController?.pushViewController(vc, animated: true)
+            self.logout()
         case 2:
             let vc = FSContactUsViewController()
             let transitionDelegate = SPStorkTransitioningDelegate()

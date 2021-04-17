@@ -6,9 +6,9 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class FSTabBarController: UITabBarController {
-    var isLogged: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,24 +32,17 @@ class FSTabBarController: UITabBarController {
         mapController.tabBarItem = UITabBarItem(title: "Карта",
                                                 image: UIImage(systemName: "map"),
                                                 selectedImage: UIImage(systemName: "map.fill"))
-        
+
         let profileController = FSProfileController()
         profileController.tabBarItem = UITabBarItem(title: "Профиль",
                                                     image: UIImage(systemName: "person"),
                                                     selectedImage: UIImage(systemName: "person.fill"))
 
-        let loginOrRegisterController = FSAuthorizationController()
-        loginOrRegisterController.tabBarItem = UITabBarItem(title: "Профиль",
-                                                    image: UIImage(systemName: "person"),
-                                                    selectedImage: UIImage(systemName: "person.fill"))
-
-        let authorizationController = self.isLogged ? profileController : loginOrRegisterController
-
         self.setViewControllers([
             UINavigationController(rootViewController: shopController),
             UINavigationController(rootViewController: cartController),
             UINavigationController(rootViewController: mapController),
-            UINavigationController(rootViewController: authorizationController)
+            UINavigationController(rootViewController: profileController)
         ], animated: true)
     }
 

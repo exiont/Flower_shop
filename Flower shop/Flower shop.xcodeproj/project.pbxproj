@@ -44,6 +44,7 @@
 		D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */; };
 		D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */; };
 		D5A55CF1262A198800ABF7C2 /* FSContactUsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */; };
+		D5A55D1A262B2BE700ABF7C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
 		D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E151582624623B00C3389C /* FSProductInCart.swift */; };
 		D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */; };
@@ -90,6 +91,7 @@
 		D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
 		D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsViewController.swift; sourceTree = "<group>"; };
 		D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsCell.swift; sourceTree = "<group>"; };
+		D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		D5E151582624623B00C3389C /* FSProductInCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCart.swift; sourceTree = "<group>"; };
 		D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCartCell.swift; sourceTree = "<group>"; };
@@ -176,7 +178,6 @@
 		884C4E9D2610BB1400788046 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */,
 				88B169212607EC60006EDB12 /* FSProfileController.swift */,
 				D55818A826274683006DB936 /* FSSettingsController.swift */,
 				D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */,
@@ -225,6 +226,7 @@
 			children = (
 				D529A2832620B307002151C2 /* Sharing */,
 				D5D86681260C818F008F5729 /* FSTabBarController.swift */,
+				884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */,
 				D526FB69261A39BF00829788 /* FSViewController.swift */,
 			);
 			path = Common;
@@ -336,6 +338,7 @@
 				884C4E81260FC45400788046 /* Fonts */,
 				884CF596261525A2003D9B41 /* Extensions */,
 				88B169092607C05A006EDB12 /* Info.plist */,
+				D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */,
 			);
 			path = "Flower shop";
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 			files = (
 				8851E1A626189EBE000AC2E4 /* FSMapViewController.xib in Resources */,
 				884C4E85260FC4F100788046 /* Caveat.ttf in Resources */,
+				D5A55D1A262B2BE700ABF7C2 /* GoogleService-Info.plist in Resources */,
 				88B169082607C05A006EDB12 /* LaunchScreen.storyboard in Resources */,
 				88B169052607C05A006EDB12 /* Assets.xcassets in Resources */,
 			);

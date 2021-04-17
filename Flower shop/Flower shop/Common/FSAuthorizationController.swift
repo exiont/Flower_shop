@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class FSAuthorizationController: FSViewController {
 
@@ -181,17 +182,51 @@ class FSAuthorizationController: FSViewController {
     }
 
     @objc func logInButtonDidTap() {
-        let vc = FSProfileController()
         let hasErrors = self.checkForLoginErrors()
-        if !hasErrors {
-            navigationController?.pushViewController(vc, animated: true)
+        if !hasErrors,
+           let email = emailTextField.text,
+           let password = passwordTextField.text {
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] (result, error) in
+                guard let self = self else { return }
+                if let error = error as NSError? {
+                    self.showAlert(message: error.localizedDescription, title: "Авторизация")
+                } else {
+                    guard let scene = UIApplication.shared.connectedScenes.first,
+                          let sceneDelegate = scene.delegate as? SceneDelegate else { return }
+                    let tabBarVC = FSTabBarController()
+                    sceneDelegate.changeRootViewConroller(tabBarVC)
+                }
+            }
         }
     }
 
     @objc func registerButtonDidTap() {
         let hasErrors = self.checkForRegistrationErrors()
-        if !hasErrors {
-
+        if !hasErrors,
+           let email = emailTextField.text,
+           let password = passwordTextField.text,
+           let name = nameTextField.text,
+           let surname = surnameTextField.text {
+            Auth.auth().createUser(withEmail: email, password: password) { [weak self] (result, error) in
+                guard let self = self else { return }
+                if let error = error as NSError? {
+                    self.showAlert(message: error.localizedDescription, title: "Авторизация")
+                } else {
+                    let name = "\(name) \(surname)"
+                    guard let user = Auth.auth().currentUser else { return }
+                    let changeRequest = user.createProfileChangeRequest()
+                    changeRequest.displayName = name
+                    changeRequest.commitChanges { (error) in
+                        if let error = error {
+                            self.showAlert(message: error.localizedDescription, title: "Авторизация")
+                        }
+                    }
+                }
+            }
+            guard let scene = UIApplication.shared.connectedScenes.first,
+                  let sceneDelegate = scene.delegate as? SceneDelegate else { return }
+            let tabBarVC = FSTabBarController()
+            sceneDelegate.changeRootViewConroller(tabBarVC)
         }
     }
 

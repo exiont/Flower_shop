@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMaps
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let googleApiKey = "AIzaSyBSVR9G-xtpqeAJW9QH18GmeSyiRbWd7H0"
         GMSServices.provideAPIKey(googleApiKey)
+        FirebaseApp.configure()
 
         let navBar = UINavigationBar.appearance()
         let textAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.brownRed,
