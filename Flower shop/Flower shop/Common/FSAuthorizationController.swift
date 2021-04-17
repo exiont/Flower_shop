@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 class FSAuthorizationController: FSViewController {
 
@@ -231,6 +232,19 @@ class FSAuthorizationController: FSViewController {
     }
 
     @objc func forgotPasswordButtonDidTap() {
+        guard let email = emailTextField.text, !email.isEmpty else {
+            self.alertWithTitle(title: "Восстановление пароля", message: "Пожалуйста, введите ваш e-mail, указанный при регистрации.", toFocus: self.emailTextField)
+            return
+        }
+
+        Auth.auth().sendPasswordReset(withEmail: email) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error as NSError? {
+                self.showAlert(message: error.localizedDescription, title: "Восстановление пароля")
+            } else {
+                self.showAlert(message: "Письмо с инструкцией по сбросу пароля отправлено на ваш e-mail.", title: "Восстановление пароля")
+            }
+        }
 
     }
 

@@ -7,7 +7,11 @@
 
 import UIKit
 import SPStorkController
+import Firebase
 import FirebaseAuth
+import FirebaseStorage
+import FirebaseFirestore
+import FirebaseUI
 
 class FSProfileController: FSViewController {
 
@@ -169,6 +173,7 @@ class FSProfileController: FSViewController {
         self.userAddress.text = self.userInfo.address
         self.userOrders.text = String(self.userInfo.orders)
         self.userDiscount.text = "\(self.userInfo.discount)%"
+        self.getUserData()
     }
 
     override func viewDidLoad() {
@@ -275,6 +280,29 @@ class FSProfileController: FSViewController {
         }
 
         super.updateViewConstraints()
+    }
+
+    private func getUserData() {
+        guard let user = Auth.auth().currentUser else { return }
+        let storageReference = Storage.storage().reference().child("users/\(user.uid)")
+        self.userName.text = user.displayName
+        self.userEmail.text = user.email
+        storageReference.getMetadata { (metadata: StorageMetadata?, error) in
+            if let error = error {
+                self.showAlert(message: error.localizedDescription, title: "Ошибка")
+            } else {
+                guard let metadata = metadata else {
+                    self.userAvatar.image = UIImage(systemName: "person.circle")
+                    return
+                }
+
+                if metadata.isFile {
+                    self.userAvatar.sd_setImage(with: storageReference)
+                } else {
+                    self.userAvatar.image = UIImage(systemName: "person.circle")
+                }
+            }
+        }
     }
 
     @objc func openImagePicker() {
@@ -384,12 +412,35 @@ extension FSProfileController: UITableViewDelegate {
 extension FSProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
-        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage  {
-            self.userAvatar.image = image
-        } else {
+        guard let user = Auth.auth().currentUser,
+              let image = info[.editedImage] as? UIImage,
+              let data = image.jpegData(compressionQuality: 0.5) else {
             self.userAvatar.image = info[.originalImage] as? UIImage
+            return
         }
 
+        let metadata = StorageMetadata()
+
+        let storageReference = Storage.storage().reference().child("users/\(user.uid)")
+        storageReference.putData(data, metadata: metadata) { (metadata, error) in
+            if error == nil {
+                storageReference.downloadURL { (url, error) in
+                    let changeRequest = user.createProfileChangeRequest()
+                    changeRequest.photoURL = url
+                    changeRequest.commitChanges { (error) in
+                        if let error = error {
+                        self.showAlert(message: error.localizedDescription, title: "Загрузка")
+                        } else {
+                            Swift.debugPrint("Изображение загружено, Url: \(String(describing: url))")
+                        }
+                    }
+                }
+            } else {
+                Swift.debugPrint("Ошибка \(String(describing: error))")
+            }
+        }
+
+        self.userAvatar.image = image
         picker.dismiss(animated: true, completion: nil)
     }
 
