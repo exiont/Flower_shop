@@ -11,6 +11,8 @@ import FirebaseAuth
 
 class FSAuthorizationController: FSViewController {
 
+    weak var delegate: FSSettingsControllerDelegate?
+
     let underlineTitleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
                                                                   .underlineStyle: NSUnderlineStyle.single.rawValue]
 

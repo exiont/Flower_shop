@@ -10,9 +10,7 @@ class FSUserInfo {
     var email: String
     var name: String
     var address: String
-    var password: String
     var avatar: UIImage?
-    let id: Int
     var orders: Int = 0
     var discount: Int {
         switch self.orders {
@@ -23,12 +21,11 @@ class FSUserInfo {
         }
     }
 
-    init(email: String, name: String, address: String, password: String, id: Int, orders: Int) {
+    init(email: String = "", name: String = "", address: String = "", orders: Int = 0, avatar: UIImage? = nil) {
         self.email = email
         self.name = name
         self.address = address
-        self.password = password
-        self.id = id
         self.orders = orders
+        self.avatar = avatar
     }
 }

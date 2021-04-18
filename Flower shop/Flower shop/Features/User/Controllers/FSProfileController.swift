@@ -15,7 +15,9 @@ import FirebaseUI
 
 class FSProfileController: FSViewController {
 
-    let userInfo = FSUserInfo(email: "test@test.ru", name: "Тестов Тест Тестович", address: "ул. Тестовая, 0", password: "123qwe", id: 1, orders: 15)
+    let userInfo = FSUserInfo()
+
+    let profileImagePlaceholder: UIImage = UIImage(systemName: "person.circle") ?? UIImage()
 
     private let avatarImageSize: CGSize = CGSize(width: 120, height: 120)
 
@@ -44,7 +46,7 @@ class FSProfileController: FSViewController {
 
     private lazy var userAvatar: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = self.userInfo.avatar ?? UIImage(systemName: "person.circle")
+        imageView.image = self.userInfo.avatar ?? self.profileImagePlaceholder
         imageView.tintColor = FSColors.mainPink
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = self.avatarImageSize.height / 2
@@ -168,6 +170,7 @@ class FSProfileController: FSViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.setUserData()
 //        self.userEmail.text = self.userInfo.email
 //        self.userName.text = self.userInfo.name
 //        self.userAddress.text = self.userInfo.address
@@ -281,25 +284,31 @@ class FSProfileController: FSViewController {
         super.updateViewConstraints()
     }
 
+    private func setUserData() {
+        self.userEmail.text = self.userInfo.email
+        self.userName.text = self.userInfo.name
+        self.userAddress.text = self.userInfo.address
+        self.userOrders.text = String(self.userInfo.orders)
+    }
+
     private func getUserData() {
         guard let user = Auth.auth().currentUser else { return }
         let storageReference = Storage.storage().reference().child("users/\(user.uid)")
-        self.userName.text = user.displayName
-        self.userEmail.text = user.email
+        self.userInfo.name = user.displayName ?? ""
+        self.userInfo.email = user.email ?? ""
         storageReference.getMetadata { (metadata: StorageMetadata?, error) in
             if let error = error {
                 Swift.debugPrint(error.localizedDescription)
-//                self.showAlert(message: error.localizedDescription, title: "Ошибка")
             } else {
                 guard let metadata = metadata else {
-                    self.userAvatar.image = UIImage(systemName: "person.circle")
+                    self.userAvatar.image = self.profileImagePlaceholder
                     return
                 }
 
                 if metadata.isFile {
                     self.userAvatar.sd_setImage(with: storageReference)
                 } else {
-                    self.userAvatar.image = UIImage(systemName: "person.circle")
+                    self.userAvatar.image = self.profileImagePlaceholder
                 }
             }
         }
@@ -384,7 +393,7 @@ extension FSProfileController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             let vc = FSSettingsController()
-            vc.userInfo = self.userInfo
+            vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
         case 1:
             self.logout()
@@ -447,5 +456,21 @@ extension FSProfileController: UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+}
 
+extension FSProfileController: FSSettingsControllerDelegate {
+    func updateUserAddress(with address: String) {
+        self.userInfo.address = address
+        self.setUserData()
+    }
+
+    func updateUserEmail(with email: String) {
+        self.userInfo.email = email
+        self.setUserData()
+    }
+
+    func updateUserName(with name: String) {
+        self.userInfo.name = name
+        self.setUserData()
+    }
 }
