@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 protocol FSSettingsControllerDelegate: class {
     func updateUserAddress(with address: String)
@@ -100,7 +101,17 @@ extension FSSettingsController: UITableViewDelegate {
                 if newAddress.isEmpty {
                     self.showAlert(message: "Введите адрес", title: "Ошибка")
                 } else {
-                    self.delegate?.updateUserAddress(with: newAddress)
+                    guard let user = Auth.auth().currentUser else { return }
+                    let addresses = Firestore.firestore().collection("addresses")
+                    let userAddress = addresses.document(user.uid)
+                    userAddress.setData(["address": newAddress]) { [weak self] error in
+                        if let error = error {
+                            self?.showAlert(message: error.localizedDescription, title: "Ошибка")
+                        } else {
+                            self?.delegate?.updateUserAddress(with: newAddress)
+                            self?.showAlert(message: "Адрес успешно изменён.", title: "")
+                        }
+                    }
                 }
             }))
             self.present(alert, animated: true, completion: nil)

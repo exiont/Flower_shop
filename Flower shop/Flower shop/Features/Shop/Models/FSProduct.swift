@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseFirestore
 
 struct FSProduct {
     let id: String
@@ -25,4 +27,6 @@ struct FSProduct {
         self.details = details
         self.isBouquet = isBouquet
     }
+
+
 }

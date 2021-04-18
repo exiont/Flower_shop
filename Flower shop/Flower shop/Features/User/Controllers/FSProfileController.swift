@@ -57,7 +57,6 @@ class FSProfileController: FSViewController {
 
     private lazy var userName: FSLabel = {
         let label = FSLabel()
-        label.text = self.userInfo.name
         label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         label.numberOfLines = 3
         label.adjustsFontSizeToFitWidth = true
@@ -68,7 +67,6 @@ class FSProfileController: FSViewController {
 
     private lazy var userEmail: FSLabel = {
         let label = FSLabel()
-        label.text = self.userInfo.email
         label.adjustsFontSizeToFitWidth = true
 
         return label
@@ -76,7 +74,6 @@ class FSProfileController: FSViewController {
 
     private lazy var userAddress: FSLabel = {
         let label = FSLabel()
-        label.text = self.userInfo.address
 
         return label
     }()
@@ -113,7 +110,6 @@ class FSProfileController: FSViewController {
 
     private lazy var userOrders: FSLabel = {
         let label = FSLabel()
-        label.text = String(self.userInfo.orders)
         label.textAlignment = .center
 
         return label
@@ -171,11 +167,6 @@ class FSProfileController: FSViewController {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.setUserData()
-//        self.userEmail.text = self.userInfo.email
-//        self.userName.text = self.userInfo.name
-//        self.userAddress.text = self.userInfo.address
-//        self.userOrders.text = String(self.userInfo.orders)
-//        self.userDiscount.text = "\(self.userInfo.discount)%"
     }
 
     override func viewDidLoad() {
@@ -295,6 +286,7 @@ class FSProfileController: FSViewController {
         guard let user = Auth.auth().currentUser else { return }
         let storageReference = Storage.storage().reference().child("users/\(user.uid)")
         self.userInfo.name = user.displayName ?? ""
+        self.userName.text = user.displayName
         self.userInfo.email = user.email ?? ""
         storageReference.getMetadata { (metadata: StorageMetadata?, error) in
             if let error = error {
@@ -310,6 +302,23 @@ class FSProfileController: FSViewController {
                 } else {
                     self.userAvatar.image = self.profileImagePlaceholder
                 }
+            }
+        }
+        self.loadUserAddress()
+    }
+
+    private func loadUserAddress() {
+        guard let user = Auth.auth().currentUser else { return }
+        let addresses = Firestore.firestore().collection("addresses")
+        let userAddress = addresses.document(user.uid)
+        userAddress.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let address = document.get("address") as? String {
+                    self.userInfo.address = address
+                    self.userAddress.text = address
+                }
+            } else if let error = error {
+                self.showAlert(message: error.localizedDescription, title: "Ошибка")
             }
         }
     }
