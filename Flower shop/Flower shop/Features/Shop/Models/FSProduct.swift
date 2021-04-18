@@ -10,23 +10,21 @@ import FirebaseStorage
 import FirebaseFirestore
 
 struct FSProduct {
-    let id: String
-    let image: UIImage?
-    let price: Double
-    let name: String
-    let description: String
-    let details: String
-    let isBouquet: Bool
+    var id: Int
+    var isBouquet: Bool
+    var price: Double
+    var image: UIImage?
+    var name: String
+    var description: String
+    var details: String
 
-    init(id: String, image: UIImage?, price: Double, name: String, description: String, details: String = "", isBouquet: Bool = false) {
+    init(id: Int = 0, image: UIImage? = nil, price: Double = 0, name: String = "", description: String = "", details: String = "", isBouquet: Bool = false) {
         self.id = id
-        self.image = image
+        self.isBouquet = isBouquet
         self.price = price
+        self.image = image
         self.name = name
         self.description = description
         self.details = details
-        self.isBouquet = isBouquet
     }
-
-
 }

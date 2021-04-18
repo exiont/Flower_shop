@@ -287,7 +287,7 @@ class FSProductViewController: FSViewController {
         self.productImageView.image = product.image != nil
             ? product.image
             : UIImage(named: "flower_placeholder")
-        self.productId.text = product.id
+        self.productId.text = String(product.id)
         self.productPrice.text = String(product.price)
         self.productName.text = product.name
         self.productDescription.text = product.description

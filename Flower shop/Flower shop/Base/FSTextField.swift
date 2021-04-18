@@ -30,6 +30,7 @@ class FSTextField: UITextField {
         self.backgroundColor = FSColors.whitePink
         self.textColor = FSColors.brownRed
         self.clearButtonMode = .whileEditing
+        self.autocorrectionType = .no
         self.translatesAutoresizingMaskIntoConstraints = false
         self.attributedPlaceholder = NSAttributedString(string: " ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
 

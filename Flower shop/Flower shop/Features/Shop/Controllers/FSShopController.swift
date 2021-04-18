@@ -7,16 +7,18 @@
 
 import UIKit
 import SnapKit
+import Firebase
+import FirebaseFirestore
 
 class FSShopController: FSViewController  {
 
     private var products: [FSProduct] = [] {
         didSet {
-            self.filteredPdoructs = self.products
+            self.filteredProducts = self.products
         }
     }
 
-    private lazy var filteredPdoructs: [FSProduct] = self.products
+    private lazy var filteredProducts: [FSProduct] = self.products
 
     private lazy var filteredFlowersOrBouquet: [FSProduct] = self.products
 
@@ -74,12 +76,9 @@ class FSShopController: FSViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-
+        self.loadProductList()
         self.addSubbviews()
         self.setupConstraints()
-        self.updateProductsList()
-
-        self.products =  self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
     }
 
     private func addSubbviews() {
@@ -90,28 +89,29 @@ class FSShopController: FSViewController  {
         self.view.addSubview(self.tableView)
     }
 
-    private func updateProductsList() { // будет подгрузка из базы
-        products.append(FSProduct(id: "001", image: nil, price: 5, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(id: "002", image: nil, price: 7, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(id: "003", image: nil, price: 4, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(id: "004", image: nil, price: 9, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(id: "005", image: nil, price: 10, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(id: "006", image: nil, price: 12, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(id: "007", image: nil, price: 15, name: "Праздничная", description: "Корзина", isBouquet: true))
-        products.append(FSProduct(id: "001", image: nil, price: 5, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(id: "002", image: nil, price: 7, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(id: "003", image: nil, price: 4, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(id: "004", image: nil, price: 9, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(id: "005", image: nil, price: 10, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(id: "006", image: nil, price: 12, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(id: "007", image: nil, price: 15, name: "Праздничная", description: "Корзина", isBouquet: true))
-        products.append(FSProduct(id: "001", image: nil, price: 5, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(id: "002", image: nil, price: 7, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(id: "003", image: nil, price: 4, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(id: "004", image: nil, price: 9, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(id: "005", image: nil, price: 10, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(id: "006", image: nil, price: 12, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(id: "007", image: nil, price: 15, name: "Праздничная", description: "Корзина", isBouquet: true))
+    func loadProductList() {
+        var product = FSProduct()
+        let db = Firestore.firestore()
+        db.collection("products").getDocuments { [weak self] (snapshot, error) in
+            if let error = error {
+                Swift.debugPrint(error.localizedDescription)
+            } else if let snapshot = snapshot {
+                let parsedProducts = snapshot.documents
+                parsedProducts.forEach { parsedProduct in
+                    product.id = parsedProduct.get("id") as? Int ?? 0
+                    product.isBouquet = parsedProduct.get("isBouquet") as? Bool ?? false
+                    product.price = parsedProduct.get("price") as? Double ?? 0
+                    product.name = parsedProduct.get("name") as? String ?? ""
+                    product.description = parsedProduct.get("description") as? String ?? ""
+                    product.details = parsedProduct.get("details") as? String ?? ""
+
+                    self?.products.append(product)
+                }
+            }
+            guard let self = self else { return }
+            self.products = self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
+            self.tableView.reloadData()
+        }
     }
 
     private func setupConstraints() {
@@ -164,7 +164,7 @@ class FSShopController: FSViewController  {
 
 extension FSShopController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredPdoructs = searchText.isEmpty
+        self.filteredProducts = searchText.isEmpty
             ? self.products
             : self.products.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         self.tableView.reloadData()
@@ -176,14 +176,14 @@ extension FSShopController: UISearchBarDelegate {
 
 extension FSShopController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.filteredPdoructs.count
+        self.filteredProducts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell,
               let placeholderImage = UIImage(named: "flower_placeholder") else { return UITableViewCell() }
 
-        let product = self.filteredPdoructs[indexPath.row]
+        let product = self.filteredProducts[indexPath.row]
         cell.setCell(image: product.image ?? placeholderImage,
                      name: product.name,
                      description: product.description,
