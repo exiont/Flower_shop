@@ -168,12 +168,11 @@ class FSProfileController: FSViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.userEmail.text = self.userInfo.email
-        self.userName.text = self.userInfo.name
-        self.userAddress.text = self.userInfo.address
-        self.userOrders.text = String(self.userInfo.orders)
-        self.userDiscount.text = "\(self.userInfo.discount)%"
-        self.getUserData()
+//        self.userEmail.text = self.userInfo.email
+//        self.userName.text = self.userInfo.name
+//        self.userAddress.text = self.userInfo.address
+//        self.userOrders.text = String(self.userInfo.orders)
+//        self.userDiscount.text = "\(self.userInfo.discount)%"
     }
 
     override func viewDidLoad() {
@@ -182,7 +181,7 @@ class FSProfileController: FSViewController {
         self.view.addSubview(self.userProfileHeaderStackView)
         self.view.addSubview(self.userOrdersHistoryStackView)
         self.view.addSubview(self.menuTableView)
-
+        self.getUserData()
     }
 
     override func updateViewConstraints() {
@@ -289,7 +288,8 @@ class FSProfileController: FSViewController {
         self.userEmail.text = user.email
         storageReference.getMetadata { (metadata: StorageMetadata?, error) in
             if let error = error {
-                self.showAlert(message: error.localizedDescription, title: "Ошибка")
+                Swift.debugPrint(error.localizedDescription)
+//                self.showAlert(message: error.localizedDescription, title: "Ошибка")
             } else {
                 guard let metadata = metadata else {
                     self.userAvatar.image = UIImage(systemName: "person.circle")

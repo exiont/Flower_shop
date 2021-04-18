@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseStorage
+//import FirebaseStorage
 
 class FSAuthorizationController: FSViewController {
 
@@ -208,22 +208,21 @@ class FSAuthorizationController: FSViewController {
            let password = passwordTextField.text,
            let name = nameTextField.text,
            let surname = surnameTextField.text {
-            Auth.auth().createUser(withEmail: email, password: password) { [weak self] (result, error) in
-                guard let self = self else { return }
-                if let error = error as NSError? {
-                    self.showAlert(message: error.localizedDescription, title: "Авторизация")
-                } else {
-                    let name = "\(name) \(surname)"
-                    guard let user = Auth.auth().currentUser else { return }
-                    let changeRequest = user.createProfileChangeRequest()
-                    changeRequest.displayName = name
+            Auth.auth().createUser(withEmail: email, password: password) { [weak self] (authResult, error) in
+                if let error = error {
+                    self?.showAlert(message: error.localizedDescription, title: "Авторизация")
+                } else if let authResult = authResult {
+                    let fullname = "\(name) \(surname)"
+                    let changeRequest = authResult.user.createProfileChangeRequest()
+                    changeRequest.displayName = fullname
                     changeRequest.commitChanges { (error) in
                         if let error = error {
-                            self.showAlert(message: error.localizedDescription, title: "Авторизация")
+                            self?.showAlert(message: error.localizedDescription, title: "Авторизация")
                         }
                     }
                 }
             }
+
             guard let scene = UIApplication.shared.connectedScenes.first,
                   let sceneDelegate = scene.delegate as? SceneDelegate else { return }
             let tabBarVC = FSTabBarController()
