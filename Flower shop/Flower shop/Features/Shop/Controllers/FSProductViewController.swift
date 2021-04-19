@@ -284,9 +284,7 @@ class FSProductViewController: FSViewController {
 
     func loadData(product: FSProduct) {
         self.product = product
-        self.productImageView.image = product.image != nil
-            ? product.image
-            : UIImage(named: "flower_placeholder")
+        self.productImageView.image = product.image
         self.productId.text = String(product.id)
         self.productPrice.text = String(product.price)
         self.productName.text = product.name

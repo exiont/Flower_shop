@@ -396,7 +396,7 @@ extension FSCartController: UITableViewDataSource {
               let placeholderImage = UIImage(named: "flower_placeholder") else { return UITableViewCell() }
 
         let addedProduct = self.productsInCart[indexPath.row]
-        cell.setCell(image: addedProduct.product.image ?? placeholderImage,
+        cell.setCell(image: addedProduct.product.imageView?.image ?? placeholderImage,
                      name: addedProduct.product.name,
                      price: addedProduct.product.price,
                      quantity: addedProduct.quantity)

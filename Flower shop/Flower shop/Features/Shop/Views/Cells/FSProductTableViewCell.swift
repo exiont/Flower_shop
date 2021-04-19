@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseStorage
 
 class FSProductTableViewCell: UITableViewCell {
 
@@ -137,6 +139,28 @@ class FSProductTableViewCell: UITableViewCell {
         self.productPrice.text = String(price)
 
         self.setNeedsUpdateConstraints()
+    }
+
+    func setCellFromDB(productQuery: QueryDocumentSnapshot) {
+        let product = FSProduct.parseProduct(productQuery: productQuery)
+
+        self.productImageView.image = UIImage(named: "flower_placeholder")
+        self.productName.text = product.name
+        self.productDescription.text = product.description
+        self.productPrice.text = String(product.price)
+
+        guard let image = product.imageView?.image else {
+            self.loadImage(product: product)
+            return
+        }
+        self.productImageView.image = image
+        self.setNeedsUpdateConstraints()
+    }
+
+    func loadImage(product: FSProduct) {
+        let storageRef = Storage.storage().reference()
+        let reference = storageRef.child(product.imageUrl)
+        self.productImageView.sd_setImage(with: reference)
     }
 
 }

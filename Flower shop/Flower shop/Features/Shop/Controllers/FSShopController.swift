@@ -12,6 +12,7 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class FSShopController: FSViewController  {
+    private var productsDatabase: [QueryDocumentSnapshot] = []
 
     private var products: [FSProduct] = [] {
         didSet {
@@ -91,29 +92,16 @@ class FSShopController: FSViewController  {
     }
 
     func loadProductList() {
-        var product = FSProduct()
         let db = Firestore.firestore()
         db.collection("products").getDocuments { [weak self] (snapshot, error) in
             if let error = error {
                 Swift.debugPrint(error.localizedDescription)
             } else if let snapshot = snapshot {
-                let parsedProducts = snapshot.documents
-                parsedProducts.forEach { parsedProduct in
-                    product.id = parsedProduct.get("id") as? Int ?? 0
-                    product.isBouquet = parsedProduct.get("isBouquet") as? Bool ?? false
-                    product.price = parsedProduct.get("price") as? Double ?? 0
-                    product.name = parsedProduct.get("name") as? String ?? ""
-                    product.description = parsedProduct.get("description") as? String ?? ""
-                    product.details = parsedProduct.get("details") as? String ?? ""
-                    product.imageUrl = parsedProduct.get("image") as? String ?? ""
-
-                    self?.products.append(product)
+                self?.productsDatabase = snapshot.documents
                 }
             }
-            guard let self = self else { return }
-            self.products = self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
-            self.tableView.reloadData()
-        }
+//            self.products = self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
+//            self.tableView.reloadData()
     }
 
     private func setupConstraints() {
@@ -183,26 +171,14 @@ extension FSShopController: UISearchBarDelegate {
 
 extension FSShopController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.filteredProducts.count
+        self.productsDatabase.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell,
-              let placeholderImage = UIImage(named: "flower_placeholder") else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell else { return UITableViewCell() }
 
-        let product = self.filteredProducts[indexPath.row]
-        let storageRef = Storage.storage().reference()
-        let reference = storageRef.child(product.imageUrl)
-        product.imageView.sd_setImage(with: reference, placeholderImage: placeholderImage) { (image, error, imageCache, reference) in
-            if let error = error {
-                Swift.debugPrint(error.localizedDescription)
-            } else if let image = image {
-                cell.setCell(image: image,
-                             name: product.name,
-                             description: product.description,
-                             price: product.price)
-            }
-        }
+        let product = self.productsDatabase[indexPath.row]
+        cell.setCellFromDB(productQuery: product)
         return cell
     }
 }
@@ -210,7 +186,7 @@ extension FSShopController: UITableViewDataSource {
 extension FSShopController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = FSProductViewController()
-        let product = products[indexPath.row]
+        let product = FSProduct.parseProduct(productQuery: productsDatabase[indexPath.row])
         vc.loadData(product: product)
         navigationController?.pushViewController(vc, animated: true)
     }
