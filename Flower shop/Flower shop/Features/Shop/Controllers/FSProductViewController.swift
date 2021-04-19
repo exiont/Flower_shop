@@ -10,7 +10,7 @@ import UIKit
 class FSProductViewController: FSViewController {
 
     var product: FSProduct? = nil
-    var counter: Int = 9
+    var counter: Int = 1
 
     private let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
     private let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
@@ -154,8 +154,6 @@ class FSProductViewController: FSViewController {
         stackView.addSubview(self.addProductItemButton)
         stackView.addSubview(self.removeProductItemButton)
         stackView.addSubview(self.productCurrentQuantity)
-//        stackView.layer.borderWidth = 0.5
-//        stackView.layer.borderColor = FSColors.mainPink.cgColor
 
         return stackView
     }()
@@ -206,7 +204,6 @@ class FSProductViewController: FSViewController {
         }
 
         self.productIdLabel.snp.updateConstraints { (make) in
-//            make.top.equalTo(self.productImageView.snp.bottom).offset(10)
             make.top.bottom.equalToSuperview()
             make.right.equalTo(self.productId.snp.left).offset(-5)
         }
@@ -279,7 +276,6 @@ class FSProductViewController: FSViewController {
         }
 
         super.updateViewConstraints()
-
     }
 
     func loadData(product: FSProduct) {
@@ -290,7 +286,6 @@ class FSProductViewController: FSViewController {
         self.productName.text = product.name
         self.productDescription.text = product.description
         self.productDetails.text = product.details
-
     }
 
     @objc func addToCartButtonDidTap() {
@@ -314,7 +309,6 @@ class FSProductViewController: FSViewController {
         } else {
             self.showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
         }
-
     }
 
     @objc func removeProductItemButtonDidTap() {
@@ -347,5 +341,4 @@ class FSProductViewController: FSViewController {
             self.timer = nil
         }
     }
-
 }

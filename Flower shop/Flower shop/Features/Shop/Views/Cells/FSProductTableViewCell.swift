@@ -132,15 +132,6 @@ class FSProductTableViewCell: UITableViewCell {
         super.updateConstraints()
     }
 
-    func setCell(image: UIImage, name: String, description: String, price: Double) {
-        self.productImageView.image = image
-        self.productName.text = name
-        self.productDescription.text = description
-        self.productPrice.text = String(price)
-
-        self.setNeedsUpdateConstraints()
-    }
-
     func setCellFromDB(productQuery: QueryDocumentSnapshot) {
         let product = FSProduct.parseProduct(productQuery: productQuery)
 
@@ -149,11 +140,8 @@ class FSProductTableViewCell: UITableViewCell {
         self.productDescription.text = product.description
         self.productPrice.text = String(product.price)
 
-        guard let image = product.imageView?.image else {
-            self.loadImage(product: product)
-            return
-        }
-        self.productImageView.image = image
+        self.loadImage(product: product)
+
         self.setNeedsUpdateConstraints()
     }
 

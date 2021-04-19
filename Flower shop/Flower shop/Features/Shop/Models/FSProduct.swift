@@ -42,12 +42,10 @@ class FSProduct {
         product.details = productQuery.get("details") as? String ?? ""
         product.imageUrl = productQuery.get("image") as? String ?? ""
 
-        let imagePath = product.imageUrl
-        if !imagePath.isEmpty {
-            let storageRef = Storage.storage().reference()
-            let reference = storageRef.child(imagePath)
-            product.imageView?.sd_setImage(with: reference)
-        }
+        let storageRef = Storage.storage().reference()
+        let reference = storageRef.child(product.imageUrl)
+        product.imageView?.sd_setImage(with: reference)
+
         return product
     }
 }

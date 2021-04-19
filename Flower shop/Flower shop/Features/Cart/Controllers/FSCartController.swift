@@ -7,6 +7,8 @@
 
 import UIKit
 import ALRadioButtons
+import FirebaseAuth
+import FirebaseFirestore
 
 protocol FSProductInCartCellDelegate: class {
     func updateTotalPrice()
@@ -174,6 +176,7 @@ class FSCartController: FSViewController {
         self.view.addSubview(self.courierDeliveryStackView)
         self.view.addSubview(self.takeawayStackView)
         self.view.addSubview(self.checkoutButton)
+        self.loadUserAddress()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -279,6 +282,21 @@ class FSCartController: FSViewController {
         }
 
         super.updateViewConstraints()
+    }
+
+    private func loadUserAddress() {
+        guard let user = Auth.auth().currentUser else { return }
+        let addresses = Firestore.firestore().collection("addresses")
+        let userAddress = addresses.document(user.uid)
+        userAddress.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let address = document.get("address") as? String {
+                    self.deliveryAddressTextField.text = address
+                }
+            } else if let error = error {
+                Swift.debugPrint(error.localizedDescription)
+            }
+        }
     }
 
     func addProductToCart(with product: FSProduct, and quantity: Int) {
@@ -429,12 +447,6 @@ extension FSCartController: UITableViewDelegate {
     }
 }
 
-extension FSCartController: FSProductInCartCellDelegate {
-    func updateTotalPrice() {
-
-    }
-}
-
 extension FSCartController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
 
@@ -442,6 +454,8 @@ extension FSCartController: UITextFieldDelegate {
         case self.phoneNumberTextField:
             guard let text = textField.text, text.isEmpty else { return true }
             textField.text = "8 (0"
+            let end = textField.endOfDocument
+            textField.selectedTextRange = textField.textRange(from: end, to: end)
         default: return true
         }
 
@@ -465,5 +479,11 @@ extension FSCartController: UITextFieldDelegate {
             return count <= 17
         default: return true
         }
+    }
+}
+
+extension FSCartController: FSProductInCartCellDelegate {
+    func updateTotalPrice() {
+
     }
 }

@@ -15,7 +15,6 @@ class FSMapViewController: UIViewController {
     private let locationManager = CLLocationManager()
 
     private var markets: [FSMarket] = []
-
     private var markers: [GMSMarker] = []
 
     override func viewWillAppear(_ animated: Bool) {
@@ -35,11 +34,10 @@ class FSMapViewController: UIViewController {
         self.mapView.delegate = self
         self.mapView.isMyLocationEnabled = true
         self.mapView.settings.compassButton = true
-        self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
     }
 
-    private func loadMarkets() { // будет подгрузка из базы
+    private func loadMarkets() {
         let firstMarket = FSMarket(latitude: 53.90, longitude: 27.62, name: "Flower shop 1", workingHours: "08:00 - 23:00", description: "Тракторный завод")
         let secondMarket = FSMarket(latitude: 53.92, longitude: 27.62, name: "Flower shop 2", workingHours: "09:00 - 21:00", description: "Московская")
         let thirdMarket = FSMarket(latitude: 53.94, longitude: 27.63, name: "Flower shop 2", workingHours: "24/7", description: "Зелёный луг")
@@ -127,8 +125,4 @@ extension FSMapViewController: GMSMapViewDelegate {
         }
         return true
     }
-}
-
-extension FSMapViewController: CLLocationManagerDelegate {
-
 }

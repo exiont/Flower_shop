@@ -75,13 +75,10 @@ class FSShopController: FSViewController  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loadProductList()
         self.view.backgroundColor = .white
         self.addSubbviews()
         self.setupConstraints()
-        self.loadProductList()
-
-        self.productsDatabase = self.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
-        self.tableView.reloadData()
     }
 
     private func addSubbviews() {
@@ -94,19 +91,15 @@ class FSShopController: FSViewController  {
 
     func loadProductList() {
         let db = Firestore.firestore()
-        db.collection("products").getDocuments { [weak self] (snapshot, error) in
+        db.collection("products").addSnapshotListener { [weak self] (snapshot, error) in
             if let error = error {
                 Swift.debugPrint(error.localizedDescription)
             } else if let snapshot = snapshot {
                 self?.productsDatabase = snapshot.documents
-//                self?.productsDatabase = self?.filteredProducts.filter { !($0.get("isBouquet") as? Bool ?? false) } ?? []
-//                self?.tableView.reloadData()
-                }
-//            self?.filteredProducts = self?.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) } ?? []
-//            self?.tableView.reloadData()
             }
-//        self.productsDatabase = self.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
-//        self.tableView.reloadData()
+            self?.productsDatabase = self?.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) } ?? []
+            self?.tableView.reloadData()
+        }
     }
 
     private func setupConstraints() {
