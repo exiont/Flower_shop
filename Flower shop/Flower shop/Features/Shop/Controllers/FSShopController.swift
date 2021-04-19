@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Firebase
 import FirebaseFirestore
+import FirebaseStorage
 
 class FSShopController: FSViewController  {
 
@@ -104,6 +105,7 @@ class FSShopController: FSViewController  {
                     product.name = parsedProduct.get("name") as? String ?? ""
                     product.description = parsedProduct.get("description") as? String ?? ""
                     product.details = parsedProduct.get("details") as? String ?? ""
+                    product.imageUrl = parsedProduct.get("image") as? String ?? ""
 
                     self?.products.append(product)
                 }
@@ -169,8 +171,13 @@ extension FSShopController: UISearchBarDelegate {
             : self.products.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         self.tableView.reloadData()
     }
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
     }
 }
 
@@ -184,11 +191,18 @@ extension FSShopController: UITableViewDataSource {
               let placeholderImage = UIImage(named: "flower_placeholder") else { return UITableViewCell() }
 
         let product = self.filteredProducts[indexPath.row]
-        cell.setCell(image: product.image ?? placeholderImage,
-                     name: product.name,
-                     description: product.description,
-                     price: product.price)
-
+        let storageRef = Storage.storage().reference()
+        let reference = storageRef.child(product.imageUrl)
+        product.imageView.sd_setImage(with: reference, placeholderImage: placeholderImage) { (image, error, imageCache, reference) in
+            if let error = error {
+                Swift.debugPrint(error.localizedDescription)
+            } else if let image = image {
+                cell.setCell(image: image,
+                             name: product.name,
+                             description: product.description,
+                             price: product.price)
+            }
+        }
         return cell
     }
 }
