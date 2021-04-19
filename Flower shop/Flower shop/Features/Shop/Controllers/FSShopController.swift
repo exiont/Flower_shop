@@ -12,17 +12,15 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class FSShopController: FSViewController  {
-    private var productsDatabase: [QueryDocumentSnapshot] = []
-
-    private var products: [FSProduct] = [] {
+    private var productsDatabase: [QueryDocumentSnapshot] = [] {
         didSet {
-            self.filteredProducts = self.products
+            self.filteredProducts = self.productsDatabase
         }
     }
 
-    private lazy var filteredProducts: [FSProduct] = self.products
+    private lazy var filteredProducts: [QueryDocumentSnapshot] = self.productsDatabase
 
-    private lazy var filteredFlowersOrBouquet: [FSProduct] = self.products
+    private lazy var filteredFlowersOrBouquet: [QueryDocumentSnapshot] = self.productsDatabase
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -78,9 +76,12 @@ class FSShopController: FSViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.loadProductList()
         self.addSubbviews()
         self.setupConstraints()
+        self.loadProductList()
+
+        self.productsDatabase = self.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
+        self.tableView.reloadData()
     }
 
     private func addSubbviews() {
@@ -98,10 +99,14 @@ class FSShopController: FSViewController  {
                 Swift.debugPrint(error.localizedDescription)
             } else if let snapshot = snapshot {
                 self?.productsDatabase = snapshot.documents
+//                self?.productsDatabase = self?.filteredProducts.filter { !($0.get("isBouquet") as? Bool ?? false) } ?? []
+//                self?.tableView.reloadData()
                 }
+//            self?.filteredProducts = self?.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) } ?? []
+//            self?.tableView.reloadData()
             }
-//            self.products = self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
-//            self.tableView.reloadData()
+//        self.productsDatabase = self.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
+//        self.tableView.reloadData()
     }
 
     private func setupConstraints() {
@@ -139,12 +144,12 @@ class FSShopController: FSViewController  {
         case 0:
             self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
             self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
-            self.products = filteredFlowersOrBouquet.filter { !$0.isBouquet }
+            self.productsDatabase = filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
             self.tableView.reloadData()
         case 1:
             self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
             self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
-            self.products = filteredFlowersOrBouquet.filter { $0.isBouquet }
+            self.productsDatabase = filteredFlowersOrBouquet.filter { $0.get("isBouquet") as? Bool ?? false }
             self.tableView.reloadData()
         default:
             break
@@ -155,8 +160,8 @@ class FSShopController: FSViewController  {
 extension FSShopController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.filteredProducts = searchText.isEmpty
-            ? self.products
-            : self.products.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            ? self.productsDatabase
+            : self.productsDatabase.filter { ($0.get("name") as? String ?? "").lowercased().contains(searchText.lowercased()) }
         self.tableView.reloadData()
     }
 
@@ -171,13 +176,13 @@ extension FSShopController: UISearchBarDelegate {
 
 extension FSShopController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.productsDatabase.count
+        self.filteredProducts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell else { return UITableViewCell() }
 
-        let product = self.productsDatabase[indexPath.row]
+        let product = self.filteredProducts[indexPath.row]
         cell.setCellFromDB(productQuery: product)
         return cell
     }
