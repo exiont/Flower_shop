@@ -14,7 +14,6 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
     var productsInCart: [FSProductInCart] = []
 
-    private var isCashPayment: Bool = true
     private var isСourierDelivery: Bool = true
 
     private lazy var cartLabel: FSLabel = {
@@ -112,7 +111,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
     private lazy var paymentMethodRadioGroup: ALRadioGroup = {
         let radioGroup = ALRadioGroup(items: [.init(title: "Наличными"), .init(title: "Картой")], style: .standard)
         radioGroup.selectedIndex = 0
-        radioGroup.addTarget(self, action: #selector(radioGroupSelected(_:)), for: .valueChanged)
+        radioGroup.addTarget(self, action: #selector(paymentMethodSelected(_:)), for: .valueChanged)
         radioGroup.axis = .horizontal
         radioGroup.unselectedTitleColor = FSColors.brownRed
         radioGroup.selectedTitleColor = FSColors.mainPink
@@ -141,13 +140,13 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         return stackView
     }()
 
-    private lazy var takeawayShopsRadioGroup: ALRadioGroup = {
+    private lazy var pickupPointsRadioGroup: ALRadioGroup = {
         let firstShop = ALRadioItem(title: "Магазин 1, ул. Хамицевича 3", subtitle: "ст.м. Тракторный завод, 10:00 - 21:00")
         let secondShop = ALRadioItem(title: "Магазин 2, ул. Евгения 2", subtitle: "ст.м. Московская, 8:00 - 00:00")
         let thirdShop = ALRadioItem(title: "Магазин 3, ул. Михайловича 1", subtitle: "ст.м. Зелёный луг, 9:00 - 22:00")
         let radioGroup = ALRadioGroup(items: [firstShop, secondShop, thirdShop], style: .standard)
         radioGroup.selectedIndex = 0
-        radioGroup.addTarget(self, action: #selector(radioGroupSelected(_:)), for: .valueChanged)
+        radioGroup.addTarget(self, action: #selector(pickupPointSelected(_:)), for: .valueChanged)
         radioGroup.axis = .vertical
         radioGroup.unselectedTitleColor = FSColors.brownRed
         radioGroup.selectedTitleColor = FSColors.mainPink
@@ -160,9 +159,9 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         return radioGroup
     }()
 
-    private lazy var takeawayStackView: UIStackView = {
+    private lazy var pickupPointsStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.addSubview(self.takeawayShopsRadioGroup)
+        stackView.addSubview(self.pickupPointsRadioGroup)
         stackView.alpha = 0
 
         return stackView
@@ -183,7 +182,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         self.view.addSubview(self.totalPriceStackView)
         self.view.addSubview(self.deliveryMethodSegmentedControlView)
         self.view.addSubview(self.courierDeliveryStackView)
-        self.view.addSubview(self.takeawayStackView)
+        self.view.addSubview(self.pickupPointsStackView)
         self.view.addSubview(self.checkoutButton)
         self.loadUserAddress()
     }
@@ -251,12 +250,12 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             make.height.equalTo(35)
         }
 
-        self.takeawayStackView.snp.makeConstraints { (make) in
+        self.pickupPointsStackView.snp.makeConstraints { (make) in
             make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom)
             make.left.right.equalToSuperview()
         }
 
-        self.takeawayShopsRadioGroup.snp.makeConstraints { (make) in
+        self.pickupPointsRadioGroup.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview().inset(15)
             make.bottom.equalToSuperview()
         }
@@ -292,7 +291,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         }
 
         self.checkoutButton.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.takeawayStackView.snp.bottom)
+            make.top.equalTo(self.pickupPointsStackView.snp.bottom)
             make.left.right.equalToSuperview().inset(45)
             make.bottom.lessThanOrEqualToSuperview()
             make.height.equalTo(40)
@@ -316,21 +315,56 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         }
     }
 
-    private func formOrder() {
+    private func formOrder() -> FSOrder {
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateString = df.string(from: date)
+
         let totalPrice: Double = self.calculateTotalPrice()
         let address: String = self.deliveryAddressTextField.text ?? ""
         let phoneNumber: String = self.phoneNumberTextField.text ?? ""
-        var paymentMethod: String = self.isCashPayment ? "Cash" : "Card"
-        var orderProducts: [Int: Int] = [:]
-        self.productsInCart.forEach { orderProducts.updateValue($0.quantity, forKey: $0.product.id) }
+        let paymentMethod: String = paymentMethodSelected(self.paymentMethodRadioGroup) ? "Cash" : "Card"
+        let pickupPoint = pickupPointSelected(self.pickupPointsRadioGroup)
 
+        var orderProducts: [String: Int] = [:]
+        self.productsInCart.forEach { orderProducts.updateValue($0.quantity, forKey: String($0.product.id)) }
+
+        if isСourierDelivery {
+            let order = FSOrder(isСourierDelivery: isСourierDelivery, orderProducts: orderProducts, totalPrice: totalPrice, address: address, phoneNumber: phoneNumber, paymentMethod: paymentMethod, date: dateString)
+
+            return order
+        } else {
+            let order = FSOrder(isСourierDelivery: isСourierDelivery, orderProducts: orderProducts, totalPrice: totalPrice, phoneNumber: phoneNumber, pickupPoint: pickupPoint, date: dateString)
+
+            return order
+        }
     }
 
     private func sendOrder() {
+        let newOrder = self.formOrder()
+        print(newOrder.orderProducts)
         guard let user = Auth.auth().currentUser else { return }
         let orders = Firestore.firestore().collection("orders")
         let userOrders = orders.document(user.uid)
-//        userOrders.setData(<#T##documentData: [String : Any]##[String : Any]#>, completion: <#T##((Error?) -> Void)?##((Error?) -> Void)?##(Error?) -> Void#>)
+        let orderData: [String: Any] = [
+            newOrder.date: ["date": newOrder.date,
+                            "totalPrice": newOrder.totalPrice,
+                            "phoneNumber": newOrder.phoneNumber,
+                            "address": newOrder.address,
+                            "paymentMethod": newOrder.paymentMethod,
+                            "pickupPoint": newOrder.pickupPoint,
+                            "isСourierDelivery": newOrder.isСourierDelivery,
+                            "orderProducts": newOrder.orderProducts]
+        ]
+
+        userOrders.setData(orderData, merge: true) { error in
+            if let error = error {
+                self.showAlert(message: error.localizedDescription, title: "Ошибка")
+            } else {
+                self.showAlert(message: "Заказ оформлен", title: "")
+            }
+        }
     }
 
     func addProductToCart(with product: FSProduct?, and quantity: Int) {
@@ -366,17 +400,21 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         self.view.endEditing(true)
     }
 
-    @objc private func radioGroupSelected(_ sender: ALRadioGroup) {
-        //        print(sender.selectedIndex)
+    @objc private func paymentMethodSelected(_ sender: ALRadioGroup) -> Bool {
+        sender.selectedIndex == 0
+    }
+
+    @objc private func pickupPointSelected(_ sender: ALRadioGroup) -> Int {
+        sender.selectedIndex + 1
     }
 
     @objc private func checkoutButtonDidTap() {
-        self.sendOrder()
-//        self.checkCheckoutErrors()
-//        let hasErrors = self.checkCheckoutErrors()
-//        if !hasErrors {
-//            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-//        }
+        self.checkCheckoutErrors()
+        let hasErrors = self.checkCheckoutErrors()
+        if !hasErrors {
+            self.sendOrder()
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
     }
 
     @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
@@ -386,7 +424,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             self.deliveryMethodSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
             self.deliveryMethodSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
             self.courierDeliveryStackView.alpha = 1
-            self.takeawayStackView.alpha = 0
+            self.pickupPointsStackView.alpha = 0
             self.isСourierDelivery.toggle()
 
             self.checkoutButton.snp.remakeConstraints { (make) in
@@ -399,11 +437,11 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             self.deliveryMethodSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
             self.deliveryMethodSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
             self.courierDeliveryStackView.alpha = 0
-            self.takeawayStackView.alpha = 1
+            self.pickupPointsStackView.alpha = 1
             self.isСourierDelivery.toggle()
 
             self.checkoutButton.snp.remakeConstraints { (make) in
-                make.top.equalTo(self.takeawayStackView.snp.bottom)
+                make.top.equalTo(self.pickupPointsStackView.snp.bottom)
                 make.left.right.equalToSuperview().inset(45)
                 make.bottom.lessThanOrEqualToSuperview()
                 make.height.equalTo(40)
@@ -424,20 +462,18 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             errors = true
             message += "В корзине нет товаров"
             showAlert(message: message, title: title)
+        } else if let phone = self.phoneNumberTextField.text, phone.isEmpty {
+            errors = true
+            message += "Введите номер телефона"
+            showAlert(message: message, title: title)
+        } else if let phone = self.phoneNumberTextField.text, phone.count < 17 {
+            errors = true
+            message += "Неправильный номер телефона"
+            showAlert(message: message, title: title)
         }
 
-        if let phone = self.phoneNumberTextField.text,
-           let address = self.deliveryAddressTextField.text,
-           self.isСourierDelivery {
-            if phone.isEmpty {
-                errors = true
-                message += "Введите номер телефона"
-                alertWithTitle(title: title, message: message, toFocus: self.phoneNumberTextField)
-            } else if phone.count < 17 {
-                errors = true
-                message += "Неправильный номер телефона"
-                alertWithTitle(title: title, message: message, toFocus: self.phoneNumberTextField)
-            } else if address.isEmpty {
+        if let address = self.deliveryAddressTextField.text, self.isСourierDelivery {
+            if address.isEmpty {
                 errors = true
                 message += "Введите адрес доставки"
                 alertWithTitle(title: title, message: message, toFocus: self.deliveryAddressTextField)
