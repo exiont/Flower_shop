@@ -9,7 +9,7 @@ import UIKit
 
 protocol FSProductInCartCellDelegate: class {
     func addProductToCart(with product: FSProduct?, and quantity: Int)
-    func calculateTotalPrice()
+    func calculateTotalPrice() -> Double
 }
 
 class FSProductInCartCell: UITableViewCell {

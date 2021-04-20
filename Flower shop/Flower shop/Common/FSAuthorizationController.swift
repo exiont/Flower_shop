@@ -10,10 +10,10 @@ import FirebaseAuth
 
 class FSAuthorizationController: FSViewController {
 
-    weak var delegate: FSSettingsControllerDelegate?
-
     let underlineTitleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
-                                                                  .underlineStyle: NSUnderlineStyle.single.rawValue]
+                                                                   .underlineStyle: NSUnderlineStyle.single.rawValue]
+
+    var isUserHaveAccount: Bool = true
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -41,6 +41,7 @@ class FSAuthorizationController: FSViewController {
         view.segmentedControl.insertSegment(withTitle: "Регистрация", at: 1, animated: false)
         view.segmentedControl.selectedSegmentIndex = 0
         view.segmentedControl.addTarget(self, action: #selector(self.changeLoginOrRegiser(sender:)), for: .valueChanged)
+
         return view
     }()
 
@@ -49,6 +50,7 @@ class FSAuthorizationController: FSViewController {
         textField.placeholder = "Имя"
         textField.isHidden = true
         textField.delegate = self
+
         return textField
     }()
 
@@ -57,6 +59,7 @@ class FSAuthorizationController: FSViewController {
         textField.placeholder = "Фамилия"
         textField.isHidden = true
         textField.delegate = self
+
         return textField
     }()
 
@@ -66,6 +69,7 @@ class FSAuthorizationController: FSViewController {
         textField.keyboardType = .emailAddress
         textField.textContentType = .emailAddress
         textField.delegate = self
+
         return textField
     }()
 
@@ -75,6 +79,7 @@ class FSAuthorizationController: FSViewController {
         textField.textContentType = .password
         textField.isSecureTextEntry = true
         textField.delegate = self
+
         return textField
     }()
 
@@ -84,6 +89,7 @@ class FSAuthorizationController: FSViewController {
         textField.isSecureTextEntry = true
         textField.isHidden = true
         textField.delegate = self
+
         return textField
     }()
 
@@ -210,25 +216,23 @@ class FSAuthorizationController: FSViewController {
            let name = nameTextField.text,
            let surname = surnameTextField.text {
             Auth.auth().createUser(withEmail: email, password: password) { [weak self] (authResult, error) in
-                guard let self = self else { return }
                 if let error = error {
-                    self.showAlert(message: error.localizedDescription, title: "Авторизация")
+                    self?.showAlert(message: error.localizedDescription, title: "Авторизация")
                 } else if let authResult = authResult {
                     let fullname = "\(name) \(surname)"
                     let changeRequest = authResult.user.createProfileChangeRequest()
                     changeRequest.displayName = fullname
                     changeRequest.commitChanges { (error) in
                         if let error = error {
-                            self.showAlert(message: error.localizedDescription, title: "Авторизация")
+                            self?.showAlert(message: error.localizedDescription, title: "Авторизация")
                         }
                     }
+                    guard let scene = UIApplication.shared.connectedScenes.first,
+                          let sceneDelegate = scene.delegate as? SceneDelegate else { return }
+                    let tabBarVC = FSTabBarController()
+                    sceneDelegate.changeRootViewConroller(tabBarVC)
                 }
             }
-
-            guard let scene = UIApplication.shared.connectedScenes.first,
-                  let sceneDelegate = scene.delegate as? SceneDelegate else { return }
-            let tabBarVC = FSTabBarController()
-            sceneDelegate.changeRootViewConroller(tabBarVC)
         }
     }
 
@@ -282,6 +286,7 @@ class FSAuthorizationController: FSViewController {
 
             self.authorizationButton.setTitle("Вход", for: UIControl.State())
             self.authorizationButton.addTarget(self, action: #selector(logInButtonDidTap), for: .touchUpInside)
+            self.isUserHaveAccount.toggle()
         case 1:
             self.nameTextField.isHidden = false
             self.nameTextField.snp.remakeConstraints { (make) in
@@ -310,6 +315,7 @@ class FSAuthorizationController: FSViewController {
 
             self.authorizationButton.setTitle("Регистрация", for: UIControl.State())
             self.authorizationButton.addTarget(self, action: #selector(registerButtonDidTap), for: .touchUpInside)
+            self.isUserHaveAccount.toggle()
         default:
             break
         }
@@ -396,7 +402,7 @@ class FSAuthorizationController: FSViewController {
 extension FSAuthorizationController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        if authorizationSegmentedControlView.segmentedControl.selectedSegmentIndex == 1 {
+        if !self.isUserHaveAccount {
             switch textField {
             case self.nameTextField:
                 self.surnameTextField.becomeFirstResponder()

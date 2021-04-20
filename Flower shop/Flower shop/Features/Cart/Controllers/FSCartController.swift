@@ -14,6 +14,9 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
     var productsInCart: [FSProductInCart] = []
 
+    private var isCashPayment: Bool = true
+    private var isСourierDelivery: Bool = true
+
     private lazy var cartLabel: FSLabel = {
         let label = FSLabel()
         label.text = "Корзина"
@@ -139,9 +142,9 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
     }()
 
     private lazy var takeawayShopsRadioGroup: ALRadioGroup = {
-        let firstShop = ALRadioItem(title: "Магазин 1, ул. Хамицевича 3", subtitle: "ст.м. Тракторный завод")
-        let secondShop = ALRadioItem(title: "Магазин 2, ул. Евгения 2", subtitle: "ст.м. Московская")
-        let thirdShop = ALRadioItem(title: "Магазин 3, ул. Михайловича 1", subtitle: "ст.м. Зелёный луг")
+        let firstShop = ALRadioItem(title: "Магазин 1, ул. Хамицевича 3", subtitle: "ст.м. Тракторный завод, 10:00 - 21:00")
+        let secondShop = ALRadioItem(title: "Магазин 2, ул. Евгения 2", subtitle: "ст.м. Московская, 8:00 - 00:00")
+        let thirdShop = ALRadioItem(title: "Магазин 3, ул. Михайловича 1", subtitle: "ст.м. Зелёный луг, 9:00 - 22:00")
         let radioGroup = ALRadioGroup(items: [firstShop, secondShop, thirdShop], style: .standard)
         radioGroup.selectedIndex = 0
         radioGroup.addTarget(self, action: #selector(radioGroupSelected(_:)), for: .valueChanged)
@@ -313,6 +316,23 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         }
     }
 
+    private func formOrder() {
+        let totalPrice: Double = self.calculateTotalPrice()
+        let address: String = self.deliveryAddressTextField.text ?? ""
+        let phoneNumber: String = self.phoneNumberTextField.text ?? ""
+        var paymentMethod: String = self.isCashPayment ? "Cash" : "Card"
+        var orderProducts: [Int: Int] = [:]
+        self.productsInCart.forEach { orderProducts.updateValue($0.quantity, forKey: $0.product.id) }
+
+    }
+
+    private func sendOrder() {
+        guard let user = Auth.auth().currentUser else { return }
+        let orders = Firestore.firestore().collection("orders")
+        let userOrders = orders.document(user.uid)
+//        userOrders.setData(<#T##documentData: [String : Any]##[String : Any]#>, completion: <#T##((Error?) -> Void)?##((Error?) -> Void)?##(Error?) -> Void#>)
+    }
+
     func addProductToCart(with product: FSProduct?, and quantity: Int) {
         guard let product = product else { return }
         if productsInCart.filter({ $0.product.id == product.id }).count == 0 {
@@ -332,12 +352,14 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         }
     }
 
-    func calculateTotalPrice() {
+    @discardableResult
+    func calculateTotalPrice() -> Double {
         var totalPrice: Double = 0
         for item in self.productsInCart {
             totalPrice += item.product.price * Double(item.quantity)
         }
         self.totalPrice.text = String(totalPrice)
+        return totalPrice
     }
 
     @objc private func viewDidTapped() {
@@ -349,11 +371,12 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
     }
 
     @objc private func checkoutButtonDidTap() {
-        self.checkCheckoutErrors()
-        let hasErrors = self.checkCheckoutErrors()
-        if !hasErrors {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        }
+        self.sendOrder()
+//        self.checkCheckoutErrors()
+//        let hasErrors = self.checkCheckoutErrors()
+//        if !hasErrors {
+//            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+//        }
     }
 
     @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
@@ -364,6 +387,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             self.deliveryMethodSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
             self.courierDeliveryStackView.alpha = 1
             self.takeawayStackView.alpha = 0
+            self.isСourierDelivery.toggle()
 
             self.checkoutButton.snp.remakeConstraints { (make) in
                 make.top.equalTo(self.courierDeliveryStackView.snp.bottom).offset(20)
@@ -376,6 +400,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             self.deliveryMethodSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
             self.courierDeliveryStackView.alpha = 0
             self.takeawayStackView.alpha = 1
+            self.isСourierDelivery.toggle()
 
             self.checkoutButton.snp.remakeConstraints { (make) in
                 make.top.equalTo(self.takeawayStackView.snp.bottom)
@@ -403,7 +428,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
         if let phone = self.phoneNumberTextField.text,
            let address = self.deliveryAddressTextField.text,
-           self.deliveryMethodSegmentedControlView.segmentedControl.selectedSegmentIndex == 0 {
+           self.isСourierDelivery {
             if phone.isEmpty {
                 errors = true
                 message += "Введите номер телефона"
@@ -481,6 +506,7 @@ extension FSCartController: UITextFieldDelegate {
 
         return true
     }
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
