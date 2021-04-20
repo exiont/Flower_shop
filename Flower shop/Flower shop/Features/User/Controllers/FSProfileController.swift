@@ -163,12 +163,6 @@ class FSProfileController: FSViewController {
         return tableView
     }()
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.setUserData()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.profileLabel)
@@ -176,6 +170,12 @@ class FSProfileController: FSViewController {
         self.view.addSubview(self.userOrdersHistoryStackView)
         self.view.addSubview(self.menuTableView)
         self.getUserData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.setUserData()
     }
 
     override func updateViewConstraints() {

@@ -104,11 +104,6 @@ class FSAuthorizationController: FSViewController {
         return button
     }()
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
@@ -123,6 +118,11 @@ class FSAuthorizationController: FSViewController {
         self.view.addSubview(authorizationButton)
         self.view.addSubview(forgotPasswordButton)
         self.updateViewConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func updateViewConstraints() {
@@ -210,15 +210,16 @@ class FSAuthorizationController: FSViewController {
            let name = nameTextField.text,
            let surname = surnameTextField.text {
             Auth.auth().createUser(withEmail: email, password: password) { [weak self] (authResult, error) in
+                guard let self = self else { return }
                 if let error = error {
-                    self?.showAlert(message: error.localizedDescription, title: "Авторизация")
+                    self.showAlert(message: error.localizedDescription, title: "Авторизация")
                 } else if let authResult = authResult {
                     let fullname = "\(name) \(surname)"
                     let changeRequest = authResult.user.createProfileChangeRequest()
                     changeRequest.displayName = fullname
                     changeRequest.commitChanges { (error) in
                         if let error = error {
-                            self?.showAlert(message: error.localizedDescription, title: "Авторизация")
+                            self.showAlert(message: error.localizedDescription, title: "Авторизация")
                         }
                     }
                 }

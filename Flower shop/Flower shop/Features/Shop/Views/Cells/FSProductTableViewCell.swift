@@ -15,6 +15,12 @@ class FSProductTableViewCell: UITableViewCell {
 
     private let productImageSize: CGSize = CGSize(width: 60, height: 60)
 
+    private let placeholderImage: UIImage = UIImage(named: "flower_placeholder") ?? UIImage()
+
+    var productImage: UIImage {
+        self.productImageView.image ?? self.placeholderImage
+    }
+
     private lazy var productContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -132,23 +138,24 @@ class FSProductTableViewCell: UITableViewCell {
         super.updateConstraints()
     }
 
-    func setCellFromDB(productQuery: QueryDocumentSnapshot) {
-        let product = FSProduct.parseProduct(productQuery: productQuery)
-
-        self.productImageView.image = UIImage(named: "flower_placeholder")
-        self.productName.text = product.name
-        self.productDescription.text = product.description
-        self.productPrice.text = String(product.price)
-
-        self.loadImage(product: product)
-
-        self.setNeedsUpdateConstraints()
-    }
-
-    func loadImage(product: FSProduct) {
+    private func loadImage(product: FSProduct) {
         let storageRef = Storage.storage().reference()
         let reference = storageRef.child(product.imageUrl)
         self.productImageView.sd_setImage(with: reference)
     }
 
+    func setCell(productQuery: QueryDocumentSnapshot) {
+        let product = FSProduct.parseProduct(productQuery: productQuery)
+
+        self.productImageView.image = self.placeholderImage
+        self.productName.text = product.name
+        self.productDescription.text = product.description
+        self.productPrice.text = String(product.price)
+
+        if !product.imageUrl.isEmpty {
+        self.loadImage(product: product)
+        }
+
+        self.setNeedsUpdateConstraints()
+    }
 }

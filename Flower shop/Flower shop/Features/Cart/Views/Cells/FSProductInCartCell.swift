@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol FSProductInCartCellDelegate: class {
+    func addProductToCart(with product: FSProduct?, and quantity: Int)
+    func calculateTotalPrice()
+}
+
 class FSProductInCartCell: UITableViewCell {
 
     static let reuseIdentifier: String = "FSProductInCartCell"
 
     weak var delegate: FSProductInCartCellDelegate?
+    var product: FSProduct?
 
     let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
                                                                           .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
@@ -207,7 +213,8 @@ class FSProductInCartCell: UITableViewCell {
             newQuantity += 1
             self.counter = newQuantity
             self.productCurrentQuantity.text = String(newQuantity)
-            delegate?.updateTotalPrice()
+            delegate?.addProductToCart(with: self.product, and: 1)
+            delegate?.calculateTotalPrice()
         } else {
 //            self.showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
         }
@@ -216,25 +223,27 @@ class FSProductInCartCell: UITableViewCell {
     @objc func removeProductItemButtonDidTap() {
         guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
         if currentQuantity > 1 {
-        var newQuantity = currentQuantity
-        newQuantity -= 1
-        self.counter = newQuantity
-        self.productCurrentQuantity.text = String(newQuantity)
-        delegate?.updateTotalPrice()
+            var newQuantity = currentQuantity
+            newQuantity -= 1
+            self.counter = newQuantity
+            self.productCurrentQuantity.text = String(newQuantity)
+            delegate?.addProductToCart(with: self.product, and: -1)
+            delegate?.calculateTotalPrice()
         } else {
-//            self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
+            //            self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
         }
     }
 
     @objc func counterButtonLongPressHandler(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+                guard let self = self else { return }
                 if let button = sender.view as? FSCounterButton {
                     switch button {
-                    case self?.addProductItemButton:
-                        self?.addProductItemButtonDidTap()
-                    case self?.removeProductItemButton:
-                        self?.removeProductItemButtonDidTap()
+                    case self.addProductItemButton:
+                        self.addProductItemButtonDidTap()
+                    case self.removeProductItemButton:
+                        self.removeProductItemButtonDidTap()
                     default: break
                     }
                 }

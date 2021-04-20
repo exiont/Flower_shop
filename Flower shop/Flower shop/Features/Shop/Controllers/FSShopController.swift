@@ -66,19 +66,19 @@ class FSShopController: FSViewController  {
         return tableView
     }()
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.navigationController?.navigationBar.tintColor = FSColors.mainPink
-        self.navigationController?.navigationBar.barTintColor = .white
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadProductList()
         self.view.backgroundColor = .white
         self.addSubbviews()
         self.setupConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.navigationBar.tintColor = FSColors.mainPink
+        self.navigationController?.navigationBar.barTintColor = .white
     }
 
     private func addSubbviews() {
@@ -91,14 +91,15 @@ class FSShopController: FSViewController  {
 
     func loadProductList() {
         let db = Firestore.firestore()
-        db.collection("products").addSnapshotListener { [weak self] (snapshot, error) in
+        db.collection("products").getDocuments { [weak self] (snapshot, error) in
+            guard let self = self else { return }
             if let error = error {
                 Swift.debugPrint(error.localizedDescription)
             } else if let snapshot = snapshot {
-                self?.productsDatabase = snapshot.documents
+                self.productsDatabase = snapshot.documents
             }
-            self?.productsDatabase = self?.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) } ?? []
-            self?.tableView.reloadData()
+            self.productsDatabase = self.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
+            self.tableView.reloadData()
         }
     }
 
@@ -176,7 +177,8 @@ extension FSShopController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell else { return UITableViewCell() }
 
         let product = self.filteredProducts[indexPath.row]
-        cell.setCellFromDB(productQuery: product)
+        cell.setCell(productQuery: product)
+
         return cell
     }
 }
@@ -184,7 +186,10 @@ extension FSShopController: UITableViewDataSource {
 extension FSShopController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = FSProductViewController()
-        let product = FSProduct.parseProduct(productQuery: productsDatabase[indexPath.row])
+        let product = FSProduct.parseProduct(productQuery: filteredProducts[indexPath.row])
+        if let cell = tableView.cellForRow(at: indexPath) as? FSProductTableViewCell {
+        product.image = cell.productImage
+        }
         vc.loadData(product: product)
         navigationController?.pushViewController(vc, animated: true)
     }

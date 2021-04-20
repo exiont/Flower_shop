@@ -326,12 +326,13 @@ class FSProductViewController: FSViewController {
     @objc func counterButtonLongPressHandler(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+                guard let self = self else { return }
                 if let button = sender.view as? FSCounterButton {
                     switch button {
-                    case self?.addProductItemButton:
-                        self?.addProductItemButtonDidTap()
-                    case self?.removeProductItemButton:
-                        self?.removeProductItemButtonDidTap()
+                    case self.addProductItemButton:
+                        self.addProductItemButtonDidTap()
+                    case self.removeProductItemButton:
+                        self.removeProductItemButtonDidTap()
                     default: break
                     }
                 }

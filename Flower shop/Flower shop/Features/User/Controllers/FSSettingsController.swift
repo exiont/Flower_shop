@@ -105,11 +105,12 @@ extension FSSettingsController: UITableViewDelegate {
                     let addresses = Firestore.firestore().collection("addresses")
                     let userAddress = addresses.document(user.uid)
                     userAddress.setData(["address": newAddress]) { [weak self] error in
+                        guard let self = self else { return }
                         if let error = error {
-                            self?.showAlert(message: error.localizedDescription, title: "Ошибка")
+                            self.showAlert(message: error.localizedDescription, title: "Ошибка")
                         } else {
-                            self?.delegate?.updateUserAddress(with: newAddress)
-                            self?.showAlert(message: "Адрес успешно изменён.", title: "")
+                            self.delegate?.updateUserAddress(with: newAddress)
+                            self.showAlert(message: "Адрес успешно изменён.", title: "")
                         }
                     }
                 }
@@ -130,11 +131,12 @@ extension FSSettingsController: UITableViewDelegate {
                     let changeRequest = user.createProfileChangeRequest()
                     changeRequest.displayName = newUsername
                     changeRequest.commitChanges { [weak self] error in
+                        guard let self = self else { return }
                         if let error = error {
-                            self?.showAlert(message: error.localizedDescription, title: "Ошибка")
+                            self.showAlert(message: error.localizedDescription, title: "Ошибка")
                         } else {
-                            self?.delegate?.updateUserName(with: newUsername)
-                            self?.showAlert(message: "Имя успешно изменёно.", title: "")
+                            self.delegate?.updateUserName(with: newUsername)
+                            self.showAlert(message: "Имя успешно изменёно.", title: "")
                         }
                     }
                 }
@@ -155,11 +157,12 @@ extension FSSettingsController: UITableViewDelegate {
                 } else {
                     guard let user = Auth.auth().currentUser else { return }
                     user.updateEmail(to: newEmail, completion: { [weak self] error in
+                        guard let self = self else { return }
                         if let error = error {
-                            self?.showAlert(message: error.localizedDescription, title: "Ошибка")
+                            self.showAlert(message: error.localizedDescription, title: "Ошибка")
                         } else {
-                            self?.delegate?.updateUserEmail(with: newEmail)
-                            self?.showAlert(message: "Ваш email успешно изменён.", title: "")
+                            self.delegate?.updateUserEmail(with: newEmail)
+                            self.showAlert(message: "Ваш email успешно изменён.", title: "")
                         }
                     })
                 }
@@ -187,10 +190,11 @@ extension FSSettingsController: UITableViewDelegate {
                 } else {
                     guard let user = Auth.auth().currentUser else { return }
                     user.updatePassword(to: newPassword, completion: { [weak self] error in
+                        guard let self = self else { return }
                         if let error = error {
-                            self?.showAlert(message: error.localizedDescription, title: "Ошибка")
+                            self.showAlert(message: error.localizedDescription, title: "Ошибка")
                         } else {
-                            self?.showAlert(message: "Ваш пароль успешно изменён", title: "")
+                            self.showAlert(message: "Ваш пароль успешно изменён", title: "")
                         }
                     })
                 }

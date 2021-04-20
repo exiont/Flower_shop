@@ -10,11 +10,7 @@ import ALRadioButtons
 import FirebaseAuth
 import FirebaseFirestore
 
-protocol FSProductInCartCellDelegate: class {
-    func updateTotalPrice()
-}
-
-class FSCartController: FSViewController {
+class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
     var productsInCart: [FSProductInCart] = []
 
@@ -39,12 +35,14 @@ class FSCartController: FSViewController {
     private lazy var totalPriceLabel: FSLabel = {
         let label = FSLabel()
         label.text = "Итого:"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
 
         return label
     }()
 
     private lazy var totalPrice: FSLabel = {
         let label = FSLabel()
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 
         return label
     }()
@@ -52,12 +50,20 @@ class FSCartController: FSViewController {
     private lazy var totalPriceCurrency: FSLabel = {
         let label = FSLabel()
         label.text = "руб."
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 
         return label
     }()
 
+    private lazy var totalPriceSeparatorView: FSSeparatorView = {
+        let view = FSSeparatorView()
+
+        return view
+    }()
+
     private lazy var totalPriceStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.addSubview(totalPriceSeparatorView)
         stackView.addSubview(totalPriceLabel)
         stackView.addSubview(totalPrice)
         stackView.addSubview(totalPriceCurrency)
@@ -213,17 +219,25 @@ class FSCartController: FSViewController {
             make.left.right.equalToSuperview().inset(10)
         }
 
+        self.totalPriceSeparatorView.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(1)
+        }
+
         self.totalPriceLabel.snp.makeConstraints { (make) in
-            make.top.left.bottom.equalToSuperview()
+            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
+            make.left.bottom.equalToSuperview()
         }
 
         self.totalPrice.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview()
+            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
+            make.bottom.equalToSuperview()
             make.left.equalTo(self.totalPriceLabel.snp.right).offset(5)
         }
 
         self.totalPriceCurrency.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview()
+            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
+            make.bottom.equalToSuperview()
             make.left.equalTo(self.totalPrice.snp.right).offset(2)
             make.right.lessThanOrEqualToSuperview()
         }
@@ -299,8 +313,8 @@ class FSCartController: FSViewController {
         }
     }
 
-    func addProductToCart(with product: FSProduct, and quantity: Int) {
-
+    func addProductToCart(with product: FSProduct?, and quantity: Int) {
+        guard let product = product else { return }
         if productsInCart.filter({ $0.product.id == product.id }).count == 0 {
             let addedProduct = FSProductInCart(product: product, quantity: quantity)
             productsInCart.append(addedProduct)
@@ -414,11 +428,12 @@ extension FSCartController: UITableViewDataSource {
               let placeholderImage = UIImage(named: "flower_placeholder") else { return UITableViewCell() }
 
         let addedProduct = self.productsInCart[indexPath.row]
-        cell.setCell(image: addedProduct.product.imageView?.image ?? placeholderImage,
+        cell.setCell(image: addedProduct.product.image ?? placeholderImage,
                      name: addedProduct.product.name,
                      price: addedProduct.product.price,
                      quantity: addedProduct.quantity)
         cell.delegate = self
+        cell.product = addedProduct.product
 
         return cell
     }
@@ -479,11 +494,5 @@ extension FSCartController: UITextFieldDelegate {
             return count <= 17
         default: return true
         }
-    }
-}
-
-extension FSCartController: FSProductInCartCellDelegate {
-    func updateTotalPrice() {
-
     }
 }

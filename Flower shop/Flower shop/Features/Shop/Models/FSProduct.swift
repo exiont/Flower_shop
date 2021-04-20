@@ -17,10 +17,7 @@ class FSProduct {
     var name: String
     var description: String
     var details: String
-    var imageView: UIImageView? = UIImageView()
-    var image: UIImage? {
-        self.imageView?.image
-    }
+    var image: UIImage?
 
     init(id: Int = 0, image: String = "", price: Double = 0, name: String = "", description: String = "", details: String = "", isBouquet: Bool = false) {
         self.id = id
@@ -41,10 +38,6 @@ class FSProduct {
         product.description = productQuery.get("description") as? String ?? ""
         product.details = productQuery.get("details") as? String ?? ""
         product.imageUrl = productQuery.get("image") as? String ?? ""
-
-        let storageRef = Storage.storage().reference()
-        let reference = storageRef.child(product.imageUrl)
-        product.imageView?.sd_setImage(with: reference)
 
         return product
     }

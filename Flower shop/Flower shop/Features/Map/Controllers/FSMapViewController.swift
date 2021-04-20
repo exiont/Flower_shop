@@ -17,17 +17,17 @@ class FSMapViewController: UIViewController {
     private var markets: [FSMarket] = []
     private var markers: [GMSMarker] = []
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureMap()
         self.loadMarkets()
         self.createMarketsMarkers()
         self.centerCamera()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     private func configureMap() {
