@@ -307,6 +307,8 @@ class FSProductViewController: FSViewController {
             self.counter = newQuantity
             self.productCurrentQuantity.text = String(newQuantity)
         } else {
+            self.timer?.invalidate()
+            self.timer = nil
             self.showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
         }
     }
@@ -319,6 +321,8 @@ class FSProductViewController: FSViewController {
         self.counter = newQuantity
         self.productCurrentQuantity.text = String(newQuantity)
         } else {
+            self.timer?.invalidate()
+            self.timer = nil
             self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
         }
     }
