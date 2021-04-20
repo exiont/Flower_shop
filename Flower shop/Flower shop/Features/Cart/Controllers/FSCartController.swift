@@ -79,6 +79,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         view.segmentedControl.insertSegment(withTitle: "Самовывоз", at: 1, animated: false)
         view.segmentedControl.selectedSegmentIndex = 0
         view.segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue(sender:)), for: .valueChanged)
+
         return view
     }()
 
@@ -304,13 +305,11 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         guard let user = Auth.auth().currentUser else { return }
         let addresses = Firestore.firestore().collection("addresses")
         let userAddress = addresses.document(user.uid)
-        userAddress.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let address = document.get("address") as? String {
-                    self.deliveryAddressTextField.text = address
-                }
-            } else if let error = error {
+        userAddress.addSnapshotListener(includeMetadataChanges: true) { (addressSnapshot, error) in
+            if let error = error {
                 Swift.debugPrint(error.localizedDescription)
+            } else if let address = addressSnapshot {
+                self.deliveryAddressTextField.text = address.get("address") as? String
             }
         }
     }
@@ -331,11 +330,22 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         self.productsInCart.forEach { orderProducts.updateValue($0.quantity, forKey: String($0.product.id)) }
 
         if isСourierDelivery {
-            let order = FSOrder(isСourierDelivery: isСourierDelivery, orderProducts: orderProducts, totalPrice: totalPrice, address: address, phoneNumber: phoneNumber, paymentMethod: paymentMethod, date: dateString)
+            let order = FSOrder(isСourierDelivery: isСourierDelivery,
+                                orderProducts: orderProducts,
+                                totalPrice: totalPrice,
+                                address: address,
+                                phoneNumber: phoneNumber,
+                                paymentMethod: paymentMethod,
+                                date: dateString)
 
             return order
         } else {
-            let order = FSOrder(isСourierDelivery: isСourierDelivery, orderProducts: orderProducts, totalPrice: totalPrice, phoneNumber: phoneNumber, pickupPoint: pickupPoint, date: dateString)
+            let order = FSOrder(isСourierDelivery: isСourierDelivery,
+                                orderProducts: orderProducts,
+                                totalPrice: totalPrice,
+                                phoneNumber: phoneNumber,
+                                pickupPoint: pickupPoint,
+                                date: dateString)
 
             return order
         }
@@ -343,20 +353,17 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
     private func sendOrder() {
         let newOrder = self.formOrder()
-        print(newOrder.orderProducts)
         guard let user = Auth.auth().currentUser else { return }
         let orders = Firestore.firestore().collection("orders")
         let userOrders = orders.document(user.uid)
-        let orderData: [String: Any] = [
-            newOrder.date: ["date": newOrder.date,
-                            "totalPrice": newOrder.totalPrice,
-                            "phoneNumber": newOrder.phoneNumber,
-                            "address": newOrder.address,
-                            "paymentMethod": newOrder.paymentMethod,
-                            "pickupPoint": newOrder.pickupPoint,
-                            "isСourierDelivery": newOrder.isСourierDelivery,
-                            "orderProducts": newOrder.orderProducts]
-        ]
+        let orderData: [String: Any] = [newOrder.date: ["date": newOrder.date,
+                                                        "totalPrice": newOrder.totalPrice,
+                                                        "phoneNumber": newOrder.phoneNumber,
+                                                        "address": newOrder.address,
+                                                        "paymentMethod": newOrder.paymentMethod,
+                                                        "pickupPoint": newOrder.pickupPoint,
+                                                        "isСourierDelivery": newOrder.isСourierDelivery,
+                                                        "orderedProducts": newOrder.orderedProducts]]
 
         userOrders.setData(orderData, merge: true) { error in
             if let error = error {
@@ -426,6 +433,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             self.courierDeliveryStackView.alpha = 1
             self.pickupPointsStackView.alpha = 0
             self.isСourierDelivery.toggle()
+            self.view.endEditing(true)
 
             self.checkoutButton.snp.remakeConstraints { (make) in
                 make.top.equalTo(self.courierDeliveryStackView.snp.bottom).offset(20)
@@ -439,6 +447,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             self.courierDeliveryStackView.alpha = 0
             self.pickupPointsStackView.alpha = 1
             self.isСourierDelivery.toggle()
+            self.view.endEditing(true)
 
             self.checkoutButton.snp.remakeConstraints { (make) in
                 make.top.equalTo(self.pickupPointsStackView.snp.bottom)
@@ -506,10 +515,6 @@ extension FSCartController: UITableViewDataSource {
 }
 
 extension FSCartController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
-
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }

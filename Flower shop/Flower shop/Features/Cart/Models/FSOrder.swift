@@ -13,13 +13,13 @@ class FSOrder {
     var phoneNumber: String
     var paymentMethod: String
     var pickupPoint: Int
-    var orderProducts: [String: Int]
+    var orderedProducts: [String: Int]
     var isСourierDelivery: Bool
     var date: String
 
     init(isСourierDelivery: Bool, orderProducts: [String: Int], totalPrice: Double, address: String, phoneNumber: String, paymentMethod: String, date: String) {
         self.isСourierDelivery = isСourierDelivery
-        self.orderProducts = orderProducts
+        self.orderedProducts = orderProducts
         self.totalPrice = totalPrice
         self.address = address
         self.phoneNumber = phoneNumber
@@ -30,7 +30,7 @@ class FSOrder {
 
     init(isСourierDelivery: Bool, orderProducts: [String: Int], totalPrice: Double, phoneNumber: String, pickupPoint: Int, date: String) {
         self.isСourierDelivery = isСourierDelivery
-        self.orderProducts = orderProducts
+        self.orderedProducts = orderProducts
         self.totalPrice = totalPrice
         self.phoneNumber = phoneNumber
         self.pickupPoint = pickupPoint

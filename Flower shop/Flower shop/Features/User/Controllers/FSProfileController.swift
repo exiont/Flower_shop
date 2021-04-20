@@ -280,6 +280,7 @@ class FSProfileController: FSViewController {
         self.userName.text = self.userInfo.name
         self.userAddress.text = self.userInfo.address
         self.userOrders.text = String(self.userInfo.orders)
+        self.userDiscount.text = "\(self.userInfo.discount)%"
     }
 
     private func getUserData() {
@@ -305,6 +306,7 @@ class FSProfileController: FSViewController {
             }
         }
         self.loadUserAddress()
+        self.loadUserOrdersHistory()
     }
 
     private func loadUserAddress() {
@@ -319,6 +321,21 @@ class FSProfileController: FSViewController {
                 }
             } else if let error = error {
                 self.showAlert(message: error.localizedDescription, title: "Ошибка")
+            }
+        }
+    }
+
+    private func loadUserOrdersHistory() {
+        guard let user = Auth.auth().currentUser else { return }
+        let allUsersOrders = Firestore.firestore().collection("orders")
+        let userOrders = allUsersOrders.document(user.uid)
+        userOrders.addSnapshotListener(includeMetadataChanges: true) { (ordersSnapshot, error) in
+            if let error = error {
+                Swift.debugPrint(error.localizedDescription)
+            } else if let orders = ordersSnapshot {
+                self.userInfo.orders = orders.data()?.count ?? 0
+                self.userOrders.text = String(self.userInfo.orders)
+                self.userDiscount.text = "\(self.userInfo.discount)%"
             }
         }
     }
@@ -353,7 +370,7 @@ class FSProfileController: FSViewController {
 
     }
 
-    func logout() {
+    private func logout() {
         do {
             try Auth.auth().signOut()
             guard let scene = UIApplication.shared.connectedScenes.first,
