@@ -215,8 +215,6 @@ class FSProductInCartCell: UITableViewCell {
             self.productCurrentQuantity.text = String(newQuantity)
             delegate?.addProductToCart(with: self.product, and: 1)
             delegate?.calculateTotalPrice()
-        } else {
-//            self.showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
         }
     }
 
@@ -229,8 +227,6 @@ class FSProductInCartCell: UITableViewCell {
             self.productCurrentQuantity.text = String(newQuantity)
             delegate?.addProductToCart(with: self.product, and: -1)
             delegate?.calculateTotalPrice()
-        } else {
-            //            self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
         }
     }
 

@@ -321,7 +321,12 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         } else {
             for (index, item) in productsInCart.enumerated() {
                 if item.product.id == product.id {
+                    if (item.quantity + quantity) < 500 {
                     productsInCart[index].quantity += quantity
+                    } else {
+                        productsInCart[index].quantity = 500
+                        showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
+                    }
                 }
             }
         }
