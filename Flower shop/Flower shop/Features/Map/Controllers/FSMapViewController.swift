@@ -45,10 +45,10 @@ class FSMapViewController: UIViewController {
         self.locationManager.requestWhenInUseAuthorization()
     }
 
-    private func loadMarkets() {
-        let firstMarket = FSMarket(latitude: 53.90, longitude: 27.62, name: "Flower shop 1", workingHours: "08:00 - 23:00", description: "Тракторный завод")
-        let secondMarket = FSMarket(latitude: 53.92, longitude: 27.62, name: "Flower shop 2", workingHours: "09:00 - 21:00", description: "Московская")
-        let thirdMarket = FSMarket(latitude: 53.94, longitude: 27.63, name: "Flower shop 2", workingHours: "24/7", description: "Зелёный луг")
+    private func loadMarkets() { // TODO: markets info loading from database
+        let firstMarket = FSMarket(latitude: 53.90, longitude: 27.62, name: "Магазин 1", workingHours: "10:00 - 21:00", description: "Тракторный завод")
+        let secondMarket = FSMarket(latitude: 53.92, longitude: 27.62, name: "Магазин 2", workingHours: "08:00 - 00:00", description: "Московская")
+        let thirdMarket = FSMarket(latitude: 53.94, longitude: 27.63, name: "Магазин 3", workingHours: "24/7", description: "Зелёный луг")
 
         self.markets.append(contentsOf: [firstMarket, secondMarket, thirdMarket])
     }

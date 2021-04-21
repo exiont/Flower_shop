@@ -260,6 +260,8 @@ class FSProfileController: FSViewController {
         self.userInfo.discount
     }
 
+    // TODO: user orders history details
+
     @objc func openImagePicker() {
 
         let alert = UIAlertController(title: "Выберите изображение профиля", message: nil, preferredStyle: .actionSheet)

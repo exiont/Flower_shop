@@ -209,7 +209,9 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         self.view.addSubview(self.checkoutButton)
     }
 
-    private func loadUserAddress() {
+    // MARK: - Order forming and sending methods
+
+    private func loadUserAddress() { // TODO: markets info loading from database
         guard let user = Auth.auth().currentUser else { return }
         let addresses = Firestore.firestore().collection("addresses")
         let userAddress = addresses.document(user.uid)
@@ -316,10 +318,6 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         return roundedPrice
     }
 
-    @objc private func viewDidTapped() {
-        self.view.endEditing(true)
-    }
-
     @objc private func paymentMethodSelected(_ sender: ALRadioGroup) -> Bool {
         sender.selectedIndex == 0
     }
@@ -403,6 +401,10 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         }
 
         return errors
+    }
+
+    @objc private func viewDidTapped() {
+        self.view.endEditing(true)
     }
 
     //MARK: - Constraints setup
