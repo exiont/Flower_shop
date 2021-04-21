@@ -24,7 +24,7 @@ class FSProductViewController: FSViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
         imageView.layer.borderWidth = 1
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
 
         return imageView
     }()
@@ -95,7 +95,7 @@ class FSProductViewController: FSViewController {
         textView.font = UIFont.systemFont(ofSize: 15)
         textView.textColor = FSColors.brownRed
         textView.backgroundColor = .clear
-        textView.isScrollEnabled = true
+        textView.isScrollEnabled = false
         textView.showsVerticalScrollIndicator = false
         textView.isEditable = false
         textView.isSelectable = false
@@ -171,7 +171,7 @@ class FSProductViewController: FSViewController {
     override func initController() {
         super.initController()
 
-        self.setContentScrolling(isEnabled: false)
+        self.setContentScrolling(isEnabled: true)
         self.mainView.addSubview(self.productImageView)
         self.mainView.addSubview(self.nameIdStackView)
         self.mainView.addSubview(self.productDescription)
@@ -182,8 +182,7 @@ class FSProductViewController: FSViewController {
         self.mainView.addSubview(self.addToCartButton)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
     }
 
@@ -260,7 +259,7 @@ class FSProductViewController: FSViewController {
 
         self.productImageView.snp.updateConstraints { (make) in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(UIScreen.main.bounds.height / 2.5)
+            make.height.lessThanOrEqualTo(UIScreen.main.bounds.height * 5 / 9)
         }
 
         self.nameIdStackView.snp.updateConstraints { (make) in
