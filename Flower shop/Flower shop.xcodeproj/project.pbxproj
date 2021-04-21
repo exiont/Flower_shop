@@ -15,6 +15,7 @@
 		8851E1A526189EBE000AC2E4 /* FSMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8851E1A326189EBE000AC2E4 /* FSMapViewController.swift */; };
 		8851E1A626189EBE000AC2E4 /* FSMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8851E1A426189EBE000AC2E4 /* FSMapViewController.xib */; };
 		8851E1AA26189FD8000AC2E4 /* FSMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8851E1A926189FD8000AC2E4 /* FSMarket.swift */; };
+		886505F62630565200FD7EA9 /* flower_label.png in Resources */ = {isa = PBXBuildFile; fileRef = 886505F52630565200FD7EA9 /* flower_label.png */; };
 		88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FB2607C059006EDB12 /* AppDelegate.swift */; };
 		88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FD2607C059006EDB12 /* SceneDelegate.swift */; };
 		88B169002607C059006EDB12 /* FSShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FF2607C059006EDB12 /* FSShopController.swift */; };
@@ -60,6 +61,7 @@
 		8851E1A326189EBE000AC2E4 /* FSMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMapViewController.swift; sourceTree = "<group>"; };
 		8851E1A426189EBE000AC2E4 /* FSMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FSMapViewController.xib; sourceTree = "<group>"; };
 		8851E1A926189FD8000AC2E4 /* FSMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMarket.swift; sourceTree = "<group>"; };
+		886505F52630565200FD7EA9 /* flower_label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flower_label.png; path = "Flower shop/Assets.xcassets/flower_label.imageset/flower_label.png"; sourceTree = "<group>"; };
 		88B168F82607C059006EDB12 /* Flower shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flower shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88B168FB2607C059006EDB12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88B168FD2607C059006EDB12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 		88B168EF2607C059006EDB12 = {
 			isa = PBXGroup;
 			children = (
+				886505F52630565200FD7EA9 /* flower_label.png */,
 				88B168FA2607C059006EDB12 /* Flower shop */,
 				88B168F92607C059006EDB12 /* Products */,
 				2726A5CA84ED1CBD605506A2 /* Pods */,
@@ -465,6 +468,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				886505F62630565200FD7EA9 /* flower_label.png in Resources */,
 				8851E1A626189EBE000AC2E4 /* FSMapViewController.xib in Resources */,
 				884C4E85260FC4F100788046 /* Caveat.ttf in Resources */,
 				D5A55D1A262B2BE700ABF7C2 /* GoogleService-Info.plist in Resources */,
