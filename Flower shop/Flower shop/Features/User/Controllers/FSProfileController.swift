@@ -15,11 +15,15 @@ import FirebaseUI
 
 class FSProfileController: FSViewController {
 
+    // MARK: - Properties
+
     let profileImagePlaceholder: UIImage = UIImage(systemName: "person.circle") ?? UIImage()
 
     private var userInfo = FSUserInfo()
     private let avatarImageSize: CGSize = CGSize(width: 120, height: 120)
     private let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+
+    // MARK: - GUI variables
 
     private lazy var profileLabel: FSLabel = {
         let label = FSLabel()
@@ -163,6 +167,8 @@ class FSProfileController: FSViewController {
         return tableView
     }()
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
@@ -181,6 +187,8 @@ class FSProfileController: FSViewController {
         self.view.addSubview(self.userOrdersHistoryStackView)
         self.view.addSubview(self.menuTableView)
     }
+
+    // MARK: - Data setting methods
 
     private func setUserData() {
         self.userEmail.text = self.userInfo.email
@@ -294,6 +302,8 @@ class FSProfileController: FSViewController {
         }
     }
 
+    //MARK: - Constraints setup
+
     override func updateViewConstraints() {
 
         self.profileLabel.snp.makeConstraints { (make) in
@@ -392,6 +402,8 @@ class FSProfileController: FSViewController {
     }
 }
 
+//MARK: - Extensions
+
 extension FSProfileController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -455,6 +467,8 @@ extension FSProfileController: UITableViewDelegate {
     }
 }
 
+//MARK: - Image picker delegate
+
 extension FSProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
@@ -495,6 +509,8 @@ extension FSProfileController: UIImagePickerControllerDelegate, UINavigationCont
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
+//MARK: - Delegating to the settings controller
 
 extension FSProfileController: FSSettingsControllerDelegate {
 

@@ -9,6 +9,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+// MARK: - Protocols
+
 protocol FSSettingsControllerDelegate: class {
     func updateUserAddress(with address: String)
     func updateUserEmail(with email: String)
@@ -19,6 +21,8 @@ class FSSettingsController: FSViewController {
 
     weak var delegate: FSSettingsControllerDelegate?
 
+    // MARK: - GUI variables
+
     private lazy var menuTableView: FSTableView = {
         let tableView = FSTableView()
         tableView.dataSource = self
@@ -28,6 +32,8 @@ class FSSettingsController: FSViewController {
 
         return tableView
     }()
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +47,8 @@ class FSSettingsController: FSViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
+    //MARK: - Constraints setup
+
     override func updateViewConstraints() {
 
         self.menuTableView.snp.makeConstraints { (make) in
@@ -51,6 +59,8 @@ class FSSettingsController: FSViewController {
 
         super.updateViewConstraints()
     }
+
+    // MARK: - User data setting methods:
 
     private func changeUserAddress() {
 
@@ -193,6 +203,8 @@ class FSSettingsController: FSViewController {
         self.present(alert, animated: true, completion: nil)
     }
 }
+
+// MARK: - Extensions
 
 extension FSSettingsController: UITableViewDataSource {
 

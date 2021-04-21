@@ -10,9 +10,13 @@ import FirebaseAuth
 
 class FSAuthorizationController: FSViewController {
 
+    // MARK: - Properties
+
     var isUserHaveAccount: Bool = true
     let underlineTitleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
                                                                    .underlineStyle: NSUnderlineStyle.single.rawValue]
+
+    // MARK: - GUI variables
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -109,6 +113,8 @@ class FSAuthorizationController: FSViewController {
         return button
     }()
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
@@ -133,6 +139,8 @@ class FSAuthorizationController: FSViewController {
         self.view.addSubview(authorizationButton)
         self.view.addSubview(forgotPasswordButton)
     }
+
+    // MARK: - Authorization buttons methods
 
     @objc func logInButtonDidTap() {
         let hasErrors = self.checkForLoginErrors()
@@ -195,10 +203,6 @@ class FSAuthorizationController: FSViewController {
                 self.showAlert(message: "Письмо с инструкцией по сбросу пароля отправлено на ваш e-mail.", title: "Восстановление пароля")
             }
         }
-    }
-
-    @objc private func viewDidTapped() {
-        self.view.endEditing(true)
     }
 
     @objc func changeLoginOrRegiser(sender: UISegmentedControl) {
@@ -342,6 +346,12 @@ class FSAuthorizationController: FSViewController {
         return errors
     }
 
+    @objc private func viewDidTapped() {
+        self.view.endEditing(true)
+    }
+
+    //MARK: - Constraints setup
+
     override func updateViewConstraints() {
         self.logoImageView.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.safeAreaLayoutGuide)
@@ -399,6 +409,8 @@ class FSAuthorizationController: FSViewController {
         super.updateViewConstraints()
     }
 }
+
+//MARK: - Extensions
 
 extension FSAuthorizationController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

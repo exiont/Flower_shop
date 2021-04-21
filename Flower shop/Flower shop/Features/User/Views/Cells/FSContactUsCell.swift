@@ -9,7 +9,11 @@ import UIKit
 
 class FSContactUsCell: UITableViewCell {
 
+    // MARK: - Properties
+
     static let reuseIdentifier: String = "FSContactUsCell"
+
+    // MARK: - GUI variables
 
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -34,6 +38,8 @@ class FSContactUsCell: UITableViewCell {
         return label
     }()
 
+    // MARK: - Initialization
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -57,6 +63,8 @@ class FSContactUsCell: UITableViewCell {
 
         self.setNeedsUpdateConstraints()
     }
+
+    //MARK: - Constraints setup
 
     override func updateConstraints() {
 

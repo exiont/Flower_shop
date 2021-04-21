@@ -10,11 +10,17 @@ import GoogleMaps
 
 class FSMapViewController: UIViewController {
 
+    // MARK: - Outlets
+
     @IBOutlet weak var mapView: GMSMapView!
+
+    // MARK: - Properties
 
     private let locationManager = CLLocationManager()
     private var markets: [FSMarket] = []
     private var markers: [GMSMarker] = []
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +35,8 @@ class FSMapViewController: UIViewController {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
+
+    // MARK: - Map configuring methods
 
     private func configureMap() {
         self.mapView.delegate = self
@@ -74,6 +82,8 @@ class FSMapViewController: UIViewController {
         }
     }
 }
+
+// MARK: - Extensions
 
 extension FSMapViewController: GMSMapViewDelegate {
 

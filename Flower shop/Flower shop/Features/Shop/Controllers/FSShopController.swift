@@ -13,6 +13,8 @@ import FirebaseStorage
 
 class FSShopController: FSViewController  {
 
+    // MARK: - Properties
+
     private var productsDatabase: [QueryDocumentSnapshot] = [] {
         didSet {
             self.filteredProducts = self.productsDatabase
@@ -21,6 +23,8 @@ class FSShopController: FSViewController  {
 
     private lazy var filteredProducts: [QueryDocumentSnapshot] = self.productsDatabase
     private lazy var filteredFlowersOrBouquet: [QueryDocumentSnapshot] = self.productsDatabase
+
+    // MARK: - GUI variables
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -66,6 +70,8 @@ class FSShopController: FSViewController  {
         return tableView
     }()
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -88,6 +94,8 @@ class FSShopController: FSViewController  {
         self.view.addSubview(self.searchBar)
         self.view.addSubview(self.tableView)
     }
+
+    //MARK: - Data setting and filtering methods
 
     func loadProductList() {
         let db = Firestore.firestore()
@@ -122,6 +130,8 @@ class FSShopController: FSViewController  {
         }
     }
 
+    //MARK: - Constraints setup
+
     override func updateViewConstraints() {
 
         self.logoImageView.snp.makeConstraints { (make) in
@@ -153,6 +163,8 @@ class FSShopController: FSViewController  {
         super.updateViewConstraints()
     }
 }
+
+//MARK: - Extensions
 
 extension FSShopController: UISearchBarDelegate {
 

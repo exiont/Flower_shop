@@ -9,6 +9,8 @@ import UIKit
 
 class FSProductViewController: FSViewController {
 
+    // MARK: - Properties
+
     var product: FSProduct? = nil
     var counter: Int = 1
 
@@ -16,6 +18,8 @@ class FSProductViewController: FSViewController {
     private let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
     private let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
                                                                                   .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
+
+    // MARK: - GUI variables
 
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -168,6 +172,8 @@ class FSProductViewController: FSViewController {
         return button
     }()
 
+    // MARK: - Lyfecycle
+
     override func initController() {
         super.initController()
 
@@ -195,6 +201,8 @@ class FSProductViewController: FSViewController {
         self.productDescription.text = product.description
         self.productDetails.text = product.details
     }
+
+    //MARK: - Buttons methods
 
     @objc func addToCartButtonDidTap() {
 
@@ -254,6 +262,8 @@ class FSProductViewController: FSViewController {
             self.timer = nil
         }
     }
+
+    //MARK: - Constraints setup
 
     override func updateViewConstraints() {
 

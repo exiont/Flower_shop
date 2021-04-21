@@ -12,10 +12,12 @@ import FirebaseFirestore
 
 class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
-    //MARK: - Properties
+    // MARK: - Properties
 
     var productsInCart: [FSProductInCart] = []
     private var isСourierDelivery: Bool = true
+
+    // MARK: - GUI variables
 
     private lazy var cartLabel: FSLabel = {
         let label = FSLabel()
@@ -382,21 +384,21 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             errors = true
             message += "В корзине нет товаров"
             showAlert(message: message, title: title)
-        } else if let phone = self.phoneNumberTextField.text, phone.isEmpty {
-            errors = true
-            message += "Введите номер телефона"
-            showAlert(message: message, title: title)
-        } else if let phone = self.phoneNumberTextField.text, phone.count < 17 {
-            errors = true
-            message += "Неправильный номер телефона"
-            showAlert(message: message, title: title)
-        }
-
-        if let address = self.deliveryAddressTextField.text, self.isСourierDelivery {
-            if address.isEmpty {
+        } else if let phone = self.phoneNumberTextField.text {
+            if phone.isEmpty {
                 errors = true
-                message += "Введите адрес доставки"
-                alertWithTitle(title: title, message: message, toFocus: self.deliveryAddressTextField)
+                message += "Введите номер телефона"
+                showAlert(message: message, title: title)
+            } else if phone.count < 17 {
+                errors = true
+                message += "Неправильный номер телефона"
+                showAlert(message: message, title: title)
+            } else if isСourierDelivery {
+                if let address = self.deliveryAddressTextField.text, address.isEmpty {
+                    errors = true
+                    message += "Введите адрес доставки"
+                    alertWithTitle(title: title, message: message, toFocus: self.deliveryAddressTextField)
+                }
             }
         }
 

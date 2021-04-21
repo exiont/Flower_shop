@@ -11,9 +11,13 @@ import FirebaseStorage
 
 class FSProductTableViewCell: UITableViewCell {
 
+    // MARK: - Properties
+
     static let reuseIdentifier: String = "FSProductTableViewCell"
     private let productImageSize: CGSize = CGSize(width: 60, height: 60)
     private let placeholderImage: UIImage = UIImage(named: "flower_placeholder") ?? UIImage()
+
+    // MARK: - GUI variables
 
     var productImage: UIImage {
         self.productImageView.image ?? self.placeholderImage
@@ -81,6 +85,8 @@ class FSProductTableViewCell: UITableViewCell {
         return label
     }()
 
+    // MARK: - Initialization
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initCell()
@@ -99,6 +105,8 @@ class FSProductTableViewCell: UITableViewCell {
         self.productContainerView.addSubview(self.productPriceLabel)
         self.selectionStyle = .none
     }
+
+    // MARK: - Constraints setup
 
     override func updateConstraints() {
 
@@ -135,6 +143,8 @@ class FSProductTableViewCell: UITableViewCell {
 
         super.updateConstraints()
     }
+
+    // MARK: - Cell data setting methods
 
     private func loadImage(product: FSProduct) {
         let storageRef = Storage.storage().reference()

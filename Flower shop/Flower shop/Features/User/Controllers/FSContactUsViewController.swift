@@ -38,6 +38,8 @@ class FSContactUsViewController: FSViewController {
 
 }
 
+// MARK: - Extensions
+
 extension FSContactUsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

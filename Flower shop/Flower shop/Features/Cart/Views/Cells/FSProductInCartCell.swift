@@ -7,12 +7,16 @@
 
 import UIKit
 
+//MARK: - Protocols
+
 protocol FSProductInCartCellDelegate: class {
     func addProductToCart(with product: FSProduct?, and quantity: Int)
     @discardableResult func calculateTotalPrice() -> Double
 }
 
 class FSProductInCartCell: UITableViewCell {
+
+    // MARK: - Properties
 
     static let reuseIdentifier: String = "FSProductInCartCell"
     let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
@@ -24,6 +28,8 @@ class FSProductInCartCell: UITableViewCell {
     private let productImageSize: CGSize = CGSize(width: 50, height: 50)
     private var timer: Timer?
     private lazy var counter: Int = 0
+
+    // MARK: - GUI variables
 
     private lazy var productContainerView: UIView = {
         let view = UIView()
@@ -119,6 +125,8 @@ class FSProductInCartCell: UITableViewCell {
         return stackView
     }()
 
+    // MARK: - Initialization
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -137,6 +145,8 @@ class FSProductInCartCell: UITableViewCell {
         self.productContainerView.addSubview(self.productQuantityStackView)
     }
 
+    // MARK: - Cell data setting
+
     func setCell(image: UIImage, name: String, price: Double, quantity: Int) {
         self.productImageView.image = image
         self.productName.text = name
@@ -145,6 +155,8 @@ class FSProductInCartCell: UITableViewCell {
 
         self.setNeedsUpdateConstraints()
     }
+
+    // MARK: - Cell buttons methods
 
     @objc func addProductItemButtonDidTap() {
         guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
@@ -189,6 +201,8 @@ class FSProductInCartCell: UITableViewCell {
             self.timer = nil
         }
     }
+
+    //MARK: - Constraints setup
 
     override func updateConstraints() {
 
