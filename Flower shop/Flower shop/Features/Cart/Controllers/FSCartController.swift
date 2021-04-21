@@ -12,6 +12,8 @@ import FirebaseFirestore
 
 class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
+    //MARK: - Properties
+
     var productsInCart: [FSProductInCart] = []
     private var isСourierDelivery: Bool = true
 
@@ -176,6 +178,8 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
         return button
     }()
+
+    //MARK: -  Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -399,6 +403,8 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         return errors
     }
 
+    //MARK: - Constraints setup
+
     override func updateViewConstraints() {
 
         self.cartLabel.snp.makeConstraints { (make) in
@@ -505,6 +511,8 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         super.updateViewConstraints()
     }
 }
+
+//MARK: - Extensions
 
 extension FSCartController: UITableViewDataSource {
 
