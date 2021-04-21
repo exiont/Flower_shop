@@ -13,7 +13,6 @@ import FirebaseFirestore
 class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
     var productsInCart: [FSProductInCart] = []
-
     private var isСourierDelivery: Bool = true
 
     private lazy var cartLabel: FSLabel = {
@@ -90,6 +89,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         textField.keyboardType = .phonePad
         textField.smartInsertDeleteType = .no
         textField.delegate = self
+
         return textField
     }()
 
@@ -99,6 +99,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         textField.leftView = UIImageView(image: UIImage(systemName: "house.circle.fill"))
         textField.delegate = self
         textField.autocorrectionType = .no
+
         return textField
     }()
 
@@ -172,20 +173,16 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         let button = FSButton()
         button.setTitle("Оформить заказ", for: .normal)
         button.addTarget(self, action: #selector(checkoutButtonDidTap), for: .touchUpInside)
+
         return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
-        self.view.addSubview(self.cartLabel)
-        self.view.addSubview(self.tableView)
-        self.view.addSubview(self.totalPriceStackView)
-        self.view.addSubview(self.deliveryMethodSegmentedControlView)
-        self.view.addSubview(self.courierDeliveryStackView)
-        self.view.addSubview(self.pickupPointsStackView)
-        self.view.addSubview(self.checkoutButton)
-        self.loadUserAddress()
+
+        addSubviews()
+        loadUserAddress()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -196,109 +193,14 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         self.updateViewConstraints()
     }
 
-    override func updateViewConstraints() {
-        self.cartLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.safeAreaLayoutGuide)
-            make.left.right.equalToSuperview()
-        }
-
-        self.tableView.snp.updateConstraints { (make) in
-            make.top.equalTo(self.cartLabel.snp.bottom)
-            make.left.right.equalToSuperview()
-            switch self.productsInCart.count {
-            case 0:
-                make.height.equalTo(0)
-            case 1:
-                make.height.equalTo(60)
-            case 2:
-                make.height.equalTo(120)
-            default:
-                make.height.equalTo(180)
-            }
-        }
-
-        self.totalPriceStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.tableView.snp.bottom).offset(5)
-            make.left.right.equalToSuperview().inset(10)
-        }
-
-        self.totalPriceSeparatorView.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(1)
-        }
-
-        self.totalPriceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
-            make.left.bottom.equalToSuperview()
-        }
-
-        self.totalPrice.snp.makeConstraints { (make) in
-            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
-            make.bottom.equalToSuperview()
-            make.left.equalTo(self.totalPriceLabel.snp.right).offset(5)
-        }
-
-        self.totalPriceCurrency.snp.makeConstraints { (make) in
-            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
-            make.bottom.equalToSuperview()
-            make.left.equalTo(self.totalPrice.snp.right).offset(2)
-            make.right.lessThanOrEqualToSuperview()
-        }
-
-        self.deliveryMethodSegmentedControlView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.totalPriceStackView.snp.bottom).offset(5)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(35)
-        }
-
-        self.pickupPointsStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom)
-            make.left.right.equalToSuperview()
-        }
-
-        self.pickupPointsRadioGroup.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview().inset(15)
-            make.bottom.equalToSuperview()
-        }
-
-        self.courierDeliveryStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom)
-            make.left.right.equalToSuperview()
-        }
-
-        self.paymentMethodStackView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(10)
-            make.left.right.equalToSuperview().inset(15)
-        }
-
-        self.paymentMethodLabel.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-        }
-
-        self.paymentMethodRadioGroup.snp.makeConstraints { (make) in
-            make.top.equalTo(self.paymentMethodLabel.snp.bottom).offset(5)
-            make.left.right.bottom.equalToSuperview()
-        }
-
-        self.phoneNumberTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.paymentMethodStackView.snp.bottom).offset(5)
-            make.left.right.equalToSuperview().inset(15)
-        }
-
-        self.deliveryAddressTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.phoneNumberTextField.snp.bottom).offset(10)
-            make.left.right.equalToSuperview().inset(15)
-            make.bottom.equalToSuperview()
-        }
-
-        self.checkoutButton.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.pickupPointsStackView.snp.bottom)
-            make.left.right.equalToSuperview().inset(45)
-            make.bottom.lessThanOrEqualToSuperview()
-            make.height.equalTo(40)
-        }
-
-        super.updateViewConstraints()
+    func addSubviews() {
+        self.view.addSubview(self.cartLabel)
+        self.view.addSubview(self.tableView)
+        self.view.addSubview(self.totalPriceStackView)
+        self.view.addSubview(self.deliveryMethodSegmentedControlView)
+        self.view.addSubview(self.courierDeliveryStackView)
+        self.view.addSubview(self.pickupPointsStackView)
+        self.view.addSubview(self.checkoutButton)
     }
 
     private func loadUserAddress() {
@@ -325,8 +227,8 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         let phoneNumber: String = self.phoneNumberTextField.text ?? ""
         let paymentMethod: String = paymentMethodSelected(self.paymentMethodRadioGroup) ? "Cash" : "Card"
         let pickupPoint = pickupPointSelected(self.pickupPointsRadioGroup)
-
         var orderProducts: [String: Int] = [:]
+
         self.productsInCart.forEach { orderProducts.updateValue($0.quantity, forKey: String($0.product.id)) }
 
         if isСourierDelivery {
@@ -497,9 +399,116 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
 
         return errors
     }
+
+    override func updateViewConstraints() {
+
+        self.cartLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeAreaLayoutGuide)
+            make.left.right.equalToSuperview()
+        }
+
+        self.tableView.snp.updateConstraints { (make) in
+            make.top.equalTo(self.cartLabel.snp.bottom)
+            make.left.right.equalToSuperview()
+            switch self.productsInCart.count {
+            case 0:
+                make.height.equalTo(0)
+            case 1:
+                make.height.equalTo(60)
+            case 2:
+                make.height.equalTo(120)
+            default:
+                make.height.equalTo(180)
+            }
+        }
+
+        self.totalPriceStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.tableView.snp.bottom).offset(5)
+            make.left.right.equalToSuperview().inset(10)
+        }
+
+        self.totalPriceSeparatorView.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(1)
+        }
+
+        self.totalPriceLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
+            make.left.bottom.equalToSuperview()
+        }
+
+        self.totalPrice.snp.makeConstraints { (make) in
+            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
+            make.bottom.equalToSuperview()
+            make.left.equalTo(self.totalPriceLabel.snp.right).offset(5)
+        }
+
+        self.totalPriceCurrency.snp.makeConstraints { (make) in
+            make.top.equalTo(self.totalPriceSeparatorView.snp.bottom).offset(5)
+            make.bottom.equalToSuperview()
+            make.left.equalTo(self.totalPrice.snp.right).offset(2)
+            make.right.lessThanOrEqualToSuperview()
+        }
+
+        self.deliveryMethodSegmentedControlView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.totalPriceStackView.snp.bottom).offset(5)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(35)
+        }
+
+        self.pickupPointsStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom)
+            make.left.right.equalToSuperview()
+        }
+
+        self.pickupPointsRadioGroup.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview().inset(15)
+            make.bottom.equalToSuperview()
+        }
+
+        self.courierDeliveryStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.deliveryMethodSegmentedControlView.snp.bottom)
+            make.left.right.equalToSuperview()
+        }
+
+        self.paymentMethodStackView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().inset(10)
+            make.left.right.equalToSuperview().inset(15)
+        }
+
+        self.paymentMethodLabel.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+        }
+
+        self.paymentMethodRadioGroup.snp.makeConstraints { (make) in
+            make.top.equalTo(self.paymentMethodLabel.snp.bottom).offset(5)
+            make.left.right.bottom.equalToSuperview()
+        }
+
+        self.phoneNumberTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.paymentMethodStackView.snp.bottom).offset(5)
+            make.left.right.equalToSuperview().inset(15)
+        }
+
+        self.deliveryAddressTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.phoneNumberTextField.snp.bottom).offset(10)
+            make.left.right.equalToSuperview().inset(15)
+            make.bottom.equalToSuperview()
+        }
+
+        self.checkoutButton.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.pickupPointsStackView.snp.bottom)
+            make.left.right.equalToSuperview().inset(45)
+            make.bottom.lessThanOrEqualToSuperview()
+            make.height.equalTo(40)
+        }
+
+        super.updateViewConstraints()
+    }
 }
 
 extension FSCartController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.productsInCart.count
     }
@@ -521,6 +530,7 @@ extension FSCartController: UITableViewDataSource {
 }
 
 extension FSCartController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -540,6 +550,7 @@ extension FSCartController: UITableViewDelegate {
 }
 
 extension FSCartController: UITextFieldDelegate {
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
 
         switch textField {

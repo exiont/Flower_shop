@@ -35,7 +35,6 @@
 		D529A2852620B402002151C2 /* FSAppCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A2842620B402002151C2 /* FSAppCaller.swift */; };
 		D529A28C2620CAC9002151C2 /* FSTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A28B2620CAC9002151C2 /* FSTableView.swift */; };
 		D529A2902620CD2B002151C2 /* FSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A28F2620CD2B002151C2 /* FSLabel.swift */; };
-		D529A2972620F7C8002151C2 /* FSCounterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A2962620F7C8002151C2 /* FSCounterButton.swift */; };
 		D52ACA65262F4D2700C09B10 /* FSOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52ACA64262F4D2700C09B10 /* FSOrder.swift */; };
 		D55818962625C6C4006DB936 /* FSSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */; };
 		D558189E2626FEF1006DB936 /* FSProfileMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */; };
@@ -84,7 +83,6 @@
 		D529A2842620B402002151C2 /* FSAppCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSAppCaller.swift; sourceTree = "<group>"; };
 		D529A28B2620CAC9002151C2 /* FSTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSTableView.swift; path = "Flower shop/Base/FSTableView.swift"; sourceTree = SOURCE_ROOT; };
 		D529A28F2620CD2B002151C2 /* FSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLabel.swift; sourceTree = "<group>"; };
-		D529A2962620F7C8002151C2 /* FSCounterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCounterButton.swift; sourceTree = "<group>"; };
 		D52ACA64262F4D2700C09B10 /* FSOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSOrder.swift; sourceTree = "<group>"; };
 		D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegmentedControlView.swift; sourceTree = "<group>"; };
 		D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProfileMenuCell.swift; sourceTree = "<group>"; };
@@ -375,7 +373,6 @@
 				D529A27F2620A830002151C2 /* FSSegmentedControl.swift */,
 				D529A28B2620CAC9002151C2 /* FSTableView.swift */,
 				D529A28F2620CD2B002151C2 /* FSLabel.swift */,
-				D529A2962620F7C8002151C2 /* FSCounterButton.swift */,
 				D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */,
 				D55818A526271EE8006DB936 /* FSSeparatorView.swift */,
 			);
@@ -566,7 +563,6 @@
 				D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */,
 				D529A27626209B34002151C2 /* FSLineView.swift in Sources */,
 				D558189E2626FEF1006DB936 /* FSProfileMenuCell.swift in Sources */,
-				D529A2972620F7C8002151C2 /* FSCounterButton.swift in Sources */,
 				D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */,
 				D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */,
 				D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */,

@@ -13,16 +13,16 @@ class FSMapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
 
     private let locationManager = CLLocationManager()
-
     private var markets: [FSMarket] = []
     private var markers: [GMSMarker] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureMap()
-        self.loadMarkets()
-        self.createMarketsMarkers()
-        self.centerCamera()
+
+        configureMap()
+        loadMarkets()
+        createMarketsMarkers()
+        centerCamera()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -98,6 +98,8 @@ extension FSMapViewController: GMSMapViewDelegate {
             let yandexnavi = FSAppCaller.Maps.yandexnavi(latitude: latitude, longitude: longitude)
             let googlemaps = FSAppCaller.Maps.googlemaps(latitude: latitude, longitude: longitude)
 
+            //TODO: make switch instead of if
+
             if FSAppCaller.canOpenMap(yandexmaps) {
                 let yandexMapsAction = UIAlertAction(title: "Яндекс.Карты", style: .default) { _ in
                     FSAppCaller.openMap(with: yandexmaps)
@@ -123,6 +125,7 @@ extension FSMapViewController: GMSMapViewDelegate {
 
             self.present(alert, animated: true, completion: nil)
         }
+        
         return true
     }
 }

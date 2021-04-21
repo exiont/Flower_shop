@@ -15,18 +15,15 @@ protocol FSProductInCartCellDelegate: class {
 class FSProductInCartCell: UITableViewCell {
 
     static let reuseIdentifier: String = "FSProductInCartCell"
+    let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
+                                                                          .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
 
     weak var delegate: FSProductInCartCellDelegate?
     var product: FSProduct?
 
-    let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
-                                                                          .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
-
-    private var timer: Timer?
-
-    private lazy var counter: Int = 0
-
     private let productImageSize: CGSize = CGSize(width: 50, height: 50)
+    private var timer: Timer?
+    private lazy var counter: Int = 0
 
     private lazy var productContainerView: UIView = {
         let view = UIView()
@@ -36,9 +33,9 @@ class FSProductInCartCell: UITableViewCell {
         view.layer.shadowOpacity = 1
         view.layer.shadowRadius = 1
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
-
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.main.scale
+
         return view
     }()
 
@@ -46,11 +43,11 @@ class FSProductInCartCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "flower_placeholder")
         imageView.clipsToBounds = true
-//        imageView.layer.cornerRadius = self.frame.height / 2
         imageView.layer.cornerRadius = self.productImageSize.height / 2
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
         imageView.layer.borderWidth = 1
+
         return imageView
     }()
 
@@ -80,13 +77,12 @@ class FSProductInCartCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.addSubview(self.productPrice)
         stackView.addSubview(self.productPriceCurrency)
-//        stackView.contentMode = .left
 
         return stackView
     }()
 
-    private lazy var addProductItemButton: FSCounterButton = {
-        let button = FSCounterButton()
+    private lazy var addProductItemButton: UIButton = {
+        let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "+", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(addProductItemButtonDidTap), for: .touchUpInside)
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(self.counterButtonLongPressHandler))
@@ -95,8 +91,8 @@ class FSProductInCartCell: UITableViewCell {
         return button
     }()
 
-    private lazy var removeProductItemButton: FSCounterButton = {
-        let button = FSCounterButton()
+    private lazy var removeProductItemButton: UIButton = {
+        let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "–", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(removeProductItemButtonDidTap), for: .touchUpInside)
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(self.counterButtonLongPressHandler))
@@ -141,7 +137,61 @@ class FSProductInCartCell: UITableViewCell {
         self.productContainerView.addSubview(self.productQuantityStackView)
     }
 
+    func setCell(image: UIImage, name: String, price: Double, quantity: Int) {
+        self.productImageView.image = image
+        self.productName.text = name
+        self.productPrice.text = String(price)
+        self.productCurrentQuantity.text = String(quantity)
+
+        self.setNeedsUpdateConstraints()
+    }
+
+    @objc func addProductItemButtonDidTap() {
+        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
+        if currentQuantity < 500 {
+            var newQuantity = currentQuantity
+            newQuantity += 1
+            self.counter = newQuantity
+            self.productCurrentQuantity.text = String(newQuantity)
+            delegate?.addProductToCart(with: self.product, and: 1)
+            delegate?.calculateTotalPrice()
+        }
+    }
+
+    @objc func removeProductItemButtonDidTap() {
+        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
+        if currentQuantity > 1 {
+            var newQuantity = currentQuantity
+            newQuantity -= 1
+            self.counter = newQuantity
+            self.productCurrentQuantity.text = String(newQuantity)
+            delegate?.addProductToCart(with: self.product, and: -1)
+            delegate?.calculateTotalPrice()
+        }
+    }
+
+    @objc func counterButtonLongPressHandler(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+                guard let self = self else { return }
+                if let button = sender.view as? UIButton {
+                    switch button {
+                    case self.addProductItemButton:
+                        self.addProductItemButtonDidTap()
+                    case self.removeProductItemButton:
+                        self.removeProductItemButtonDidTap()
+                    default: break
+                    }
+                }
+            })
+        } else if sender.state == .ended || sender.state == .cancelled {
+            self.timer?.invalidate()
+            self.timer = nil
+        }
+    }
+
     override func updateConstraints() {
+        
         self.productContainerView.snp.updateConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -195,58 +245,5 @@ class FSProductInCartCell: UITableViewCell {
         }
 
         super.updateConstraints()
-    }
-
-    func setCell(image: UIImage, name: String, price: Double, quantity: Int) {
-        self.productImageView.image = image
-        self.productName.text = name
-        self.productPrice.text = String(price)
-        self.productCurrentQuantity.text = String(quantity)
-
-        self.setNeedsUpdateConstraints()
-    }
-
-    @objc func addProductItemButtonDidTap() {
-        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
-        if currentQuantity < 500 {
-            var newQuantity = currentQuantity
-            newQuantity += 1
-            self.counter = newQuantity
-            self.productCurrentQuantity.text = String(newQuantity)
-            delegate?.addProductToCart(with: self.product, and: 1)
-            delegate?.calculateTotalPrice()
-        }
-    }
-
-    @objc func removeProductItemButtonDidTap() {
-        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
-        if currentQuantity > 1 {
-            var newQuantity = currentQuantity
-            newQuantity -= 1
-            self.counter = newQuantity
-            self.productCurrentQuantity.text = String(newQuantity)
-            delegate?.addProductToCart(with: self.product, and: -1)
-            delegate?.calculateTotalPrice()
-        }
-    }
-
-    @objc func counterButtonLongPressHandler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
-                guard let self = self else { return }
-                if let button = sender.view as? FSCounterButton {
-                    switch button {
-                    case self.addProductItemButton:
-                        self.addProductItemButtonDidTap()
-                    case self.removeProductItemButton:
-                        self.removeProductItemButtonDidTap()
-                    default: break
-                    }
-                }
-            })
-        } else if sender.state == .ended || sender.state == .cancelled {
-            self.timer?.invalidate()
-            self.timer = nil
-        }
     }
 }

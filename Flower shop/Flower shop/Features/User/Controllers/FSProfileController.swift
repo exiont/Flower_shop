@@ -15,12 +15,10 @@ import FirebaseUI
 
 class FSProfileController: FSViewController {
 
-    private var userInfo = FSUserInfo()
-
     let profileImagePlaceholder: UIImage = UIImage(systemName: "person.circle") ?? UIImage()
 
+    private var userInfo = FSUserInfo()
     private let avatarImageSize: CGSize = CGSize(width: 120, height: 120)
-
     private let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
     private lazy var profileLabel: FSLabel = {
@@ -52,6 +50,7 @@ class FSProfileController: FSViewController {
         imageView.layer.cornerRadius = self.avatarImageSize.height / 2
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openImagePicker)))
+
         return imageView
     }()
 
@@ -82,6 +81,7 @@ class FSProfileController: FSViewController {
         let label = FSLabel()
         label.text = "Адрес доставки:"
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+
         return label
     }()
 
@@ -165,17 +165,133 @@ class FSProfileController: FSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(self.profileLabel)
-        self.view.addSubview(self.userProfileHeaderStackView)
-        self.view.addSubview(self.userOrdersHistoryStackView)
-        self.view.addSubview(self.menuTableView)
-        self.getUserData()
+        addSubviews()
+        getUserData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.setUserData()
+    }
+
+    private func addSubviews() {
+        self.view.addSubview(self.profileLabel)
+        self.view.addSubview(self.userProfileHeaderStackView)
+        self.view.addSubview(self.userOrdersHistoryStackView)
+        self.view.addSubview(self.menuTableView)
+    }
+
+    private func setUserData() {
+        self.userEmail.text = self.userInfo.email
+        self.userName.text = self.userInfo.name
+        self.userAddress.text = self.userInfo.address
+        self.userOrders.text = String(self.userInfo.orders)
+        self.userDiscount.text = "\(self.userInfo.discount)%"
+    }
+
+    private func getUserData() {
+        guard let user = Auth.auth().currentUser else { return }
+        let storageReference = Storage.storage().reference().child("users/\(user.uid)")
+        self.userInfo.name = user.displayName ?? ""
+        self.userName.text = user.displayName
+        self.userInfo.email = user.email ?? ""
+        storageReference.getMetadata { (metadata: StorageMetadata?, error) in
+            if let error = error {
+                Swift.debugPrint(error.localizedDescription)
+            } else {
+                guard let metadata = metadata else {
+                    self.userAvatar.image = self.profileImagePlaceholder
+                    return
+                }
+
+                if metadata.isFile {
+                    self.userAvatar.sd_setImage(with: storageReference)
+                } else {
+                    self.userAvatar.image = self.profileImagePlaceholder
+                }
+            }
+        }
+
+        self.loadUserAddress()
+        self.loadUserOrdersHistory()
+    }
+
+    private func loadUserAddress() {
+        guard let user = Auth.auth().currentUser else { return }
+        let addresses = Firestore.firestore().collection("addresses")
+        let userAddress = addresses.document(user.uid)
+        userAddress.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let address = document.get("address") as? String {
+                    self.userInfo.address = address
+                    self.userAddress.text = address
+                }
+            } else if let error = error {
+                self.showAlert(message: error.localizedDescription, title: "Ошибка")
+            }
+        }
+    }
+
+    private func loadUserOrdersHistory() {
+        guard let user = Auth.auth().currentUser else { return }
+        let allUsersOrders = Firestore.firestore().collection("orders")
+        let userOrders = allUsersOrders.document(user.uid)
+        userOrders.addSnapshotListener(includeMetadataChanges: true) { (ordersSnapshot, error) in
+            if let error = error {
+                Swift.debugPrint(error.localizedDescription)
+            } else if let orders = ordersSnapshot {
+                self.userInfo.orders = orders.data()?.count ?? 0
+                self.userOrders.text = String(self.userInfo.orders)
+                self.userDiscount.text = "\(self.userInfo.discount)%"
+            }
+        }
+    }
+
+    func getDiscount() -> Int {
+        self.userInfo.discount
+    }
+
+    @objc func openImagePicker() {
+
+        let alert = UIAlertController(title: "Выберите изображение профиля", message: nil, preferredStyle: .actionSheet)
+        let galleryAction = UIAlertAction(title: "Открыть галерею", style: .default) { UIAlertAction in
+            let picker = UIImagePickerController()
+            picker.mediaTypes = ["public.image"]
+            picker.sourceType = .photoLibrary
+            picker.allowsEditing = true
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+        }
+
+        let cameraAction = UIAlertAction(title: "Сделать фото", style: .default) { UIAlertAction in
+            let picker = UIImagePickerController()
+            picker.mediaTypes = ["public.image"]
+            picker.sourceType = .camera
+            picker.allowsEditing = true
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+        }
+
+        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel, handler: nil)
+
+        alert.addAction(cameraAction)
+        alert.addAction(galleryAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func logout() {
+        do {
+            try Auth.auth().signOut()
+            guard let scene = UIApplication.shared.connectedScenes.first,
+                  let sceneDelegate = scene.delegate as? SceneDelegate else { return }
+            let authVC = FSAuthorizationController()
+            sceneDelegate.changeRootViewConroller(authVC)
+        } catch {
+            showAlert(message: "Ошибка выхода: \(error.localizedDescription)", title: "Ошибка")
+        }
     }
 
     override func updateViewConstraints() {
@@ -274,121 +390,10 @@ class FSProfileController: FSViewController {
 
         super.updateViewConstraints()
     }
-
-    private func setUserData() {
-        self.userEmail.text = self.userInfo.email
-        self.userName.text = self.userInfo.name
-        self.userAddress.text = self.userInfo.address
-        self.userOrders.text = String(self.userInfo.orders)
-        self.userDiscount.text = "\(self.userInfo.discount)%"
-    }
-
-    private func getUserData() {
-        guard let user = Auth.auth().currentUser else { return }
-        let storageReference = Storage.storage().reference().child("users/\(user.uid)")
-        self.userInfo.name = user.displayName ?? ""
-        self.userName.text = user.displayName
-        self.userInfo.email = user.email ?? ""
-        storageReference.getMetadata { (metadata: StorageMetadata?, error) in
-            if let error = error {
-                Swift.debugPrint(error.localizedDescription)
-            } else {
-                guard let metadata = metadata else {
-                    self.userAvatar.image = self.profileImagePlaceholder
-                    return
-                }
-
-                if metadata.isFile {
-                    self.userAvatar.sd_setImage(with: storageReference)
-                } else {
-                    self.userAvatar.image = self.profileImagePlaceholder
-                }
-            }
-        }
-        self.loadUserAddress()
-        self.loadUserOrdersHistory()
-    }
-
-    private func loadUserAddress() {
-        guard let user = Auth.auth().currentUser else { return }
-        let addresses = Firestore.firestore().collection("addresses")
-        let userAddress = addresses.document(user.uid)
-        userAddress.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let address = document.get("address") as? String {
-                    self.userInfo.address = address
-                    self.userAddress.text = address
-                }
-            } else if let error = error {
-                self.showAlert(message: error.localizedDescription, title: "Ошибка")
-            }
-        }
-    }
-
-    private func loadUserOrdersHistory() {
-        guard let user = Auth.auth().currentUser else { return }
-        let allUsersOrders = Firestore.firestore().collection("orders")
-        let userOrders = allUsersOrders.document(user.uid)
-        userOrders.addSnapshotListener(includeMetadataChanges: true) { (ordersSnapshot, error) in
-            if let error = error {
-                Swift.debugPrint(error.localizedDescription)
-            } else if let orders = ordersSnapshot {
-                self.userInfo.orders = orders.data()?.count ?? 0
-                self.userOrders.text = String(self.userInfo.orders)
-                self.userDiscount.text = "\(self.userInfo.discount)%"
-            }
-        }
-    }
-
-    func getDiscount() -> Int {
-        self.userInfo.discount
-    }
-
-    @objc func openImagePicker() {
-
-        let alert = UIAlertController(title: "Выберите изображение профиля", message: nil, preferredStyle: .actionSheet)
-        let galleryAction = UIAlertAction(title: "Открыть галерею", style: .default) { UIAlertAction in
-            let picker = UIImagePickerController()
-            picker.mediaTypes = ["public.image"]
-            picker.sourceType = .photoLibrary
-            picker.allowsEditing = true
-            picker.delegate = self
-            self.present(picker, animated: true, completion: nil)
-        }
-
-        let cameraAction = UIAlertAction(title: "Сделать фото", style: .default) { UIAlertAction in
-            let picker = UIImagePickerController()
-            picker.mediaTypes = ["public.image"]
-            picker.sourceType = .camera
-            picker.allowsEditing = true
-            picker.delegate = self
-            self.present(picker, animated: true, completion: nil)
-        }
-
-        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel, handler: nil)
-
-        alert.addAction(cameraAction)
-        alert.addAction(galleryAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
-
-    }
-
-    private func logout() {
-        do {
-            try Auth.auth().signOut()
-            guard let scene = UIApplication.shared.connectedScenes.first,
-                  let sceneDelegate = scene.delegate as? SceneDelegate else { return }
-            let authVC = FSAuthorizationController()
-            sceneDelegate.changeRootViewConroller(authVC)
-        } catch {
-            showAlert(message: "Ошибка выхода: \(error.localizedDescription)", title: "Ошибка")
-        }
-    }
-
 }
 
 extension FSProfileController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
     }
@@ -419,7 +424,9 @@ extension FSProfileController: UITableViewDataSource {
 }
 
 extension FSProfileController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         switch indexPath.row {
         case 0:
             let vc = FSSettingsController()
@@ -449,6 +456,7 @@ extension FSProfileController: UITableViewDelegate {
 }
 
 extension FSProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
         guard let user = Auth.auth().currentUser,
@@ -489,6 +497,7 @@ extension FSProfileController: UIImagePickerControllerDelegate, UINavigationCont
 }
 
 extension FSProfileController: FSSettingsControllerDelegate {
+    
     func updateUserAddress(with address: String) {
         self.userInfo.address = address
         self.setUserData()

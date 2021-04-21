@@ -12,6 +12,7 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class FSShopController: FSViewController  {
+
     private var productsDatabase: [QueryDocumentSnapshot] = [] {
         didSet {
             self.filteredProducts = self.productsDatabase
@@ -19,7 +20,6 @@ class FSShopController: FSViewController  {
     }
 
     private lazy var filteredProducts: [QueryDocumentSnapshot] = self.productsDatabase
-
     private lazy var filteredFlowersOrBouquet: [QueryDocumentSnapshot] = self.productsDatabase
 
     private lazy var logoImageView: UIImageView = {
@@ -68,10 +68,10 @@ class FSShopController: FSViewController  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadProductList()
         self.view.backgroundColor = .white
-        self.addSubbviews()
-        self.setupConstraints()
+
+        loadProductList()
+        addSubbviews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -103,7 +103,27 @@ class FSShopController: FSViewController  {
         }
     }
 
-    private func setupConstraints() {
+    @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
+        self.searchBar.searchTextField.text = ""
+
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
+            self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
+            self.productsDatabase = filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
+            self.tableView.reloadData()
+        case 1:
+            self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
+            self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
+            self.productsDatabase = filteredFlowersOrBouquet.filter { $0.get("isBouquet") as? Bool ?? false }
+            self.tableView.reloadData()
+        default:
+            break
+        }
+    }
+
+    override func updateViewConstraints() {
+
         self.logoImageView.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.safeAreaLayoutGuide)
             make.left.right.equalToSuperview()
@@ -129,29 +149,13 @@ class FSShopController: FSViewController  {
             make.top.equalTo(self.searchBar.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
-    }
 
-    @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
-        self.searchBar.searchTextField.text = ""
-
-        switch sender.selectedSegmentIndex {
-        case 0:
-            self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
-            self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
-            self.productsDatabase = filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
-            self.tableView.reloadData()
-        case 1:
-            self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
-            self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
-            self.productsDatabase = filteredFlowersOrBouquet.filter { $0.get("isBouquet") as? Bool ?? false }
-            self.tableView.reloadData()
-        default:
-            break
-        }
+        super.updateViewConstraints()
     }
 }
 
 extension FSShopController: UISearchBarDelegate {
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.filteredProducts = searchText.isEmpty
             ? self.productsDatabase
@@ -169,6 +173,7 @@ extension FSShopController: UISearchBarDelegate {
 }
 
 extension FSShopController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.filteredProducts.count
     }
@@ -184,6 +189,7 @@ extension FSShopController: UITableViewDataSource {
 }
 
 extension FSShopController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = FSProductViewController()
         let product = FSProduct.parseProduct(productQuery: filteredProducts[indexPath.row])

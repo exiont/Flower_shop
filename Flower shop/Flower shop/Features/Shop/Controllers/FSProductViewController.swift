@@ -12,11 +12,10 @@ class FSProductViewController: FSViewController {
     var product: FSProduct? = nil
     var counter: Int = 1
 
+    private var timer: Timer?
     private let edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
     private let boldCounterButtonTitleAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
                                                                                   .font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
-
-    private var timer: Timer?
 
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -33,6 +32,7 @@ class FSProductViewController: FSViewController {
     private lazy var productName: FSLabel = {
         let label = FSLabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
+
         return label
     }()
 
@@ -121,8 +121,8 @@ class FSProductViewController: FSViewController {
         return stackView
     }()
 
-    private lazy var addProductItemButton: FSCounterButton = {
-        let button = FSCounterButton()
+    private lazy var addProductItemButton: UIButton = {
+        let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "+", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(addProductItemButtonDidTap), for: .touchUpInside)
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(self.counterButtonLongPressHandler))
@@ -131,8 +131,8 @@ class FSProductViewController: FSViewController {
         return button
     }()
 
-    private lazy var removeProductItemButton: FSCounterButton = {
-        let button = FSCounterButton()
+    private lazy var removeProductItemButton: UIButton = {
+        let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "–", attributes: self.boldCounterButtonTitleAttribute), for: .normal)
         button.addTarget(self, action: #selector(removeProductItemButtonDidTap), for: .touchUpInside)
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(self.counterButtonLongPressHandler))
@@ -170,8 +170,8 @@ class FSProductViewController: FSViewController {
 
     override func initController() {
         super.initController()
-        self.setContentScrolling(isEnabled: false)
 
+        self.setContentScrolling(isEnabled: false)
         self.mainView.addSubview(self.productImageView)
         self.mainView.addSubview(self.nameIdStackView)
         self.mainView.addSubview(self.productDescription)
@@ -185,6 +185,75 @@ class FSProductViewController: FSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
+    }
+
+    func loadData(product: FSProduct) {
+        self.product = product
+        self.productImageView.image = product.image
+        self.productId.text = String(product.id)
+        self.productPrice.text = String(product.price)
+        self.productName.text = product.name
+        self.productDescription.text = product.description
+        self.productDetails.text = product.details
+    }
+
+    @objc func addToCartButtonDidTap() {
+
+       guard let navVC = tabBarController?.viewControllers![1] as? UINavigationController,
+             let cartTableViewController = navVC.topViewController as? FSCartController else { return }
+        if let product = self.product {
+            cartTableViewController.addProductToCart(with: product, and: self.counter)
+        }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    @objc func addProductItemButtonDidTap() {
+        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
+        if currentQuantity < 500 {
+            var newQuantity = currentQuantity
+            newQuantity += 1
+            self.counter = newQuantity
+            self.productCurrentQuantity.text = String(newQuantity)
+        } else {
+            self.timer?.invalidate()
+            self.timer = nil
+            self.showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
+        }
+    }
+
+    @objc func removeProductItemButtonDidTap() {
+        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
+        if currentQuantity > 1 {
+        var newQuantity = currentQuantity
+        newQuantity -= 1
+        self.counter = newQuantity
+        self.productCurrentQuantity.text = String(newQuantity)
+        } else {
+            self.timer?.invalidate()
+            self.timer = nil
+            self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
+        }
+    }
+
+    @objc func counterButtonLongPressHandler(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+                guard let self = self else { return }
+                if let button = sender.view as? UIButton {
+                    switch button {
+                    case self.addProductItemButton:
+                        self.addProductItemButtonDidTap()
+                    case self.removeProductItemButton:
+                        self.removeProductItemButtonDidTap()
+                    default: break
+                    }
+                }
+            })
+        } else if sender.state == .ended || sender.state == .cancelled {
+            self.timer?.invalidate()
+            self.timer = nil
+        }
     }
 
     override func updateViewConstraints() {
@@ -277,74 +346,5 @@ class FSProductViewController: FSViewController {
         }
 
         super.updateViewConstraints()
-    }
-
-    func loadData(product: FSProduct) {
-        self.product = product
-        self.productImageView.image = product.image
-        self.productId.text = String(product.id)
-        self.productPrice.text = String(product.price)
-        self.productName.text = product.name
-        self.productDescription.text = product.description
-        self.productDetails.text = product.details
-    }
-
-    @objc func addToCartButtonDidTap() {
-
-       guard let navVC = tabBarController?.viewControllers![1] as? UINavigationController,
-             let cartTableViewController = navVC.topViewController as? FSCartController else { return }
-        if let product = self.product {
-            cartTableViewController.addProductToCart(with: product, and: self.counter)
-        }
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        self.navigationController?.popViewController(animated: true)
-    }
-
-    @objc func addProductItemButtonDidTap() {
-        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
-        if currentQuantity < 500 {
-            var newQuantity = currentQuantity
-            newQuantity += 1
-            self.counter = newQuantity
-            self.productCurrentQuantity.text = String(newQuantity)
-        } else {
-            self.timer?.invalidate()
-            self.timer = nil
-            self.showAlert(message: "Для приобритения более 500 единиц товара свяжитесь с отделом продаж", title: "")
-        }
-    }
-
-    @objc func removeProductItemButtonDidTap() {
-        guard let currentQuantity = Int(self.productCurrentQuantity.text ?? "1") else { return }
-        if currentQuantity > 1 {
-        var newQuantity = currentQuantity
-        newQuantity -= 1
-        self.counter = newQuantity
-        self.productCurrentQuantity.text = String(newQuantity)
-        } else {
-            self.timer?.invalidate()
-            self.timer = nil
-            self.showAlert(message: "Количество товара не может быть меньше 1", title: "")
-        }
-    }
-
-    @objc func counterButtonLongPressHandler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
-                guard let self = self else { return }
-                if let button = sender.view as? FSCounterButton {
-                    switch button {
-                    case self.addProductItemButton:
-                        self.addProductItemButtonDidTap()
-                    case self.removeProductItemButton:
-                        self.removeProductItemButtonDidTap()
-                    default: break
-                    }
-                }
-            })
-        } else if sender.state == .ended || sender.state == .cancelled {
-            self.timer?.invalidate()
-            self.timer = nil
-        }
     }
 }

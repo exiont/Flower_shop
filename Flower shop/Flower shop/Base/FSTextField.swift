@@ -38,5 +38,4 @@ class FSTextField: UITextField {
             make.height.equalTo(30)
         }
     }
-
 }

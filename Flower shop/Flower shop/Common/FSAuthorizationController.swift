@@ -10,10 +10,9 @@ import FirebaseAuth
 
 class FSAuthorizationController: FSViewController {
 
+    var isUserHaveAccount: Bool = true
     let underlineTitleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.mainPink,
                                                                    .underlineStyle: NSUnderlineStyle.single.rawValue]
-
-    var isUserHaveAccount: Bool = true
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -113,6 +112,16 @@ class FSAuthorizationController: FSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
+        addSubviews()
+        updateViewConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    func addSubviews() {
         self.view.addSubview(logoImageView)
         self.view.addSubview(appLabel)
         self.view.addSubview(authorizationSegmentedControlView)
@@ -123,70 +132,6 @@ class FSAuthorizationController: FSViewController {
         self.view.addSubview(confirmPasswordTextField)
         self.view.addSubview(authorizationButton)
         self.view.addSubview(forgotPasswordButton)
-        self.updateViewConstraints()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-
-    override func updateViewConstraints() {
-        self.logoImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.safeAreaLayoutGuide)
-            make.left.right.equalToSuperview()
-        }
-
-        self.appLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.logoImageView.snp.bottom)
-            make.left.right.equalToSuperview()
-        }
-
-        self.authorizationSegmentedControlView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.appLabel.snp.bottom).offset(5)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(40)
-        }
-
-        self.nameTextField.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.authorizationSegmentedControlView.snp.bottom).offset(0)
-            make.left.right.equalToSuperview().inset(15)
-            make.height.equalTo(0)
-        }
-
-        self.surnameTextField.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.nameTextField.snp.bottom).offset(0)
-            make.left.right.equalToSuperview().inset(15)
-            make.height.equalTo(0)
-        }
-
-        self.emailTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.surnameTextField.snp.bottom).offset(10)
-            make.left.right.equalToSuperview().inset(15)
-        }
-
-        self.passwordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.emailTextField.snp.bottom).offset(10)
-            make.left.right.equalToSuperview().inset(15)
-        }
-
-        self.confirmPasswordTextField.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.passwordTextField.snp.bottom).offset(10)
-            make.left.right.equalToSuperview().inset(15)
-            make.height.equalTo(0)
-        }
-        self.authorizationButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.confirmPasswordTextField.snp.bottom).offset(20)
-            make.left.right.equalToSuperview().inset(45)
-        }
-
-        self.forgotPasswordButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.authorizationButton.snp.bottom).offset(10)
-            make.left.right.equalToSuperview().inset(45)
-        }
-
-        super.updateViewConstraints()
-
     }
 
     @objc func logInButtonDidTap() {
@@ -250,7 +195,6 @@ class FSAuthorizationController: FSViewController {
                 self.showAlert(message: "Письмо с инструкцией по сбросу пароля отправлено на ваш e-mail.", title: "Восстановление пароля")
             }
         }
-
     }
 
     @objc private func viewDidTapped() {
@@ -397,6 +341,63 @@ class FSAuthorizationController: FSViewController {
 
         return errors
     }
+
+    override func updateViewConstraints() {
+        self.logoImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeAreaLayoutGuide)
+            make.left.right.equalToSuperview()
+        }
+
+        self.appLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.logoImageView.snp.bottom)
+            make.left.right.equalToSuperview()
+        }
+
+        self.authorizationSegmentedControlView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.appLabel.snp.bottom).offset(5)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(40)
+        }
+
+        self.nameTextField.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.authorizationSegmentedControlView.snp.bottom).offset(0)
+            make.left.right.equalToSuperview().inset(15)
+            make.height.equalTo(0)
+        }
+
+        self.surnameTextField.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.nameTextField.snp.bottom).offset(0)
+            make.left.right.equalToSuperview().inset(15)
+            make.height.equalTo(0)
+        }
+
+        self.emailTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.surnameTextField.snp.bottom).offset(10)
+            make.left.right.equalToSuperview().inset(15)
+        }
+
+        self.passwordTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.emailTextField.snp.bottom).offset(10)
+            make.left.right.equalToSuperview().inset(15)
+        }
+
+        self.confirmPasswordTextField.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.passwordTextField.snp.bottom).offset(10)
+            make.left.right.equalToSuperview().inset(15)
+            make.height.equalTo(0)
+        }
+        self.authorizationButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.confirmPasswordTextField.snp.bottom).offset(20)
+            make.left.right.equalToSuperview().inset(45)
+        }
+
+        self.forgotPasswordButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.authorizationButton.snp.bottom).offset(10)
+            make.left.right.equalToSuperview().inset(45)
+        }
+
+        super.updateViewConstraints()
+    }
 }
 
 extension FSAuthorizationController: UITextFieldDelegate {
@@ -422,7 +423,6 @@ extension FSAuthorizationController: UITextFieldDelegate {
             default:
                 self.checkForLoginErrors()
             }
-
         }
 
         return true

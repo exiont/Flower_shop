@@ -39,6 +39,7 @@ class FSContactUsViewController: FSViewController {
 }
 
 extension FSContactUsViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         switch indexPath.row {
@@ -52,7 +53,6 @@ extension FSContactUsViewController: UITableViewDelegate {
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
-
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -62,11 +62,13 @@ extension FSContactUsViewController: UITableViewDelegate {
 }
 
 extension FSContactUsViewController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FSContactUsCell.reuseIdentifier, for: indexPath) as? FSContactUsCell else { return UITableViewCell() }
 
         switch indexPath.row {
@@ -89,5 +91,4 @@ extension FSContactUsViewController: UITableViewDataSource {
 
         return cell
     }
-
 }

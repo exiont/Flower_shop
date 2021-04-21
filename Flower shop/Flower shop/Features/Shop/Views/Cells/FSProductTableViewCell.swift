@@ -12,9 +12,7 @@ import FirebaseStorage
 class FSProductTableViewCell: UITableViewCell {
 
     static let reuseIdentifier: String = "FSProductTableViewCell"
-
     private let productImageSize: CGSize = CGSize(width: 60, height: 60)
-
     private let placeholderImage: UIImage = UIImage(named: "flower_placeholder") ?? UIImage()
 
     var productImage: UIImage {
@@ -30,9 +28,9 @@ class FSProductTableViewCell: UITableViewCell {
         view.layer.shadowRadius = 1
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
         view.translatesAutoresizingMaskIntoConstraints = false
-
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.main.scale
+
         return view
     }()
 
@@ -44,6 +42,7 @@ class FSProductTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
         imageView.layer.borderWidth = 1
+
         return imageView
     }()
 
@@ -84,8 +83,7 @@ class FSProductTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        self.initCell()
+        initCell()
     }
 
     required init?(coder: NSCoder) {
@@ -145,8 +143,8 @@ class FSProductTableViewCell: UITableViewCell {
     }
 
     func setCell(productQuery: QueryDocumentSnapshot) {
-        let product = FSProduct.parseProduct(productQuery: productQuery)
 
+        let product = FSProduct.parseProduct(productQuery: productQuery)
         self.productImageView.image = self.placeholderImage
         self.productName.text = product.name
         self.productDescription.text = product.description
