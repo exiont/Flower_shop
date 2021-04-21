@@ -404,8 +404,9 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
             let discount = profile.getDiscount()
             totalPrice -= totalPrice * Double(discount) / 100
         }
-        self.totalPrice.text = String(totalPrice)
-        return totalPrice
+        let roundedPrice = round(totalPrice * 100) / 100
+        self.totalPrice.text = String(roundedPrice)
+        return roundedPrice
     }
 
     @objc private func viewDidTapped() {
