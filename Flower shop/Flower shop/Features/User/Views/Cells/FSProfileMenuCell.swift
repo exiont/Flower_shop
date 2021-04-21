@@ -59,7 +59,7 @@ class FSProfileMenuCell: UITableViewCell {
     }
 
     override func updateConstraints() {
-        
+
         self.containerView.snp.updateConstraints { (make) in
             make.edges.equalToSuperview()
         }

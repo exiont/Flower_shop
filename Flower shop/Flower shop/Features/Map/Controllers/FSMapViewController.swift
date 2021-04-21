@@ -125,7 +125,7 @@ extension FSMapViewController: GMSMapViewDelegate {
 
             self.present(alert, animated: true, completion: nil)
         }
-        
+
         return true
     }
 }

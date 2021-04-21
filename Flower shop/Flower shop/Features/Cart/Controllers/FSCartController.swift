@@ -295,8 +295,7 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         }
     }
 
-    @discardableResult
-    func calculateTotalPrice() -> Double {
+    @discardableResult func calculateTotalPrice() -> Double {
         var totalPrice: Double = 0
         for item in self.productsInCart {
             totalPrice += item.product.price * Double(item.quantity)
@@ -550,7 +549,7 @@ extension FSCartController: UITableViewDelegate {
 }
 
 extension FSCartController: UITextFieldDelegate {
-    
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
 
         switch textField {

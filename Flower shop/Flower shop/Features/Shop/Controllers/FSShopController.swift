@@ -189,7 +189,7 @@ extension FSShopController: UITableViewDataSource {
 }
 
 extension FSShopController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = FSProductViewController()
         let product = FSProduct.parseProduct(productQuery: filteredProducts[indexPath.row])

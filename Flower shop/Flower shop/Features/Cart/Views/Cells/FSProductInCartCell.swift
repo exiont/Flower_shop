@@ -9,7 +9,7 @@ import UIKit
 
 protocol FSProductInCartCellDelegate: class {
     func addProductToCart(with product: FSProduct?, and quantity: Int)
-    func calculateTotalPrice() -> Double
+    @discardableResult func calculateTotalPrice() -> Double
 }
 
 class FSProductInCartCell: UITableViewCell {
@@ -191,7 +191,7 @@ class FSProductInCartCell: UITableViewCell {
     }
 
     override func updateConstraints() {
-        
+
         self.productContainerView.snp.updateConstraints { (make) in
             make.edges.equalToSuperview()
         }

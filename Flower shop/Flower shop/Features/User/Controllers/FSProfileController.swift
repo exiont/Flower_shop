@@ -497,7 +497,7 @@ extension FSProfileController: UIImagePickerControllerDelegate, UINavigationCont
 }
 
 extension FSProfileController: FSSettingsControllerDelegate {
-    
+
     func updateUserAddress(with address: String) {
         self.userInfo.address = address
         self.setUserData()
