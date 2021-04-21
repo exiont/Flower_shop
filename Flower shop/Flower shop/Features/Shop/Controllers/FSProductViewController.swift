@@ -259,7 +259,7 @@ class FSProductViewController: FSViewController {
 
         self.productImageView.snp.updateConstraints { (make) in
             make.top.left.right.equalToSuperview()
-            make.height.lessThanOrEqualTo(UIScreen.main.bounds.height * 5 / 9)
+            make.height.lessThanOrEqualTo(UIScreen.main.bounds.height / 2.5)
         }
 
         self.nameIdStackView.snp.updateConstraints { (make) in
