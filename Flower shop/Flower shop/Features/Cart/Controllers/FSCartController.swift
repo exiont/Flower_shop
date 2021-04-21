@@ -399,6 +399,11 @@ class FSCartController: FSViewController, FSProductInCartCellDelegate {
         for item in self.productsInCart {
             totalPrice += item.product.price * Double(item.quantity)
         }
+        if let navVC = self.tabBarController?.viewControllers?[3] as? UINavigationController,
+           let profile = navVC.topViewController as? FSProfileController {
+            let discount = profile.getDiscount()
+            totalPrice -= totalPrice * Double(discount) / 100
+        }
         self.totalPrice.text = String(totalPrice)
         return totalPrice
     }

@@ -15,7 +15,7 @@ import FirebaseUI
 
 class FSProfileController: FSViewController {
 
-    let userInfo = FSUserInfo()
+    private var userInfo = FSUserInfo()
 
     let profileImagePlaceholder: UIImage = UIImage(systemName: "person.circle") ?? UIImage()
 
@@ -338,6 +338,10 @@ class FSProfileController: FSViewController {
                 self.userDiscount.text = "\(self.userInfo.discount)%"
             }
         }
+    }
+
+    func getDiscount() -> Int {
+        self.userInfo.discount
     }
 
     @objc func openImagePicker() {

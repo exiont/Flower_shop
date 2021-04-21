@@ -25,7 +25,8 @@ class FSProductViewController: FSViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.borderColor = CGColor(srgbRed: 0.941, green: 0.408, blue: 0.561, alpha: 1)
         imageView.layer.borderWidth = 1
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
+
         return imageView
     }()
 
