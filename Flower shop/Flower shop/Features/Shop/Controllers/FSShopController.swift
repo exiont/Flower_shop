@@ -7,18 +7,24 @@
 
 import UIKit
 import SnapKit
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
 
 class FSShopController: FSViewController  {
 
-    private var products: [FSProduct] = [] {
+    // MARK: - Properties
+
+    private var productsDatabase: [QueryDocumentSnapshot] = [] {
         didSet {
-            self.filteredPdoructs = self.products
+            self.filteredProducts = self.productsDatabase
         }
     }
 
-    private lazy var filteredPdoructs: [FSProduct] = self.products
+    private lazy var filteredProducts: [QueryDocumentSnapshot] = self.productsDatabase
+    private lazy var filteredFlowersOrBouquet: [QueryDocumentSnapshot] = self.productsDatabase
 
-    private lazy var filteredFlowersOrBouquet: [FSProduct] = self.products
+    // MARK: - GUI variables
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -29,136 +35,105 @@ class FSShopController: FSViewController  {
         return imageView
     }()
 
-    private lazy var appLabel: UILabel = {
-        let label = UILabel()
+    private lazy var appLabel: FSLabel = {
+        let label = FSLabel()
         label.text = "Цветочный магазин"
-        label.textColor = UIColor(named: "brown_red")
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.applyCustomFont(name: "Caveat-Regular", size: 30)
 
         return label
     }()
 
-    private lazy var segmentedControlContainerView: UIView = {
-        let containerView = UIView()
-        containerView.backgroundColor = .clear
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        return containerView
+    private lazy var productTypeSegmentedControlView: FSSegmentedControlView = {
+        let view = FSSegmentedControlView()
+        view.segmentedControl.insertSegment(withTitle: "Цветы", at: 0, animated: false)
+        view.segmentedControl.insertSegment(withTitle: "Букеты", at: 1, animated: false)
+        view.segmentedControl.selectedSegmentIndex = 0
+        view.segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue(sender:)), for: .valueChanged)
+        return view
     }()
 
-    private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["Цветы", "Букеты"])
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.tintColor = .clear
-        segmentedControl.backgroundColor = .clear
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "brown_red") ?? .systemPink,
-                                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular)], for: .normal)
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "brown_red") ?? .systemPink,
-                                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold)], for: .selected)
-        segmentedControl.addTarget(self, action: #selector(self.segmentedControlChangeValue), for: .valueChanged)
-        segmentedControl.removeStyle()
-        return segmentedControl
-    }()
-
-    private lazy var leftBottomUnderlineView: UIView = {
-        let underlineView = UIView()
-        underlineView.backgroundColor = UIColor(named: "main_pink")
-        underlineView.translatesAutoresizingMaskIntoConstraints = false
-        return underlineView
-    }()
-
-    private lazy var rightBottomUnderlineView: UIView = {
-        let underlineView = UIView()
-        underlineView.backgroundColor = UIColor(named: "main_pink")
-        underlineView.translatesAutoresizingMaskIntoConstraints = false
-        underlineView.isHidden = true
-        return underlineView
-    }()
-
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
+    private lazy var searchBar: FSSearchBar = {
+        let searchBar = FSSearchBar()
         searchBar.placeholder = "Поиск"
-        searchBar.sizeToFit()
-        searchBar.searchTextField.backgroundColor = UIColor(named: "white_pink")
-        searchBar.searchTextField.layer.cornerRadius = 5
-        searchBar.searchTextField.borderStyle = .none
-        searchBar.searchTextField.layer.borderWidth = 0.5
-        searchBar.searchTextField.layer.borderColor = UIColor(named: "main_pink")?.cgColor
-        searchBar.searchTextField.textColor = UIColor(named: "brown_red")
-        searchBar.searchBarStyle = .minimal
-        searchBar.tintColor = UIColor(named: "main_pink")
         searchBar.delegate = self
 
         return searchBar
     }()
 
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = .white
+    private lazy var tableView: FSTableView = {
+        let tableView = FSTableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FSProductTableViewCell.self, forCellReuseIdentifier: FSProductTableViewCell.reuseIdentifier)
-        tableView.keyboardDismissMode = .onDrag
 
         return tableView
     }()
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-    }
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
 
-        self.addSubbviews()
-        self.setupConstraints()
-        self.updateProductsList()
+        loadProductList()
+        addSubbviews()
+    }
 
-        self.products =  self.filteredFlowersOrBouquet.filter { !$0.isBouquet }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.navigationBar.tintColor = FSColors.mainPink
+        self.navigationController?.navigationBar.barTintColor = .white
     }
 
     private func addSubbviews() {
         self.view.addSubview(self.logoImageView)
         self.view.addSubview(self.appLabel)
-        self.view.addSubview(self.segmentedControlContainerView)
+        self.view.addSubview(self.productTypeSegmentedControlView)
         self.view.addSubview(self.searchBar)
         self.view.addSubview(self.tableView)
-        self.segmentedControlContainerView.addSubview(self.segmentedControl)
-        self.segmentedControlContainerView.addSubview(self.leftBottomUnderlineView)
-        self.segmentedControlContainerView.addSubview(self.rightBottomUnderlineView)
     }
 
-    private func updateProductsList() { // будет подгрузка из базы
-        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Тюльпан", description: "Заморский"))
-        products.append(FSProduct(image: nil, name: "Хризантема", description: "Однолетняя"))
-        products.append(FSProduct(image: nil, name: "Роза", description: "Многолетняя"))
-        products.append(FSProduct(image: nil, name: "Свекла", description: "Добротная"))
-        products.append(FSProduct(image: nil, name: "Свежий", description: "Букет", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Весенний", description: "Букетик", isBouquet: true))
-        products.append(FSProduct(image: nil, name: "Праздничная", description: "Корзина", isBouquet: true))
+    //MARK: - Data setting and filtering methods
+
+    func loadProductList() {
+        let db = Firestore.firestore()
+        db.collection("products").getDocuments { [weak self] (snapshot, error) in
+            guard let self = self else { return }
+            if let error = error {
+                Swift.debugPrint(error.localizedDescription)
+            } else if let snapshot = snapshot {
+                self.productsDatabase = snapshot.documents
+            }
+            self.productsDatabase = self.filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
+            self.tableView.reloadData()
+        }
     }
 
-    private func setupConstraints() {
+    @objc private func segmentedControlChangeValue(sender: FSSegmentedControl) {
+        self.searchBar.searchTextField.text = ""
+
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
+            self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
+            self.productsDatabase = filteredFlowersOrBouquet.filter { !($0.get("isBouquet") as? Bool ?? false) }
+            self.tableView.reloadData()
+        case 1:
+            self.productTypeSegmentedControlView.leftBottomUnderlineView.isHidden.toggle()
+            self.productTypeSegmentedControlView.rightBottomUnderlineView.isHidden.toggle()
+            self.productsDatabase = filteredFlowersOrBouquet.filter { $0.get("isBouquet") as? Bool ?? false }
+            self.tableView.reloadData()
+        default:
+            break
+        }
+    }
+
+    //MARK: - Constraints setup
+
+    override func updateViewConstraints() {
+
         self.logoImageView.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.safeAreaLayoutGuide)
             make.left.right.equalToSuperview()
@@ -169,34 +144,14 @@ class FSShopController: FSViewController  {
             make.left.right.equalToSuperview()
         }
 
-        self.segmentedControlContainerView.snp.makeConstraints { (make) in
+        self.productTypeSegmentedControlView.snp.makeConstraints { (make) in
             make.top.equalTo(self.appLabel.snp.bottom).offset(5)
-            make.width.equalToSuperview()
+            make.left.right.equalToSuperview()
             make.height.equalTo(40)
         }
 
-        self.segmentedControl.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-        }
-
-        self.leftBottomUnderlineView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.segmentedControl.snp.bottom)
-            make.height.equalTo(1)
-            make.left.equalTo(self.segmentedControl.snp.left)
-            make.right.lessThanOrEqualTo(self.segmentedControl.snp.right).inset(self.view.frame.width / 2)
-            make.width.equalTo(self.view.frame.width / 2)
-        }
-
-        self.rightBottomUnderlineView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.segmentedControl.snp.bottom)
-            make.height.equalTo(1)
-            make.right.equalTo(self.segmentedControl.snp.right)
-            make.left.lessThanOrEqualTo(self.segmentedControl.snp.left).inset(self.view.frame.width / 2)
-            make.width.equalTo(self.view.frame.width / 2)
-        }
-
         self.searchBar.snp.makeConstraints { (make) in
-            make.top.equalTo(self.segmentedControlContainerView.snp.bottom)
+            make.top.equalTo(self.productTypeSegmentedControlView.snp.bottom)
             make.left.right.equalToSuperview()
         }
 
@@ -204,75 +159,56 @@ class FSShopController: FSViewController  {
             make.top.equalTo(self.searchBar.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
-    }
 
-    @objc private func segmentedControlChangeValue(sender: UISegmentedControl) {
-        self.searchBar.searchTextField.text = ""
-
-        switch sender.selectedSegmentIndex {
-        case 0:
-            self.leftBottomUnderlineView.isHidden.toggle()
-            self.rightBottomUnderlineView.isHidden.toggle()
-            self.products = filteredFlowersOrBouquet.filter { !$0.isBouquet }
-            self.tableView.reloadData()
-        case 1:
-            self.leftBottomUnderlineView.isHidden.toggle()
-            self.rightBottomUnderlineView.isHidden.toggle()
-            self.products = filteredFlowersOrBouquet.filter { $0.isBouquet }
-            self.tableView.reloadData()
-        default:
-            break
-        }
-    }
-
-    private func changeSegmentedControlLinePositionAnimated() { // сделать анимацию перезда подчёркивания
-//        let segmentIndex = CGFloat(self.segmentedControl.selectedSegmentIndex)
-//        let segmentWidth = self.segmentedControl.frame.width / CGFloat(self.segmentedControl.numberOfSegments)
-//        let leadingDistance = segmentWidth * segmentIndex
-//        UIView.animate(withDuration: 0.3, animations: { [weak self] in
-//            self?.leftBottomUnderlineView.snp.makeConstraints({ (make) in
-//                guard let self = self else { return }
-//                make.left.equalTo(self.segmentedControl.snp.left).offset(leadingDistance)
-//            })
-//        })
+        super.updateViewConstraints()
     }
 }
 
+//MARK: - Extensions
+
 extension FSShopController: UISearchBarDelegate {
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredPdoructs = searchText.isEmpty
-            ? self.products
-            : self.products.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        self.filteredProducts = searchText.isEmpty
+            ? self.productsDatabase
+            : self.productsDatabase.filter { ($0.get("name") as? String ?? "").lowercased().contains(searchText.lowercased()) }
         self.tableView.reloadData()
     }
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
     }
 }
 
 extension FSShopController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.filteredPdoructs.count
+        self.filteredProducts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell,
-              let placeholderImage = UIImage(named: "flower_placeholder") else { fatalError("No cell with this identifier") }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FSProductTableViewCell.reuseIdentifier, for: indexPath) as? FSProductTableViewCell else { return UITableViewCell() }
 
-        let product = self.filteredPdoructs[indexPath.row]
-        cell.setCell(image: product.image ?? placeholderImage,
-                     name: product.name,
-                     description: product.description)
+        let product = self.filteredProducts[indexPath.row]
+        cell.setCell(productQuery: product)
 
         return cell
     }
 }
 
 extension FSShopController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = FSProductViewController()
-        let product = products[indexPath.row]
+        let product = FSProduct.parseProduct(productQuery: filteredProducts[indexPath.row])
+        if let cell = tableView.cellForRow(at: indexPath) as? FSProductTableViewCell {
+        product.image = cell.productImage
+        }
         vc.loadData(product: product)
-        navigationController?.present(vc, animated: true, completion: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

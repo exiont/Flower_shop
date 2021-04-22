@@ -10,39 +10,45 @@ import GoogleMaps
 
 class FSMapViewController: UIViewController {
 
+    // MARK: - Outlets
+
     @IBOutlet weak var mapView: GMSMapView!
 
+    // MARK: - Properties
+
     private let locationManager = CLLocationManager()
-
     private var markets: [FSMarket] = []
-
     private var markers: [GMSMarker] = []
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        configureMap()
+        loadMarkets()
+        createMarketsMarkers()
+        centerCamera()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.configureMap()
-        self.loadMarkets()
-        self.createMarketsMarkers()
-        self.centerCamera()
-    }
+    // MARK: - Map configuring methods
 
     private func configureMap() {
         self.mapView.delegate = self
         self.mapView.isMyLocationEnabled = true
         self.mapView.settings.compassButton = true
-        self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
     }
 
-    private func loadMarkets() { // будет подгрузка из базы
-        let firstMarket = FSMarket(latitude: 53.90, longitude: 27.62, name: "Flower shop 1", workingHours: "08:00 - 23:00", description: "Тракторный завод")
-        let secondMarket = FSMarket(latitude: 53.92, longitude: 27.62, name: "Flower shop 2", workingHours: "09:00 - 21:00", description: "Московская")
-        let thirdMarket = FSMarket(latitude: 53.94, longitude: 27.63, name: "Flower shop 2", workingHours: "24/7", description: "Зелёный луг")
+    private func loadMarkets() { // TODO: markets info loading from database
+        let firstMarket = FSMarket(latitude: 53.90, longitude: 27.62, name: "Магазин 1", workingHours: "10:00 - 21:00", description: "Тракторный завод")
+        let secondMarket = FSMarket(latitude: 53.92, longitude: 27.62, name: "Магазин 2", workingHours: "08:00 - 00:00", description: "Московская")
+        let thirdMarket = FSMarket(latitude: 53.94, longitude: 27.63, name: "Магазин 3", workingHours: "09:00 - 22:00", description: "Зелёный луг")
 
         self.markets.append(contentsOf: [firstMarket, secondMarket, thirdMarket])
     }
@@ -77,6 +83,8 @@ class FSMapViewController: UIViewController {
     }
 }
 
+// MARK: - Extensions
+
 extension FSMapViewController: GMSMapViewDelegate {
 
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
@@ -96,42 +104,38 @@ extension FSMapViewController: GMSMapViewDelegate {
             let latitude = latitude
             let longitude = longitude
 
-            let isGoogleMapsAvailable: Bool = UIApplication.shared.canOpenURL(URL.init(string: "comgooglemaps://")!)
-            if isGoogleMapsAvailable {
-                let googleMapsAction = UIAlertAction(title: "Google Maps", style: .default) { _ in
-                    guard let url = URL.init(string: "comgooglemaps://?saddr=&daddr=\(latitude),\(longitude)&directionsmode=driving") else { return }
-                    UIApplication.shared.open(url)
-                }
-                alert.addAction(googleMapsAction)
-            }
+            let yandexmaps = FSAppCaller.Maps.yandexmaps(latitude: latitude, longitude: longitude)
+            let yandexnavi = FSAppCaller.Maps.yandexnavi(latitude: latitude, longitude: longitude)
+            let googlemaps = FSAppCaller.Maps.googlemaps(latitude: latitude, longitude: longitude)
 
-            let isYandexMapsAvailable: Bool = UIApplication.shared.canOpenURL(URL.init(string: "yandexmaps://")!)
-            if isYandexMapsAvailable {
-                let yandexMapsAction = UIAlertAction(title: "Yandex maps", style: .default) { _ in
-                    guard let coordinate = self.mapView.myLocation else { return }
-                    guard let url = URL.init(string: "yandexmaps://maps.yandex.com/?rtext=\(coordinate.coordinate.latitude),\(coordinate.coordinate.longitude)~\(latitude),\(longitude)") else { return }
-                    UIApplication.shared.open(url)
+            //TODO: make switch instead of if
+
+            if FSAppCaller.canOpenMap(yandexmaps) {
+                let yandexMapsAction = UIAlertAction(title: "Яндекс.Карты", style: .default) { _ in
+                    FSAppCaller.openMap(with: yandexmaps)
                 }
                 alert.addAction(yandexMapsAction)
             }
 
-            let isYandexNavigatorAvailable: Bool = UIApplication.shared.canOpenURL(URL.init(string: "yandexnavi://")!)
-            if isYandexNavigatorAvailable {
-                let yandexNavigatorAction = UIAlertAction(title: "Yandex navigator", style: .default) { _ in
-                    guard let url = URL.init(string: "yandexnavi://build_route_on_map?lat_to=\(latitude)&lon_to=\(longitude)") else { return }
-                    UIApplication.shared.open(url)
+            if FSAppCaller.canOpenMap(yandexnavi) {
+                let yandexNavigatorAction = UIAlertAction(title: "Яндекс.Навигатор", style: .default) { _ in
+                    FSAppCaller.openMap(with: yandexnavi)
                 }
                 alert.addAction(yandexNavigatorAction)
+            }
+
+            if FSAppCaller.canOpenMap(googlemaps) {
+                let googleMapsAction = UIAlertAction(title: "Google Maps", style: .default) { _ in
+                    FSAppCaller.openMap(with: googlemaps)
+                }
+                alert.addAction(googleMapsAction)
             }
 
             alert.addAction(backAction)
 
             self.present(alert, animated: true, completion: nil)
         }
+
         return true
     }
-}
-
-extension FSMapViewController: CLLocationManagerDelegate {
-
 }

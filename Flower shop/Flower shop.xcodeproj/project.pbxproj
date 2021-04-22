@@ -15,6 +15,7 @@
 		8851E1A526189EBE000AC2E4 /* FSMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8851E1A326189EBE000AC2E4 /* FSMapViewController.swift */; };
 		8851E1A626189EBE000AC2E4 /* FSMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8851E1A426189EBE000AC2E4 /* FSMapViewController.xib */; };
 		8851E1AA26189FD8000AC2E4 /* FSMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8851E1A926189FD8000AC2E4 /* FSMarket.swift */; };
+		886505F62630565200FD7EA9 /* flower_label.png in Resources */ = {isa = PBXBuildFile; fileRef = 886505F52630565200FD7EA9 /* flower_label.png */; };
 		88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FB2607C059006EDB12 /* AppDelegate.swift */; };
 		88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FD2607C059006EDB12 /* SceneDelegate.swift */; };
 		88B169002607C059006EDB12 /* FSShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FF2607C059006EDB12 /* FSShopController.swift */; };
@@ -25,8 +26,29 @@
 		D526FB6A261A39BF00829788 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB69261A39BF00829788 /* FSViewController.swift */; };
 		D526FB8B261E465200829788 /* FSProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB8A261E465200829788 /* FSProduct.swift */; };
 		D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB8D261E498100829788 /* UIFont+Ex.swift */; };
+		D526FB9F261F5B4100829788 /* FSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB9E261F5B4100829788 /* FSColors.swift */; };
+		D526FBA4261F5CDA00829788 /* FSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FBA3261F5CDA00829788 /* FSTextField.swift */; };
+		D529A27626209B34002151C2 /* FSLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27526209B34002151C2 /* FSLineView.swift */; };
+		D529A27926209D8F002151C2 /* FSSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27826209D8F002151C2 /* FSSearchBar.swift */; };
+		D529A27C2620A553002151C2 /* FSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27B2620A553002151C2 /* FSButton.swift */; };
+		D529A2802620A830002151C2 /* FSSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27F2620A830002151C2 /* FSSegmentedControl.swift */; };
+		D529A2852620B402002151C2 /* FSAppCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A2842620B402002151C2 /* FSAppCaller.swift */; };
+		D529A28C2620CAC9002151C2 /* FSTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A28B2620CAC9002151C2 /* FSTableView.swift */; };
+		D529A2902620CD2B002151C2 /* FSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A28F2620CD2B002151C2 /* FSLabel.swift */; };
+		D52ACA65262F4D2700C09B10 /* FSOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52ACA64262F4D2700C09B10 /* FSOrder.swift */; };
+		D55818962625C6C4006DB936 /* FSSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */; };
+		D558189E2626FEF1006DB936 /* FSProfileMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */; };
+		D55818A626271EE8006DB936 /* FSSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55818A526271EE8006DB936 /* FSSeparatorView.swift */; };
+		D55818A926274683006DB936 /* FSSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55818A826274683006DB936 /* FSSettingsController.swift */; };
 		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
+		D5A55CD82629B04A00ABF7C2 /* FSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CD72629B04A00ABF7C2 /* FSUser.swift */; };
+		D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */; };
+		D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */; };
+		D5A55CF1262A198800ABF7C2 /* FSContactUsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */; };
+		D5A55D1A262B2BE700ABF7C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */; };
 		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
+		D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E151582624623B00C3389C /* FSProductInCart.swift */; };
+		D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +60,7 @@
 		8851E1A326189EBE000AC2E4 /* FSMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMapViewController.swift; sourceTree = "<group>"; };
 		8851E1A426189EBE000AC2E4 /* FSMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FSMapViewController.xib; sourceTree = "<group>"; };
 		8851E1A926189FD8000AC2E4 /* FSMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMarket.swift; sourceTree = "<group>"; };
+		886505F52630565200FD7EA9 /* flower_label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flower_label.png; path = "Flower shop/Assets.xcassets/flower_label.imageset/flower_label.png"; sourceTree = "<group>"; };
 		88B168F82607C059006EDB12 /* Flower shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flower shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88B168FB2607C059006EDB12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88B168FD2607C059006EDB12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,8 +74,29 @@
 		D526FB69261A39BF00829788 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
 		D526FB8A261E465200829788 /* FSProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProduct.swift; sourceTree = "<group>"; };
 		D526FB8D261E498100829788 /* UIFont+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ex.swift"; sourceTree = "<group>"; };
+		D526FB9E261F5B4100829788 /* FSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSColors.swift; sourceTree = "<group>"; };
+		D526FBA3261F5CDA00829788 /* FSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextField.swift; sourceTree = "<group>"; };
+		D529A27526209B34002151C2 /* FSLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLineView.swift; sourceTree = "<group>"; };
+		D529A27826209D8F002151C2 /* FSSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSearchBar.swift; sourceTree = "<group>"; };
+		D529A27B2620A553002151C2 /* FSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSButton.swift; sourceTree = "<group>"; };
+		D529A27F2620A830002151C2 /* FSSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegmentedControl.swift; sourceTree = "<group>"; };
+		D529A2842620B402002151C2 /* FSAppCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSAppCaller.swift; sourceTree = "<group>"; };
+		D529A28B2620CAC9002151C2 /* FSTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSTableView.swift; path = "Flower shop/Base/FSTableView.swift"; sourceTree = SOURCE_ROOT; };
+		D529A28F2620CD2B002151C2 /* FSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLabel.swift; sourceTree = "<group>"; };
+		D52ACA64262F4D2700C09B10 /* FSOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSOrder.swift; sourceTree = "<group>"; };
+		D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegmentedControlView.swift; sourceTree = "<group>"; };
+		D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProfileMenuCell.swift; sourceTree = "<group>"; };
+		D55818A526271EE8006DB936 /* FSSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSeparatorView.swift; sourceTree = "<group>"; };
+		D55818A826274683006DB936 /* FSSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettingsController.swift; sourceTree = "<group>"; };
 		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
+		D5A55CD72629B04A00ABF7C2 /* FSUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUser.swift; sourceTree = "<group>"; };
+		D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
+		D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsViewController.swift; sourceTree = "<group>"; };
+		D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsCell.swift; sourceTree = "<group>"; };
+		D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
+		D5E151582624623B00C3389C /* FSProductInCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCart.swift; sourceTree = "<group>"; };
+		D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCartCell.swift; sourceTree = "<group>"; };
 		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,21 +167,22 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		884C4E992610BB1400788046 /* Profile */ = {
+		884C4E992610BB1400788046 /* User */ = {
 			isa = PBXGroup;
 			children = (
 				884C4EAB2610BE2800788046 /* Models */,
 				884C4EAA2610BE2200788046 /* Views */,
 				884C4E9D2610BB1400788046 /* Controllers */,
 			);
-			path = Profile;
+			path = User;
 			sourceTree = "<group>";
 		};
 		884C4E9D2610BB1400788046 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */,
 				88B169212607EC60006EDB12 /* FSProfileController.swift */,
+				D55818A826274683006DB936 /* FSSettingsController.swift */,
+				D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -173,7 +218,7 @@
 				884C4E8A2610BA8500788046 /* Shop */,
 				884C4E8E2610BACB00788046 /* Cart */,
 				884C4E952610BB0C00788046 /* Map */,
-				884C4E992610BB1400788046 /* Profile */,
+				884C4E992610BB1400788046 /* User */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -181,7 +226,9 @@
 		884C4EA42610BD8600788046 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D529A2832620B307002151C2 /* Sharing */,
 				D5D86681260C818F008F5729 /* FSTabBarController.swift */,
+				884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */,
 				D526FB69261A39BF00829788 /* FSViewController.swift */,
 			);
 			path = Common;
@@ -198,6 +245,7 @@
 		884C4EA62610BE0400788046 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D5E1515B26246C8900C3389C /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,6 +253,8 @@
 		884C4EA72610BE0A00788046 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D5E151582624623B00C3389C /* FSProductInCart.swift */,
+				D52ACA64262F4D2700C09B10 /* FSOrder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -228,6 +278,7 @@
 		884C4EAA2610BE2200788046 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D558189C2626FECB006DB936 /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -235,6 +286,7 @@
 		884C4EAB2610BE2800788046 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D5A55CD72629B04A00ABF7C2 /* FSUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -252,6 +304,7 @@
 			children = (
 				8845C8BD26190D65002E2129 /* UISegmentedControl+Ex.swift */,
 				D526FB8D261E498100829788 /* UIFont+Ex.swift */,
+				D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -259,6 +312,7 @@
 		88B168EF2607C059006EDB12 = {
 			isa = PBXGroup;
 			children = (
+				886505F52630565200FD7EA9 /* flower_label.png */,
 				88B168FA2607C059006EDB12 /* Flower shop */,
 				88B168F92607C059006EDB12 /* Products */,
 				2726A5CA84ED1CBD605506A2 /* Pods */,
@@ -277,8 +331,10 @@
 		88B168FA2607C059006EDB12 /* Flower shop */ = {
 			isa = PBXGroup;
 			children = (
-				884C4EA32610BD7300788046 /* Features */,
+				D526FBA2261F5C8900829788 /* Base */,
+				D526FB9D261F5AFB00829788 /* Constants */,
 				884C4EA42610BD8600788046 /* Common */,
+				884C4EA32610BD7300788046 /* Features */,
 				88B168FB2607C059006EDB12 /* AppDelegate.swift */,
 				88B168FD2607C059006EDB12 /* SceneDelegate.swift */,
 				88B169042607C05A006EDB12 /* Assets.xcassets */,
@@ -286,6 +342,7 @@
 				884C4E81260FC45400788046 /* Fonts */,
 				884CF596261525A2003D9B41 /* Extensions */,
 				88B169092607C05A006EDB12 /* Info.plist */,
+				D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */,
 			);
 			path = "Flower shop";
 			sourceTree = "<group>";
@@ -296,6 +353,55 @@
 				B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D526FB9D261F5AFB00829788 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				D526FB9E261F5B4100829788 /* FSColors.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		D526FBA2261F5C8900829788 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				D526FBA3261F5CDA00829788 /* FSTextField.swift */,
+				D529A27526209B34002151C2 /* FSLineView.swift */,
+				D529A27826209D8F002151C2 /* FSSearchBar.swift */,
+				D529A27B2620A553002151C2 /* FSButton.swift */,
+				D529A27F2620A830002151C2 /* FSSegmentedControl.swift */,
+				D529A28B2620CAC9002151C2 /* FSTableView.swift */,
+				D529A28F2620CD2B002151C2 /* FSLabel.swift */,
+				D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */,
+				D55818A526271EE8006DB936 /* FSSeparatorView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		D529A2832620B307002151C2 /* Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				D529A2842620B402002151C2 /* FSAppCaller.swift */,
+			);
+			path = Sharing;
+			sourceTree = "<group>";
+		};
+		D558189C2626FECB006DB936 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */,
+				D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D5E1515B26246C8900C3389C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,8 +465,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				886505F62630565200FD7EA9 /* flower_label.png in Resources */,
 				8851E1A626189EBE000AC2E4 /* FSMapViewController.xib in Resources */,
 				884C4E85260FC4F100788046 /* Caveat.ttf in Resources */,
+				D5A55D1A262B2BE700ABF7C2 /* GoogleService-Info.plist in Resources */,
 				88B169082607C05A006EDB12 /* LaunchScreen.storyboard in Resources */,
 				88B169052607C05A006EDB12 /* Assets.xcassets in Resources */,
 			);
@@ -449,21 +557,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D55818962625C6C4006DB936 /* FSSegmentedControlView.swift in Sources */,
+				D52ACA65262F4D2700C09B10 /* FSOrder.swift in Sources */,
 				884C4EB22610DF8B00788046 /* FSProductTableViewCell.swift in Sources */,
+				D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */,
+				D529A27626209B34002151C2 /* FSLineView.swift in Sources */,
+				D558189E2626FEF1006DB936 /* FSProfileMenuCell.swift in Sources */,
+				D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */,
 				D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */,
+				D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */,
 				884C4E88260FDC3E00788046 /* FSAuthorizationController.swift in Sources */,
 				8851E1AA26189FD8000AC2E4 /* FSMarket.swift in Sources */,
+				D529A2802620A830002151C2 /* FSSegmentedControl.swift in Sources */,
+				D526FB9F261F5B4100829788 /* FSColors.swift in Sources */,
+				D529A27C2620A553002151C2 /* FSButton.swift in Sources */,
 				8851E1A526189EBE000AC2E4 /* FSMapViewController.swift in Sources */,
+				D529A27926209D8F002151C2 /* FSSearchBar.swift in Sources */,
 				D526FB8B261E465200829788 /* FSProduct.swift in Sources */,
 				88B169222607EC60006EDB12 /* FSProfileController.swift in Sources */,
 				88B1691C2607EC26006EDB12 /* FSCartController.swift in Sources */,
 				88B169002607C059006EDB12 /* FSShopController.swift in Sources */,
+				D55818A926274683006DB936 /* FSSettingsController.swift in Sources */,
+				D526FBA4261F5CDA00829788 /* FSTextField.swift in Sources */,
 				D526FB6A261A39BF00829788 /* FSViewController.swift in Sources */,
+				D5A55CF1262A198800ABF7C2 /* FSContactUsCell.swift in Sources */,
+				D55818A626271EE8006DB936 /* FSSeparatorView.swift in Sources */,
 				88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */,
+				D529A2902620CD2B002151C2 /* FSLabel.swift in Sources */,
 				88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */,
+				D529A28C2620CAC9002151C2 /* FSTableView.swift in Sources */,
 				8845C8BE26190D65002E2129 /* UISegmentedControl+Ex.swift in Sources */,
+				D529A2852620B402002151C2 /* FSAppCaller.swift in Sources */,
 				D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */,
+				D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */,
 				D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */,
+				D5A55CD82629B04A00ABF7C2 /* FSUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

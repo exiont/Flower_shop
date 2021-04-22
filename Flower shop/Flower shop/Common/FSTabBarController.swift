@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class FSTabBarController: UITabBarController {
 
@@ -31,14 +32,9 @@ class FSTabBarController: UITabBarController {
         mapController.tabBarItem = UITabBarItem(title: "Карта",
                                                 image: UIImage(systemName: "map"),
                                                 selectedImage: UIImage(systemName: "map.fill"))
-        
+
         let profileController = FSProfileController()
         profileController.tabBarItem = UITabBarItem(title: "Профиль",
-                                                    image: UIImage(systemName: "person"),
-                                                    selectedImage: UIImage(systemName: "person.fill"))
-
-        let authorizationController = FSAuthorizationController()
-        authorizationController.tabBarItem = UITabBarItem(title: "Профиль",
                                                     image: UIImage(systemName: "person"),
                                                     selectedImage: UIImage(systemName: "person.fill"))
 
@@ -46,12 +42,13 @@ class FSTabBarController: UITabBarController {
             UINavigationController(rootViewController: shopController),
             UINavigationController(rootViewController: cartController),
             UINavigationController(rootViewController: mapController),
-            UINavigationController(rootViewController: authorizationController)
+            UINavigationController(rootViewController: profileController)
         ], animated: true)
     }
 
     private func customizeTabBar() {
         self.tabBar.isTranslucent = false
-        self.tabBar.tintColor = UIColor(named: "main_pink")
+        self.tabBar.tintColor = FSColors.mainPink
+        self.tabBar.barTintColor = FSColors.whitePink
     }
 }

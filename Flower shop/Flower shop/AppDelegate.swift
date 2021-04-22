@@ -7,14 +7,24 @@
 
 import UIKit
 import GoogleMaps
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         let googleApiKey = "AIzaSyBSVR9G-xtpqeAJW9QH18GmeSyiRbWd7H0"
         GMSServices.provideAPIKey(googleApiKey)
+        FirebaseApp.configure()
+
+        let navBar = UINavigationBar.appearance()
+        let textAttribute: [NSAttributedString.Key: Any] = [.foregroundColor: FSColors.brownRed,
+                                                            .font: UIFont.applyCustomFont(name: "Caveat-Regular", size: 25)]
+        navBar.barTintColor = FSColors.whitePink
+        navBar.tintColor = FSColors.mainPink
+        navBar.titleTextAttributes = textAttribute
+
         return true
     }
 
