@@ -1,0 +1,792 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		61EB5C055D204F77A03173A7 /* Pods_Flower_shop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */; };
+		8845C8BE26190D65002E2129 /* UISegmentedControl+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8845C8BD26190D65002E2129 /* UISegmentedControl+Ex.swift */; };
+		884C4E85260FC4F100788046 /* Caveat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 884C4E84260FC4F100788046 /* Caveat.ttf */; };
+		884C4E88260FDC3E00788046 /* FSAuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */; };
+		884C4EB22610DF8B00788046 /* FSProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884C4EB12610DF8B00788046 /* FSProductTableViewCell.swift */; };
+		8851E1A526189EBE000AC2E4 /* FSMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8851E1A326189EBE000AC2E4 /* FSMapViewController.swift */; };
+		8851E1A626189EBE000AC2E4 /* FSMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8851E1A426189EBE000AC2E4 /* FSMapViewController.xib */; };
+		8851E1AA26189FD8000AC2E4 /* FSMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8851E1A926189FD8000AC2E4 /* FSMarket.swift */; };
+		886505F62630565200FD7EA9 /* flower_label.png in Resources */ = {isa = PBXBuildFile; fileRef = 886505F52630565200FD7EA9 /* flower_label.png */; };
+		88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FB2607C059006EDB12 /* AppDelegate.swift */; };
+		88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FD2607C059006EDB12 /* SceneDelegate.swift */; };
+		88B169002607C059006EDB12 /* FSShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B168FF2607C059006EDB12 /* FSShopController.swift */; };
+		88B169052607C05A006EDB12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88B169042607C05A006EDB12 /* Assets.xcassets */; };
+		88B169082607C05A006EDB12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88B169062607C05A006EDB12 /* LaunchScreen.storyboard */; };
+		88B1691C2607EC26006EDB12 /* FSCartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B1691B2607EC26006EDB12 /* FSCartController.swift */; };
+		88B169222607EC60006EDB12 /* FSProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B169212607EC60006EDB12 /* FSProfileController.swift */; };
+		D526FB6A261A39BF00829788 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB69261A39BF00829788 /* FSViewController.swift */; };
+		D526FB8B261E465200829788 /* FSProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB8A261E465200829788 /* FSProduct.swift */; };
+		D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB8D261E498100829788 /* UIFont+Ex.swift */; };
+		D526FB9F261F5B4100829788 /* FSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FB9E261F5B4100829788 /* FSColors.swift */; };
+		D526FBA4261F5CDA00829788 /* FSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526FBA3261F5CDA00829788 /* FSTextField.swift */; };
+		D529A27626209B34002151C2 /* FSLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27526209B34002151C2 /* FSLineView.swift */; };
+		D529A27926209D8F002151C2 /* FSSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27826209D8F002151C2 /* FSSearchBar.swift */; };
+		D529A27C2620A553002151C2 /* FSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27B2620A553002151C2 /* FSButton.swift */; };
+		D529A2802620A830002151C2 /* FSSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A27F2620A830002151C2 /* FSSegmentedControl.swift */; };
+		D529A2852620B402002151C2 /* FSAppCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A2842620B402002151C2 /* FSAppCaller.swift */; };
+		D529A28C2620CAC9002151C2 /* FSTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A28B2620CAC9002151C2 /* FSTableView.swift */; };
+		D529A2902620CD2B002151C2 /* FSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529A28F2620CD2B002151C2 /* FSLabel.swift */; };
+		D52ACA65262F4D2700C09B10 /* FSOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52ACA64262F4D2700C09B10 /* FSOrder.swift */; };
+		D55818962625C6C4006DB936 /* FSSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */; };
+		D558189E2626FEF1006DB936 /* FSProfileMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */; };
+		D55818A626271EE8006DB936 /* FSSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55818A526271EE8006DB936 /* FSSeparatorView.swift */; };
+		D55818A926274683006DB936 /* FSSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55818A826274683006DB936 /* FSSettingsController.swift */; };
+		D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D562515626120B2F00B41F20 /* FSProductViewController.swift */; };
+		D5A55CD82629B04A00ABF7C2 /* FSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CD72629B04A00ABF7C2 /* FSUser.swift */; };
+		D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */; };
+		D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */; };
+		D5A55CF1262A198800ABF7C2 /* FSContactUsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */; };
+		D5A55D1A262B2BE700ABF7C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */; };
+		D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D86681260C818F008F5729 /* FSTabBarController.swift */; };
+		D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E151582624623B00C3389C /* FSProductInCart.swift */; };
+		D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6A60FF6AC7DB1C650686FC4E /* Pods-Flower shop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.debug.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.debug.xcconfig"; sourceTree = "<group>"; };
+		8845C8BD26190D65002E2129 /* UISegmentedControl+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Ex.swift"; sourceTree = "<group>"; };
+		884C4E84260FC4F100788046 /* Caveat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Caveat.ttf; sourceTree = "<group>"; };
+		884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSAuthorizationController.swift; sourceTree = "<group>"; };
+		884C4EB12610DF8B00788046 /* FSProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductTableViewCell.swift; sourceTree = "<group>"; };
+		8851E1A326189EBE000AC2E4 /* FSMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMapViewController.swift; sourceTree = "<group>"; };
+		8851E1A426189EBE000AC2E4 /* FSMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FSMapViewController.xib; sourceTree = "<group>"; };
+		8851E1A926189FD8000AC2E4 /* FSMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMarket.swift; sourceTree = "<group>"; };
+		886505F52630565200FD7EA9 /* flower_label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flower_label.png; path = "Flower shop/Assets.xcassets/flower_label.imageset/flower_label.png"; sourceTree = "<group>"; };
+		88B168F82607C059006EDB12 /* Flower shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flower shop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		88B168FB2607C059006EDB12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		88B168FD2607C059006EDB12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		88B168FF2607C059006EDB12 /* FSShopController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSShopController.swift; sourceTree = "<group>"; };
+		88B169042607C05A006EDB12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		88B169072607C05A006EDB12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		88B169092607C05A006EDB12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88B1691B2607EC26006EDB12 /* FSCartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCartController.swift; sourceTree = "<group>"; };
+		88B169212607EC60006EDB12 /* FSProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProfileController.swift; sourceTree = "<group>"; };
+		B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flower_shop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D526FB69261A39BF00829788 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
+		D526FB8A261E465200829788 /* FSProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProduct.swift; sourceTree = "<group>"; };
+		D526FB8D261E498100829788 /* UIFont+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ex.swift"; sourceTree = "<group>"; };
+		D526FB9E261F5B4100829788 /* FSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSColors.swift; sourceTree = "<group>"; };
+		D526FBA3261F5CDA00829788 /* FSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextField.swift; sourceTree = "<group>"; };
+		D529A27526209B34002151C2 /* FSLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLineView.swift; sourceTree = "<group>"; };
+		D529A27826209D8F002151C2 /* FSSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSearchBar.swift; sourceTree = "<group>"; };
+		D529A27B2620A553002151C2 /* FSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSButton.swift; sourceTree = "<group>"; };
+		D529A27F2620A830002151C2 /* FSSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegmentedControl.swift; sourceTree = "<group>"; };
+		D529A2842620B402002151C2 /* FSAppCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSAppCaller.swift; sourceTree = "<group>"; };
+		D529A28B2620CAC9002151C2 /* FSTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSTableView.swift; path = "Flower shop/Base/FSTableView.swift"; sourceTree = SOURCE_ROOT; };
+		D529A28F2620CD2B002151C2 /* FSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLabel.swift; sourceTree = "<group>"; };
+		D52ACA64262F4D2700C09B10 /* FSOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSOrder.swift; sourceTree = "<group>"; };
+		D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegmentedControlView.swift; sourceTree = "<group>"; };
+		D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProfileMenuCell.swift; sourceTree = "<group>"; };
+		D55818A526271EE8006DB936 /* FSSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSeparatorView.swift; sourceTree = "<group>"; };
+		D55818A826274683006DB936 /* FSSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettingsController.swift; sourceTree = "<group>"; };
+		D562515626120B2F00B41F20 /* FSProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductViewController.swift; sourceTree = "<group>"; };
+		D5A55CD72629B04A00ABF7C2 /* FSUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUser.swift; sourceTree = "<group>"; };
+		D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ex.swift"; sourceTree = "<group>"; };
+		D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsViewController.swift; sourceTree = "<group>"; };
+		D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContactUsCell.swift; sourceTree = "<group>"; };
+		D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D5D86681260C818F008F5729 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
+		D5E151582624623B00C3389C /* FSProductInCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCart.swift; sourceTree = "<group>"; };
+		D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSProductInCartCell.swift; sourceTree = "<group>"; };
+		DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flower shop.release.xcconfig"; path = "Target Support Files/Pods-Flower shop/Pods-Flower shop.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		88B168F52607C059006EDB12 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61EB5C055D204F77A03173A7 /* Pods_Flower_shop.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2726A5CA84ED1CBD605506A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6A60FF6AC7DB1C650686FC4E /* Pods-Flower shop.debug.xcconfig */,
+				DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		884C4E81260FC45400788046 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				884C4E84260FC4F100788046 /* Caveat.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		884C4E8A2610BA8500788046 /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				884C4E8B2610BA9400788046 /* Models */,
+				884C4EA52610BDEF00788046 /* Views */,
+				884C4EA12610BBAC00788046 /* Controllers */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		884C4E8B2610BA9400788046 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D526FB8A261E465200829788 /* FSProduct.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		884C4E8E2610BACB00788046 /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				884C4EA72610BE0A00788046 /* Models */,
+				884C4EA62610BE0400788046 /* Views */,
+				884C4EA22610BBDD00788046 /* Controllers */,
+			);
+			path = Cart;
+			sourceTree = "<group>";
+		};
+		884C4E952610BB0C00788046 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				884C4EA92610BE1A00788046 /* Models */,
+				884C4EA82610BE1400788046 /* Views */,
+				884C4EA02610BB7E00788046 /* Controllers */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		884C4E992610BB1400788046 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				884C4EAB2610BE2800788046 /* Models */,
+				884C4EAA2610BE2200788046 /* Views */,
+				884C4E9D2610BB1400788046 /* Controllers */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		884C4E9D2610BB1400788046 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				88B169212607EC60006EDB12 /* FSProfileController.swift */,
+				D55818A826274683006DB936 /* FSSettingsController.swift */,
+				D5A55CE72629FA5C00ABF7C2 /* FSContactUsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		884C4EA02610BB7E00788046 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8851E1A326189EBE000AC2E4 /* FSMapViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		884C4EA12610BBAC00788046 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				88B168FF2607C059006EDB12 /* FSShopController.swift */,
+				D562515626120B2F00B41F20 /* FSProductViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		884C4EA22610BBDD00788046 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				88B1691B2607EC26006EDB12 /* FSCartController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		884C4EA32610BD7300788046 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				884C4E8A2610BA8500788046 /* Shop */,
+				884C4E8E2610BACB00788046 /* Cart */,
+				884C4E952610BB0C00788046 /* Map */,
+				884C4E992610BB1400788046 /* User */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		884C4EA42610BD8600788046 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D529A2832620B307002151C2 /* Sharing */,
+				D5D86681260C818F008F5729 /* FSTabBarController.swift */,
+				884C4E87260FDC3E00788046 /* FSAuthorizationController.swift */,
+				D526FB69261A39BF00829788 /* FSViewController.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		884C4EA52610BDEF00788046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				884C4EB02610DE8C00788046 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		884C4EA62610BE0400788046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D5E1515B26246C8900C3389C /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		884C4EA72610BE0A00788046 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D5E151582624623B00C3389C /* FSProductInCart.swift */,
+				D52ACA64262F4D2700C09B10 /* FSOrder.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		884C4EA82610BE1400788046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8851E1A426189EBE000AC2E4 /* FSMapViewController.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		884C4EA92610BE1A00788046 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8851E1A926189FD8000AC2E4 /* FSMarket.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		884C4EAA2610BE2200788046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D558189C2626FECB006DB936 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		884C4EAB2610BE2800788046 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D5A55CD72629B04A00ABF7C2 /* FSUser.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		884C4EB02610DE8C00788046 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				884C4EB12610DF8B00788046 /* FSProductTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		884CF596261525A2003D9B41 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8845C8BD26190D65002E2129 /* UISegmentedControl+Ex.swift */,
+				D526FB8D261E498100829788 /* UIFont+Ex.swift */,
+				D5A55CE42629DC0D00ABF7C2 /* String+Ex.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		88B168EF2607C059006EDB12 = {
+			isa = PBXGroup;
+			children = (
+				886505F52630565200FD7EA9 /* flower_label.png */,
+				88B168FA2607C059006EDB12 /* Flower shop */,
+				88B168F92607C059006EDB12 /* Products */,
+				2726A5CA84ED1CBD605506A2 /* Pods */,
+				B015A5BFF63259DC77623680 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		88B168F92607C059006EDB12 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88B168F82607C059006EDB12 /* Flower shop.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		88B168FA2607C059006EDB12 /* Flower shop */ = {
+			isa = PBXGroup;
+			children = (
+				D526FBA2261F5C8900829788 /* Base */,
+				D526FB9D261F5AFB00829788 /* Constants */,
+				884C4EA42610BD8600788046 /* Common */,
+				884C4EA32610BD7300788046 /* Features */,
+				88B168FB2607C059006EDB12 /* AppDelegate.swift */,
+				88B168FD2607C059006EDB12 /* SceneDelegate.swift */,
+				88B169042607C05A006EDB12 /* Assets.xcassets */,
+				88B169062607C05A006EDB12 /* LaunchScreen.storyboard */,
+				884C4E81260FC45400788046 /* Fonts */,
+				884CF596261525A2003D9B41 /* Extensions */,
+				88B169092607C05A006EDB12 /* Info.plist */,
+				D5A55D19262B2BE700ABF7C2 /* GoogleService-Info.plist */,
+			);
+			path = "Flower shop";
+			sourceTree = "<group>";
+		};
+		B015A5BFF63259DC77623680 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B357A613D0D479071E2E6E38 /* Pods_Flower_shop.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D526FB9D261F5AFB00829788 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				D526FB9E261F5B4100829788 /* FSColors.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		D526FBA2261F5C8900829788 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				D526FBA3261F5CDA00829788 /* FSTextField.swift */,
+				D529A27526209B34002151C2 /* FSLineView.swift */,
+				D529A27826209D8F002151C2 /* FSSearchBar.swift */,
+				D529A27B2620A553002151C2 /* FSButton.swift */,
+				D529A27F2620A830002151C2 /* FSSegmentedControl.swift */,
+				D529A28B2620CAC9002151C2 /* FSTableView.swift */,
+				D529A28F2620CD2B002151C2 /* FSLabel.swift */,
+				D55818952625C6C4006DB936 /* FSSegmentedControlView.swift */,
+				D55818A526271EE8006DB936 /* FSSeparatorView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		D529A2832620B307002151C2 /* Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				D529A2842620B402002151C2 /* FSAppCaller.swift */,
+			);
+			path = Sharing;
+			sourceTree = "<group>";
+		};
+		D558189C2626FECB006DB936 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D558189D2626FEF1006DB936 /* FSProfileMenuCell.swift */,
+				D5A55CF0262A198800ABF7C2 /* FSContactUsCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D5E1515B26246C8900C3389C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D5E1515C26246CB400C3389C /* FSProductInCartCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		88B168F72607C059006EDB12 /* Flower shop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88B1690C2607C05A006EDB12 /* Build configuration list for PBXNativeTarget "Flower shop" */;
+			buildPhases = (
+				C9B80CD665BB1F670D828763 /* [CP] Check Pods Manifest.lock */,
+				88B168F42607C059006EDB12 /* Sources */,
+				88B168F52607C059006EDB12 /* Frameworks */,
+				88B168F62607C059006EDB12 /* Resources */,
+				88B169102607C0D7006EDB12 /* ShellScript */,
+				CE46816D1ADA4AF31E4689FA /* [CP] Embed Pods Frameworks */,
+				BA380CB76406B2A07D7217E7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Flower shop";
+			productName = "Flower shop";
+			productReference = 88B168F82607C059006EDB12 /* Flower shop.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		88B168F02607C059006EDB12 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					88B168F72607C059006EDB12 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = 88B168F32607C059006EDB12 /* Build configuration list for PBXProject "Flower shop" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 88B168EF2607C059006EDB12;
+			productRefGroup = 88B168F92607C059006EDB12 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				88B168F72607C059006EDB12 /* Flower shop */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		88B168F62607C059006EDB12 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				886505F62630565200FD7EA9 /* flower_label.png in Resources */,
+				8851E1A626189EBE000AC2E4 /* FSMapViewController.xib in Resources */,
+				884C4E85260FC4F100788046 /* Caveat.ttf in Resources */,
+				D5A55D1A262B2BE700ABF7C2 /* GoogleService-Info.plist in Resources */,
+				88B169082607C05A006EDB12 /* LaunchScreen.storyboard in Resources */,
+				88B169052607C05A006EDB12 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		88B169102607C0D7006EDB12 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		BA380CB76406B2A07D7217E7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Flower shop/Pods-Flower shop-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Flower shop/Pods-Flower shop-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Flower shop/Pods-Flower shop-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9B80CD665BB1F670D828763 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Flower shop-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE46816D1ADA4AF31E4689FA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Flower shop/Pods-Flower shop-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Flower shop/Pods-Flower shop-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Flower shop/Pods-Flower shop-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		88B168F42607C059006EDB12 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D55818962625C6C4006DB936 /* FSSegmentedControlView.swift in Sources */,
+				D52ACA65262F4D2700C09B10 /* FSOrder.swift in Sources */,
+				884C4EB22610DF8B00788046 /* FSProductTableViewCell.swift in Sources */,
+				D5E151592624623B00C3389C /* FSProductInCart.swift in Sources */,
+				D529A27626209B34002151C2 /* FSLineView.swift in Sources */,
+				D558189E2626FEF1006DB936 /* FSProfileMenuCell.swift in Sources */,
+				D5A55CE82629FA5D00ABF7C2 /* FSContactUsViewController.swift in Sources */,
+				D526FB8E261E498100829788 /* UIFont+Ex.swift in Sources */,
+				D5E1515D26246CB400C3389C /* FSProductInCartCell.swift in Sources */,
+				884C4E88260FDC3E00788046 /* FSAuthorizationController.swift in Sources */,
+				8851E1AA26189FD8000AC2E4 /* FSMarket.swift in Sources */,
+				D529A2802620A830002151C2 /* FSSegmentedControl.swift in Sources */,
+				D526FB9F261F5B4100829788 /* FSColors.swift in Sources */,
+				D529A27C2620A553002151C2 /* FSButton.swift in Sources */,
+				8851E1A526189EBE000AC2E4 /* FSMapViewController.swift in Sources */,
+				D529A27926209D8F002151C2 /* FSSearchBar.swift in Sources */,
+				D526FB8B261E465200829788 /* FSProduct.swift in Sources */,
+				88B169222607EC60006EDB12 /* FSProfileController.swift in Sources */,
+				88B1691C2607EC26006EDB12 /* FSCartController.swift in Sources */,
+				88B169002607C059006EDB12 /* FSShopController.swift in Sources */,
+				D55818A926274683006DB936 /* FSSettingsController.swift in Sources */,
+				D526FBA4261F5CDA00829788 /* FSTextField.swift in Sources */,
+				D526FB6A261A39BF00829788 /* FSViewController.swift in Sources */,
+				D5A55CF1262A198800ABF7C2 /* FSContactUsCell.swift in Sources */,
+				D55818A626271EE8006DB936 /* FSSeparatorView.swift in Sources */,
+				88B168FC2607C059006EDB12 /* AppDelegate.swift in Sources */,
+				D529A2902620CD2B002151C2 /* FSLabel.swift in Sources */,
+				88B168FE2607C059006EDB12 /* SceneDelegate.swift in Sources */,
+				D529A28C2620CAC9002151C2 /* FSTableView.swift in Sources */,
+				8845C8BE26190D65002E2129 /* UISegmentedControl+Ex.swift in Sources */,
+				D529A2852620B402002151C2 /* FSAppCaller.swift in Sources */,
+				D5D86682260C818F008F5729 /* FSTabBarController.swift in Sources */,
+				D5A55CE52629DC0D00ABF7C2 /* String+Ex.swift in Sources */,
+				D562515726120B2F00B41F20 /* FSProductViewController.swift in Sources */,
+				D5A55CD82629B04A00ABF7C2 /* FSUser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		88B169062607C05A006EDB12 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				88B169072607C05A006EDB12 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		88B1690A2607C05A006EDB12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		88B1690B2607C05A006EDB12 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		88B1690D2607C05A006EDB12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A60FF6AC7DB1C650686FC4E /* Pods-Flower shop.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 257VW838H7;
+				INFOPLIST_FILE = "Flower shop/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "by.exiont.Flower-shop";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		88B1690E2607C05A006EDB12 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFB7B9BE46F21375E7276E2F /* Pods-Flower shop.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 257VW838H7;
+				INFOPLIST_FILE = "Flower shop/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "by.exiont.Flower-shop";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		88B168F32607C059006EDB12 /* Build configuration list for PBXProject "Flower shop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88B1690A2607C05A006EDB12 /* Debug */,
+				88B1690B2607C05A006EDB12 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88B1690C2607C05A006EDB12 /* Build configuration list for PBXNativeTarget "Flower shop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88B1690D2607C05A006EDB12 /* Debug */,
+				88B1690E2607C05A006EDB12 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 88B168F02607C059006EDB12 /* Project object */;
+}
